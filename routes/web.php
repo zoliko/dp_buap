@@ -18,3 +18,9 @@ Route::get('/', function () {
 Route::get('/blanco', function () {
     return view('prueba');
 });
+Route::get('/login', function () {
+    return view('login');
+});
+Route::get('/tarea', function () {
+    return view('nancy');
+});
