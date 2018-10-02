@@ -18,3 +18,7 @@ Route::get('/', function () {
 Route::get('/blanco', function () {
     return view('prueba');
 });
+
+Route::get('/404', function () {
+    return view('error_404');
+});
