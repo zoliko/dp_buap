@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsuariosTable extends Migration
+class CreateCatProfesionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateUsuariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('DP_USUARIOS', function (Blueprint $table) {
-            $table->char('USUARIOS_USUARIO',50)->unique();
-            $table->string('USUARIOS_NOMBRE_RESPONSABLE');
+        Schema::create('DP_CAT_PROFESIONES', function (Blueprint $table) {
+            $table->increments('CAT_PROFESIONES_ID');
+            $table->string('CAT_PROFESIONES_PROFESION');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateUsuariosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('DP_USUARIOS');
+        Schema::dropIfExists('DP_CAT_PROFESIONES');
     }
 }

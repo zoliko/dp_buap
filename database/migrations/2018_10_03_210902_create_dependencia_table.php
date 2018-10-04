@@ -17,6 +17,7 @@ class CreateDependenciaTable extends Migration
             $table->increments('DEPENDENCIAS_ID');
             $table->string('DEPENDENCIAS_NOM_DEPENDENCIA');
             $table->string('DEPENDENCIAS_NOM_TITULAR');
+            $table->integer('DEPENDENCIAS_CABEZA_SECTOR');
             $table->timestamps();
         });
     }
