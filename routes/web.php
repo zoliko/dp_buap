@@ -25,7 +25,7 @@ Route::get('/404', function () {
 Route::get('/login', function () {
     return view('login');
 });
-Route::get('/form', function () {
+Route::get('/descripcion/nuevo', function () {
     return view('formulario');
 });
 
