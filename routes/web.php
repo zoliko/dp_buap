@@ -10,21 +10,29 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+/*public function VerificaSesion(){
+	if(count(\Session::get('usuario'))==0){
+		return redirect('/');
+	}
+}//*/
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+//gestion de usuarios
+Route::post('/usuarios/login' , 'GestionUsuariosController@login');
 
 Route::get('/blanco', function () {
+	if(\Session::get('usuario')==null){
+		return redirect('/');
+	}
     return view('prueba');
 });
 Route::get('/404', function () {
     return view('error_404');
 });
 
-Route::get('/login', function () {
-    return view('login');
-});
+
 Route::get('/descripcion/nuevo', function () {
     return view('formulario');
 });
