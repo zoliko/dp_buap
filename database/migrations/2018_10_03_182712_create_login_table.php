@@ -17,6 +17,7 @@ class CreateLoginTable extends Migration
             $table->string('LOGIN_USUARIO',100)->unique();
             $table->string('LOGIN_CONTRASENA');
             $table->enum('LOGIN_CATEGORIA',['DIRECTOR_DRH','FACILITADOR','CABEZA_SECTOR','DIRECTOR_D/UA','ENCARGADO_D/UA']);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
