@@ -14,7 +14,7 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('DP_USUARIOS', function (Blueprint $table) {
-            $table->char('USUARIOS_USUARIO',50)->unique();
+            $table->string('USUARIOS_USUARIO',100)->unique();
             $table->string('USUARIOS_NOMBRE_RESPONSABLE');
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class CreatePropositoGeneralTable extends Migration
             $table->increments('PROPOSITO_GENERAL_ID');
             $table->text('PROPOSITO_GENERAL_DESCRIPCION');
             $table->integer('PROPOSITO_GENERAL_ESTATUS');
-            $table->text('PROPOSITO_GENERAL_MENSAJE');
+            $table->text('PROPOSITO_GENERAL_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

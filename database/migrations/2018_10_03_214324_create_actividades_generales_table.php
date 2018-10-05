@@ -18,7 +18,7 @@ class CreateActividadesGeneralesTable extends Migration
             $table->text('ACTIVIDADES_GENERALES_ACTIVIDAD');
             $table->text('ACTIVIDADES_GENERALES_INDICADOR');
             $table->integer('ACTIVIDADES_GENERALES_ESTATUS');
-            $table->text('ACTIVIDADES_GENERALES_MENSAJE');
+            $table->text('ACTIVIDADES_GENERALES_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

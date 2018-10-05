@@ -19,7 +19,7 @@ class CreatePuestosProveedoresTable extends Migration
             $table->text('PUESTOS_PROVEEDORES_INSUMO');
             $table->enum('PUESTOS_PROVEEDORES_FRECUENCIA',['VARIABLE','DIARIO','SEMANAL','QUINCENAL','MENSUAL','TRIMESTRAL','SEMESTRAL','ANUAL']);
             $table->integer('PUESTOS_PROVEEDORES_ESTATUS');
-            $table->text('PUESTOS_PROVEEDORES_MENSAJE');
+            $table->text('PUESTOS_PROVEEDORES_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

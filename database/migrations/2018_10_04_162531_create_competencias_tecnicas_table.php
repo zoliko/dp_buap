@@ -18,7 +18,7 @@ class CreateCompetenciasTecnicasTable extends Migration
             $table->string('COMPETENCIAS_TECNICAS_DESCRIPCION');
             $table->enum('COMPETENCIAS_TECNICAS_GRADO_DOMINIO',['BASICO','MEDIO','AVANZADO']);
             $table->integer('COMPETENCIAS_TECNICAS_ESTATUS');
-            $table->text('COMPETENCIAS_TECNICAS_MENSAJE');
+            $table->text('COMPETENCIAS_TECNICAS_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

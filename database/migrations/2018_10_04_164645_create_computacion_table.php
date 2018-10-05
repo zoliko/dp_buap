@@ -18,7 +18,7 @@ class CreateComputacionTable extends Migration
             $table->string('COMPUTACION_PAQUETERIA_SISTEMA');
             $table->enum('COMPUTACION_NIVEL_DOMINIO',['BASICO','MEDIO','ALTO']);
             $table->integer('COMPUTACION_ESTATUS');
-            $table->text('COMPUTACION_GRADO_MENSAJE');
+            $table->text('COMPUTACION_GRADO_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

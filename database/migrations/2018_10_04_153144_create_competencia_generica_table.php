@@ -18,7 +18,7 @@ class CreateCompetenciaGenericaTable extends Migration
             $table->string('COMPETENCIAS_GENERICAS_DESCRIPCION');
             $table->char('COMPETENCIAS_GENERICAS_GRADO',10);
             $table->integer('COMPETENCIAS_GENERICAS_ESTATUS');
-            $table->text('COMPETENCIAS_GENERICAS_MENSAJE');
+            $table->text('COMPETENCIAS_GENERICAS_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

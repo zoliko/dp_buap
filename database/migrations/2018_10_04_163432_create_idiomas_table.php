@@ -18,7 +18,7 @@ class CreateIdiomasTable extends Migration
             $table->char('IDIOMAS_IDIOMA',100);
             $table->enum('IDIOMAS_NIVEL_DOMINIO',['BASICO','MEDIO','ALTO']);
             $table->integer('IDIOMAS_ESTATUS');
-            $table->text('IDIOMAS_GRADO_MENSAJE');
+            $table->text('IDIOMAS_GRADO_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

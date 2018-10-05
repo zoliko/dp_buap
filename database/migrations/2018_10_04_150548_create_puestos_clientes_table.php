@@ -19,7 +19,7 @@ class CreatePuestosClientesTable extends Migration
             $table->text('PUESTOS_CLIENTES_PRODUCTO');
             $table->enum('PUESTOS_CLIENTES_FRECUENCIA',['VARIABLE','DIARIO','SEMANAL','QUINCENAL','MENSUAL','TRIMESTRAL','SEMESTRAL','ANUAL']);
             $table->integer('PUESTOS_CLIENTES_ESTATUS');
-            $table->text('PUESTOS_CLIENTES_MENSAJE');
+            $table->text('PUESTOS_CLIENTES_MENSAJE')->nullable();
             $table->timestamps();
         });
     }

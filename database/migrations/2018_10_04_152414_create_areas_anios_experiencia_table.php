@@ -17,7 +17,7 @@ class CreateAreasAniosExperienciaTable extends Migration
             $table->increments('AREAS_ANIOS_EXPERIENCIA_ID');
             $table->string('AREAS_ANIOS_DESCRIPCION');
             $table->integer('AREAS_ANIOS_ESTATUS');
-            $table->text('AREAS_ANIOS_MENSAJE');
+            $table->text('AREAS_ANIOS_MENSAJE')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateAreasAniosExperienciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('areas_anios_experiencia');
+        Schema::dropIfExists('DP_AREAS_ANIOS_EXPERIENCIA');
     }
 }

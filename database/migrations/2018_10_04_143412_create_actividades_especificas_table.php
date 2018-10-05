@@ -13,11 +13,11 @@ class CreateActividadesEspecificasTable extends Migration
      */
     public function up()
     {
-        Schema::create('DP_ACTIVIDADES_ESPECIALES', function (Blueprint $table) {
-            $table->increments('ACTIVIDADES_ESPECIALES_ID');
-            $table->text('ACTIVIDADES_ESPECIALES_ACTIVIDAD');
-            $table->integer('ACTIVIDADES_ESPECIALES_ESTATUS');
-            $table->text('ACTIVIDADES_ESPECIALES_MENSAJE');
+        Schema::create('DP_ACTIVIDADES_ESPECIFICAS', function (Blueprint $table) {
+            $table->increments('ACTIVIDADES_ESPECIFICAS_ID');
+            $table->text('ACTIVIDADES_ESPECIFICAS_ACTIVIDAD');
+            $table->integer('ACTIVIDADES_ESPECIFICAS_ESTATUS');
+            $table->text('ACTIVIDADES_ESPECIFICAS_MENSAJE')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateActividadesEspecificasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('DP_ACTIVIDADES_ESPECIALES');
+        Schema::dropIfExists('DP_ACTIVIDADES_ESPECIFICAS');
     }
 }
