@@ -77,7 +77,7 @@
                         <div class="tab-pane active" id="InfoGe">
                           <p class="lead">Informacion General y Porposito General del puesto</p>
   <!--Formulario de informacion General-->
-                          <div class="x_panel">
+                      <div class="x_panel">
                           <div class="x_content">
                           <br />
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
@@ -161,15 +161,76 @@
                   </div>
                 </div>
                           <!--Fin del Formulario de información General-->
+                </div>
+                  <!--Inicio del modulo de actividades -->
+                        <div class="tab-pane" id="Actividad">
+                          <p class="lead">Actividades Principales y Especificas </p>
                          
+                       <!--   <table  class="table table-bordered">
+                             <tr>
+                                <td bgcolor="#003B5C"></td>
+
+                                <td bgcolor="#003B5C">
+                                <div align="center"><span class="Estilo3">Principales actividades generales </span></div>
+                                </td>
+                                <td bgcolor="#003B5C">
+                                <div align="center"><span class="Estilo3">Indicadores de desempe&ntilde;o </span><br /> 
+                                </div>
+                                </td>
+                             </tr>
+                             <tr>
+                                <td><div align="center">1</div></td>
+                                <td><div class="form-group">
+                                    <label for="comment">Comment:</label>
+                                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                                      </div>
+                                  </td>
+                                <td> </td>
+                              </tr>
+                             
+                              </table>-->
+
+                            <table id="tablaprincipales" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th bgcolor="#003B5C">N°</th>
+                                  <th bgcolor="#003B5C">Principales actividades generales </th>
+                                  <th bgcolor="#003B5C">Indicadores de desempeño</th>
+                                </tr>
+                              </thead>
+                              <tbody id="cuerpoTablaprincipales"></tbody>
+                            </table>
+
+                            <button onclick="AgregaActividad()">Agregar Actividad </button>
+
+                            <table id="tablaespecificas" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th bgcolor="#003B5C">N°</th>
+                                  <th bgcolor="#003B5C">Principales Actividades Especificas (No Obligatorias)</th>
+                                </tr>
+                              </thead>
+                              <tbody id="cuerpoTablaespecificas"></tbody>
+                            </table>
+                            <button onclick="ActividadEspecifica">Agregar Actividad </button>
+
+                          <div class="ln_solid"></div>
+                          <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button class="btn btn-primary" type="button">Cancel</button>
+                              <button class="btn btn-primary" type="reset">Reset</button>
+                              <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                          </div>
+
                         </div>
-                        <div class="tab-pane" id="Actividad">Profile Tab.</div>
+                  <!--Fin del modulo de actividades -->
                         <div class="tab-pane" id="Relacion">Messages Tab.</div>
                         <div class="tab-pane" id="Perfil">Settings Tab.</div>
                         <div class="tab-pane" id="Competencia">Settings Tab.</div>
                         <div class="tab-pane" id="Distribucion">Settings Tab.</div>
                       </div>
-                    </div>
+              </div>
 
                     <div class="clearfix"></div>
 
@@ -183,3 +244,31 @@
               </div>
             </div>
 @endsection
+
+@section('script')
+<script type="text/javascript">
+  function AgregaActividad(){
+
+    
+     $("#cuerpoTablaprincipales").append(
+
+                  "<tr>"+
+                    "<td id='nombre_"+5+"'></td>"+
+                    "<td>"+'<div class="form-group">'+
+                          //'<label for="comment"></label>'+
+                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '</div>'+
+                    "</td>"+
+                    "<td>"+'<input type="text" class="form-control">'+"</td>"+
+                    
+                  "</tr>");
+
+
+  }
+
+  for (var i = Things.length - 1; i >= 0; i--) {
+    var lll = $("#elem_"+i).val();
+  }
+</script>
+@endsection
+
