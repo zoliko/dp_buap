@@ -165,37 +165,14 @@
                   <!--Inicio del modulo de actividades -->
                         <div class="tab-pane" id="Actividad">
                           <p class="lead">Actividades Principales y Especificas </p>
-                         
-                       <!--   <table  class="table table-bordered">
-                             <tr>
-                                <td bgcolor="#003B5C"></td>
-
-                                <td bgcolor="#003B5C">
-                                <div align="center"><span class="Estilo3">Principales actividades generales </span></div>
-                                </td>
-                                <td bgcolor="#003B5C">
-                                <div align="center"><span class="Estilo3">Indicadores de desempe&ntilde;o </span><br /> 
-                                </div>
-                                </td>
-                             </tr>
-                             <tr>
-                                <td><div align="center">1</div></td>
-                                <td><div class="form-group">
-                                    <label for="comment">Comment:</label>
-                                        <textarea class="form-control" rows="5" id="comment"></textarea>
-                                      </div>
-                                  </td>
-                                <td> </td>
-                              </tr>
-                             
-                              </table>-->
+          
 
                             <table id="tablaprincipales" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th bgcolor="#003B5C">N°</th>
-                                  <th bgcolor="#003B5C">Principales actividades generales </th>
-                                  <th bgcolor="#003B5C">Indicadores de desempeño</th>
+                                  <th>N°</th>
+                                  <th>Principales actividades generales </th>
+                                  <th>Indicadores de desempeño</th>
                                 </tr>
                               </thead>
                               <tbody id="cuerpoTablaprincipales"></tbody>
@@ -206,13 +183,13 @@
                             <table id="tablaespecificas" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th bgcolor="#003B5C">N°</th>
-                                  <th bgcolor="#003B5C">Principales Actividades Especificas (No Obligatorias)</th>
+                                  <th>N°</th>
+                                  <th >Principales Actividades Especificas (No Obligatorias)</th>
                                 </tr>
                               </thead>
                               <tbody id="cuerpoTablaespecificas"></tbody>
                             </table>
-                            <button onclick="ActividadEspecifica">Agregar Actividad </button>
+                            <button onclick="ActividadEspecifica()">Agregar Actividad </button>
 
                           <div class="ln_solid"></div>
                           <div class="form-group">
@@ -224,11 +201,253 @@
                           </div>
 
                         </div>
-                  <!--Fin del modulo de actividades -->
-                        <div class="tab-pane" id="Relacion">Messages Tab.</div>
-                        <div class="tab-pane" id="Perfil">Settings Tab.</div>
-                        <div class="tab-pane" id="Competencia">Settings Tab.</div>
-                        <div class="tab-pane" id="Distribucion">Settings Tab.</div>
+                  <!--Fin del modulo de Relaciones -->
+                        <div class="tab-pane" id="Relacion"> 
+                          <p class="lead">Relaciones Criticas del Puesto </p>
+          
+
+                            <table id="tablarelaciones" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>PUESTOS QUE SON SUS PROVEEDORES</th>
+                                  <th>INSUMOS QUE OBTIENE </th>
+                                  <th>FRECUENCIA</th>
+                                </tr>
+                              </thead>
+                              <tbody id="cuerporelaciones"></tbody>
+                            </table>
+
+                            <button onclick="AgregaRelacion()">Agregar Relacion </button>
+
+                            <div class="tab-pane" id="Relacion"> 
+                            <p class="lead">Relaciones Criticas del Puesto </p>
+                            <table id="tablarelaciones2" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>PUESTOS QUE SON SUSS CLIENTES</th>
+                                  <th>PRODUCTOS QUE OFRECE </th>
+                                  <th>FRECUENCIA</th>
+                                </tr>
+                              </thead>
+                              <tbody id="cuerporelaciones2"></tbody>
+                            </table><button onclick="AgregaRelacion2()">Agregar Relacion </button>
+                        </div>
+
+
+                          <div class="ln_solid"></div>
+                          <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button class="btn btn-primary" type="button">Cancel</button>
+                              <button class="btn btn-primary" type="reset">Reset</button>
+                              <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="tab-pane" id="Perfil">
+                          <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA</p>
+                          
+                           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                          
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formacion Profesional: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                          </div>
+
+                           <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                            
+                          </div>
+                        </form>
+                      </div>
+
+
+                        <div class="tab-pane" id="Competencia">
+                          <p class="lead">COMPETENCIAS
+
+                          </p>
+                          <!--Comptencias inicio -->
+
+                          <table  class="table table-striped table-bordered">
+                            <tr>
+                              <td colspan="2" ><div align="center"><strong>INSTITUCIONALES</strong></div></td>
+                              <td colspan="2"><div align="center"><strong>GENERICAS</strong></div></td>
+                              <td colspan="2"><div align="center"><strong>TÉCNICAS</strong></div></td>
+                            </tr>
+                              <tr>
+                                <td width="287"><div align="center"><strong>COMPETENCIAS</strong></div></td>
+                                <td width="106"><div align="center" class="Estilo5">Grado de Dominio </div></td>
+                                <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
+                                <td width="107"><div align="center" class="Estilo5">Grado de Dominio </div></td>
+                                <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
+                                <td width="106" class="Estilo5">Grado de Dominio </td>
+                              </tr>
+                              <tr>
+                                <td><div align="left" class="Estilo9">COMPROMISO</div></td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog1" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg1">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot1" type="text" class="Estilo5" ></td>
+                                <td><select name="ft1">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">CONCIENCIA ORGANIZACIONAL </td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog2" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg2">
+                              <option>      </option>
+                                  
+                                </select></td>
+                                <td><input name="cot2" type="text" class="Estilo5"></td>
+                                <td><select name="ft2">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">EQUIDAD</td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog3" type="text" class="Estilo5"></td>
+                                <td> <select name="fg3">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot3" type="text" class="Estilo5" ></td>
+                                <td><select name="ft3">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">ÉTICA</td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog4" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg4">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot4" type="text" class="Estilo5"></td>
+                                <td><select name="ft4">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">RESPONSABILIDAD</td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog5" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg5">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot5" type="text" class="Estilo5"></td>
+                                <td><select name="ft5">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">RESPONSABILIDAD SOCIAL </td>
+                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
+                                <td><input name="cog6" type="text" class="Estilo5"></td>
+                                <td> <select name="fg6">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot6" type="text" class="Estilo5"></td>
+                                <td><select name="ft6">
+                              <option>      </option>
+                                 
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">&nbsp;</td>
+                                <td class="Estilo9"><div align="center"></div></td>
+                                <td><input name="cog7" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg7">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot7" type="text" class="Estilo5" ></td>
+                                <td><select name="ft7">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">&nbsp;</td>
+                                <td class="Estilo9"><div align="center"></div></td>
+                                <td><input name="cog8" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg8">
+                              <option>      </option>
+                                 
+                                </select></td>
+                                <td><input name="cot8" type="text" class="Estilo5" ></td>
+                                <td><select name="ft8">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              <tr>
+                                <td class="Estilo9">&nbsp;</td>
+                                <td class="Estilo9"><div align="center"></div></td>
+                                <td><input name="cog9" type="text" class="Estilo5" ></td>
+                                <td> <select name="fg10">
+                              <option>      </option>
+                                  
+                                </select></td>
+                                <td><input name="cot9" type="text" class="Estilo5" ></td>
+                                <td><select name="ft9">
+                              <option>      </option>
+                                  
+                                </select></td>
+                              </tr>
+                              </table>
+                               <p class="lead">IDIOMAS </p>
+
+                               <p class="lead">COMPUTACIÓN</p>
+
+                           <!--Comptencias Fin-->
+                         </div>
+                        <div class="tab-pane" id="Distribucion">
+                          
+
+                          <table class="table table-striped table-bordered">
+                            <tr>
+                              <td colspan="2" align="center">LISTA DE DISTRIBUCIÓN</td>
+                            </tr>
+            
+                            <tr>
+                              <td><input name="ld1" type="text" class="Estilo5"></td>
+                              <td><input name="ld2" type="text" class="Estilo5"></td>
+                            </tr>
+                            <tr>
+                              <td><input name="ld3" type="text" class="Estilo5"></td>
+                              <td><input name="ld4" type="text" class="Estilo5"></td>
+                            </tr>
+                            <tr>
+                              <td><input name="ld5" type="text" class="Estilo5"></td>
+                              <td><input name="ld6" type="text" class="Estilo5"></td>
+                            </tr>
+                            </table>
+                        </div>
                       </div>
               </div>
 
@@ -249,7 +468,7 @@
 <script type="text/javascript">
   function AgregaActividad(){
 
-    
+   
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
@@ -259,16 +478,69 @@
                             '<textarea class="form-control" rows="5" id="comment"></textarea>'+
                             '</div>'+
                     "</td>"+
-                    "<td>"+'<input type="text" class="form-control">'+"</td>"+
+                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
                     
                   "</tr>");
 
 
   }
 
-  for (var i = Things.length - 1; i >= 0; i--) {
-    var lll = $("#elem_"+i).val();
+ function ActividadEspecifica(){
+
+    
+     $("#cuerpoTablaespecificas").append(
+
+                  "<tr>"+
+                    "<td id='nombre_"+5+"'></td>"+
+                    "<td>"+'<div class="form-group">'+
+                          //'<label for="comment"></label>'+
+                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '</div>'+
+                    "</td>"+
+                   
+                    
+                  "</tr>");
+
+
   }
+
+  function AgregaRelacion(){
+
+    
+     $("#cuerporelaciones").append(
+
+                  "<tr>"+
+                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<div class="form-group">'+
+                          //'<label for="comment"></label>'+
+                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '</div>'+
+                    "</td>"+
+                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    
+                  "</tr>");
+
+
+  }
+  function AgregaRelacion2(){
+
+    
+     $("#cuerporelaciones2").append(
+
+                  "<tr>"+
+                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<div class="form-group">'+
+                          //'<label for="comment"></label>'+
+                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '</div>'+
+                    "</td>"+
+                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    
+                  "</tr>");
+
+
+  }
+
 </script>
 @endsection
 
