@@ -44,4 +44,38 @@
 
         }
 
+        public function abrirdescripcion($ID_descripcion){
+             return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
+
+        }
+        public function guardaproposito(Request $request){
+            $exito=false;
+            //dd($request['Proposito']);
+            $insertar=DB::table('DP_PROPOSITO_GENERAL')->insertGetId(
+                [
+                    'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'], 
+                    'PROPOSITO_GENERAL_ESTATUS' => 0
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_PROPOSITO_DESCRIPCION')->insert(
+                    [
+                        'FK_PROPOSITO' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
+
     }

@@ -33,7 +33,10 @@ Route::get('/404', function () {
 });
 
 
-Route::get('/descripcion/nuevo', function () {
-    return view('formulario');
-});
+/*Route::get('/descripcion/{ID_descripcion}', function () {
+   return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
+});*/
 
+Route::get('/descripcion/{ID_descripcion}' , 'GestionUsuariosController@abrirdescripcion');
+
+Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardaproposito');
