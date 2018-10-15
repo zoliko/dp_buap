@@ -152,6 +152,7 @@
                             </table>
 
                             <button onclick="AgregaActividad()">Agregar Actividad </button>
+                            <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>
 
                             <table id="tablaespecificas" class="table table-striped table-bordered">
                               <thead>
@@ -166,11 +167,7 @@
 
                           <div class="ln_solid"></div>
                           <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                              <button class="btn btn-primary" type="button">Cancel</button>
-                              <button class="btn btn-primary" type="reset">Reset</button>
-                              <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
+                            
                           </div>
 
                         </div>
@@ -452,17 +449,17 @@
 
   function AgregaActividad(){
 
-   
+   alert("Entre");
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
                     "<td id='nombre_"+5+"'></td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="actividadPrin"></textarea>'+
                             '</div>'+
                     "</td>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<input type="text" class="form-control" id="input" >'+"</td>"+
                     
                   "</tr>");
 
@@ -563,6 +560,51 @@ $.ajax({
 }else {
   alert("no tiene proposito");
 }  }
+
+
+
+function guardar_Actividades(){
+  
+    var Actividad = $("#PactividadPrin").val();
+    console.log(Actividad);
+    console.log(id_des);
+    var dataForm = new FormData();
+        dataForm.append('Actividad',Proposito);
+        dataForm.append('id_des',id_des);
+
+        if (Proposito!="") {
+      $.ajax({
+                url :'/descripcion/guarda_proposito',
+                data : dataForm,
+                contentType:false,
+                processData:false,
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                type: 'POST',
+                dataType : 'json',
+                beforeSend: function (){
+                  $("#modalCarga").modal();
+                },
+                success : function(json){
+                   //Codigo en caso de que la visita haya sido correcta
+                },
+                error : function(xhr, status) {
+                  $("#textoModalMensaje").text('Existió un problema al guardar el proposito');
+                  $("#modalMensaje").modal();
+                  $('#btnCancelar').prop('disabled', false);
+                },
+                complete : function(xhr, status){
+                   $("#modalCarga").modal('hide');
+                }
+              });
+
+      }else {
+        alert("no tiene proposito");
+      }  }
+
+
+
 
 
 </script>
