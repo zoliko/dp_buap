@@ -36,4 +36,19 @@ Route::get('/404', function () {
 Route::get('/descripcion/nuevo', function () {
     return view('formulario');
 });
+/*Route::get('/descripcion/gestionar/{id_dependencia}', function () {
+    return view('gestionar_descripciones');
+});//*/
+Route::get('/descripcion/gestionar/{id_dependencia}' , 'DescripcionesPuestosController@traeDescripciones');
+Route::post('/descripcion/registrar' , 'DescripcionesPuestosController@registrarDescripcion');
+//Route::post('/descripcion/listado' , 'DescripcionesPuestosController@traeDescripciones');
 
+Route::get('/dependencias', function () {
+    return view('dependencias');
+});
+Route::get('/dependencias/nueva', function () {
+    return view('crear_dependencia');
+});
+Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
+Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
+Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');

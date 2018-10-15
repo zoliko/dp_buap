@@ -19,13 +19,13 @@ class CreateDescripcionesTable extends Migration
             $table->string('DESCRIPCIONES_REPORTA_A');
             $table->string('DESCRIPCIONES_AREA');
             $table->string('DESCRIPCIONES_DIRECCION');
+            $table->enum('DESCRIPCIONES_DTP',['TIPO','PUESTO']);
             $table->string('DESCRIPCIONES_CLAVE_PUESTO');
             $table->date('DESCRIPCIONES_FECHA_CREACION');
             $table->date('DESCRIPCIONES_FECHA_REVISION');
             $table->integer('DESCRIPCIONES_N_REVISION');
             $table->integer('DESCRIPCIONES_REPORTAN_DIRECTOS');
             $table->integer('DESCRIPCIONES_REPORTAN_INDIRECTOS');
-            $table->text('DESCRIPCIONES_PROPOSITO');
             $table->enum('DESCRIPCIONES_ESTATUS_GRAL',['ELABORACION','REVISION','REVISADO','AUTORIZADO']);
         });
     }

@@ -28,12 +28,14 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-plus-square"></i> Solicitudes <span class="fa fa-chevron-down"></span></a>
+                  @if(strcmp(\Session::get('usuario'),'FACILITADOR')!=0)
+                  <li><a><i class="fa fa-plus-square"></i> Dependencias <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/solicitudes">Listado de solicitudes</a></li>
-                      <li><a href="/solicitudes/crear">Registrar solicitud</a></li>
+                      <li><a href="/dependencias">Listado de dependencias</a></li>
+                      <li><a href="/dependencias/nueva">Nueva dependencia</a></li>
                     </ul>
                   </li>
+                  @endif
                   <li><a><i class="fa fa-calculator"></i> Cotizaciones <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.html">Registrar cotización</a></li>

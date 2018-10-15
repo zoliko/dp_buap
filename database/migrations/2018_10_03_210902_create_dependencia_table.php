@@ -16,8 +16,10 @@ class CreateDependenciaTable extends Migration
         Schema::create('DP_DEPENDENCIAS', function (Blueprint $table) {
             $table->increments('DEPENDENCIAS_ID');
             $table->string('DEPENDENCIAS_NOM_DEPENDENCIA');
-            $table->string('DEPENDENCIAS_NOM_TITULAR');
-            $table->integer('DEPENDENCIAS_CABEZA_SECTOR');
+            $table->string('DEPENDENCIAS_NOMENCLATURA')->nullable();
+            $table->string('DEPENDENCIAS_NOM_TITULAR')->nullable();
+            $table->integer('DEPENDENCIAS_CABEZA_SECTOR')->nullable();
+            $table->integer('DEPENDENCIAS_ACTIVA')->nullable();
             $table->timestamps();
         });
     }
