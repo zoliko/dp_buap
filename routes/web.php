@@ -52,3 +52,11 @@ Route::get('/dependencias/nueva', function () {
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
+/*Route::get('/descripcion/{ID_descripcion}', function () {
+   return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
+});*/
+
+Route::get('/descripcion/{ID_descripcion}' , 'GestionUsuariosController@abrirdescripcion');
+
+Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardaproposito');
+
