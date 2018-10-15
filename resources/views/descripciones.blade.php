@@ -1,7 +1,7 @@
 @extends('plantillas.menu')
-@section('title','Prueba DPBUAP')
+@section('title','Descripciones')
 @section('nombre_usuario','Marvin Eliosa')
-@section('tittle_page','titulo pagina')
+@section('tittle_page','Listado de descripciones de puestos')
 
 @section('content')
 

@@ -47,6 +47,32 @@
             ]);
         }
 
+        public function traeListadoDescripciones(Request $request){
+            $dependencia = $request['dependencia'];
+            $relacion = DB::table('REL_DEPENDENCIA_DESCRIPCION')->where('FK_DEPENDENCIA',$dependencia)->get();
+            //$nom_dependencia = DB::table('DP_DEPENDENCIAS')->where('DEPENDENCIAS_ID',$dependencia)->get();
+            //dd($nom_dependencia[0]);
+            $descripciones = array();
+            foreach ($relacion as $id_descripcion) {
+                $descripcion = DB::table('DP_DESCRIPCIONES')
+                ->select(
+                    'DESCRIPCIONES_ID as ID_DESC', 
+                    'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                    'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                    'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                    )
+                ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
+                $descripciones[] = $descripcion[0];
+                //dd($id_descripcion->FK_DESCRIPCION);
+            }
+            $data = array(
+                "descripciones"=>$descripciones,
+                "total" => count($descripciones)
+              );
+
+            echo json_encode($data);//*/
+        }
+
         public function registrarDescripcion(Request $request){
             date_default_timezone_set('America/Mexico_City');
             $exito = false;

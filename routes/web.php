@@ -32,17 +32,23 @@ Route::get('/404', function () {
     return view('error_404');
 });
 
-
-Route::get('/descripcion/nuevo', function () {
+//descripciones
+/*Route::get('/descripcion/nuevo', function () {
     return view('formulario');
-});
-/*Route::get('/descripcion/gestionar/{id_dependencia}', function () {
-    return view('gestionar_descripciones');
 });//*/
-Route::get('/descripcion/gestionar/{id_dependencia}' , 'DescripcionesPuestosController@traeDescripciones');
-Route::post('/descripcion/registrar' , 'DescripcionesPuestosController@registrarDescripcion');
+Route::get('/descripcion/{ID_descripcion}', function () {
+   return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
+});//*/
+Route::get('/descripciones/gestionar/{id_dependencia}' , 'DescripcionesPuestosController@traeDescripciones');
+Route::get('/descripciones/listado' , 'DescripcionesPuestosController@traeDescripciones');
+Route::get('/descripciones', function () {
+    return view('descripciones');
+});
 //Route::post('/descripcion/listado' , 'DescripcionesPuestosController@traeDescripciones');
+Route::get('/descripcion/{ID_descripcion}' , 'GestionUsuariosController@abrirdescripcion');
+Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardaproposito');
 
+//dependencias
 Route::get('/dependencias', function () {
     return view('dependencias');
 });
@@ -52,11 +58,6 @@ Route::get('/dependencias/nueva', function () {
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
-/*Route::get('/descripcion/{ID_descripcion}', function () {
-   return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
-});*/
 
-Route::get('/descripcion/{ID_descripcion}' , 'GestionUsuariosController@abrirdescripcion');
 
-Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardaproposito');
 

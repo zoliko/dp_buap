@@ -36,21 +36,12 @@
                     </ul>
                   </li>
                   @endif
-                  <li><a><i class="fa fa-calculator"></i> Cotizaciones <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-file-text"></i>Descripciones<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">Registrar cotización</a></li>
+                      <li><a href="/descripciones">Listado de descripciones</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-file-text"></i> Contratos <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Registrar contrato</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-check"></i> Evaluaciones <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Registrar evaluación</a></li>
-                    </ul>
-                  </li>
+                  
 
                   
                 </ul>
