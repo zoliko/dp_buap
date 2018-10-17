@@ -48,7 +48,7 @@
   </div>
 
   <!-- Modal Listado DP -->
-  <div class="modal fade" id="modalListado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="modalListado" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -67,8 +67,9 @@
           </table>
         </div>
         <div class="modal-footer">
+          <input type="number" id="listadoIdDep" value="" hidden="hidden">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-success">Gestionar Descripciones</button>
+          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Gestionar Descripciones</button>
         </div>
       </div>
     </div>
@@ -112,11 +113,15 @@
                   "<td>"+json['dependencias'][i]['CABEZA_SECTOR']+"</td>"+
                   "<td>"+
                     //"<a href='/descripciones/"+json['dependencias'][i]['ID_DEP']+"'>Gestionar</a><br>"+
+                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
+                    '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
+                  /*'</button>'+
                     "<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
-                  "</td>"+
+                  "</td>"+//*/
                 "</tr>"
 
               );
+              $("#btnVer_"+json['dependencias'][i]['ID_DEP']).tooltip('fixTitle');
           }
           $('#tablaDatos').DataTable({
           //responsive: true,
@@ -150,14 +155,16 @@
     }
 
     function redirigeDescripciones(){
-      location.href("/");
+      var id_dep = $("#listadoIdDep").val();
+      //alert(id_dep);
+      location.href="/descripciones/gestionar/"+id_dep;
     }
 
     function mostrarListado(id_dependencia){
       var dataForm = new FormData();
       dataForm.append('dependencia',id_dependencia);
       $.ajax({
-        url :'/descripcion/listado',
+        url :'/descripciones/listado',
         data : dataForm,
         contentType:false,
         processData:false,
@@ -171,40 +178,24 @@
         },
         success : function(json){
           //console.log(json);
-          for(var i = 0; i<json['total'];i++){
-            $("#cuerpoTablaListado").append(
+          if(json['total'] != 0){
+            for(var i = 0; i<json['total'];i++){
+              $("#cuerpoTablaListado").append(
 
-                "<tr>"+
-                  "<td id='nombre_"+json['dependencias'][i]['ID_DEP']+"'>"+json['dependencias'][i]['NOMBRE_DEP']+"</td>"+
-                  "<td>"+json['dependencias'][i]['TITULAR_DEP']+"</td>"+
-                  "<td>"+json['dependencias'][i]['CABEZA_SECTOR']+"</td>"+
-                  "<td>"+
-                    //"<a href='/descripciones/"+json['dependencias'][i]['ID_DEP']+"'>Gestionar</a><br>"+
-                    "<a href='javascript:void(0)' onclick='listarDP("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
-                  "</td>"+
-                "</tr>"
+                  "<tr>"+
+                    "<td id='nombre_"+json['descripcion'][i]['ID_DESC']+"'>"+json['descripcion'][i]['NOM_DESC']+"</td>"+
+                    "<td>"+'ACCIONES'+"</td>"+
+                  "</tr>"
 
-              );
-          }
-          $('#tablaListado').DataTable({
-          //responsive: true,
-          language: {
-            emptyTable: "No hay datos para mostrar en la tabla",
-            zeroRecords: "No hay datos para mostrar en la tabla",
-              "search": "Buscar:",
-              "info":"Se muestra los registros _START_ a _END_ de _TOTAL_ totales.",
-              "infoEmpty":"No se ha encontrado registros.",
-              "lengthMenu":"Mostrando _MENU_ registros",
-              "infoFiltered":"(Filtrado de un total de _MAX_ registros)",
-              "search": "Buscar: ",
-             paginate: {
-               "first":      "Primero",
-               "last":       "Ultimo",
-               "next":       "Siguiente",
-               "previous":   "Anterior"
-              }
+                );
+              $("#listadoIdDep").val(id_dependencia);
+              $("#modalListado").modal();
             }
-          });//*/
+          }else{
+            $("#textoModalMensaje").html('Aún no ha creado descripciones de puestos para esta dependencia.<br><h5><u><a href="/descripciones/gestionar/'+id_dependencia+'">CREAR DESCRIPCIONES</a></u></h5>');
+            $("#modalMensaje").modal();
+
+          }
 
         },
         error : function(xhr, status) {

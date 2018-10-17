@@ -22,7 +22,7 @@ class CreateDescripcionesTable extends Migration
             $table->enum('DESCRIPCIONES_DTP',['TIPO','PUESTO']);
             $table->string('DESCRIPCIONES_CLAVE_PUESTO');
             $table->date('DESCRIPCIONES_FECHA_CREACION');
-            $table->date('DESCRIPCIONES_FECHA_REVISION');
+            $table->date('DESCRIPCIONES_FECHA_REVISION')->nullable();
             $table->integer('DESCRIPCIONES_N_REVISION');
             $table->integer('DESCRIPCIONES_REPORTAN_DIRECTOS');
             $table->integer('DESCRIPCIONES_REPORTAN_INDIRECTOS');

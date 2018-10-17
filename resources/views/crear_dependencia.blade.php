@@ -237,7 +237,7 @@
               $("#textoModalMensaje").text('No se pudo registrar la dependencia.');
               $("#modalMensaje").modal();
             }else{
-              location.href="/descripcion/gestionar/"+dependencia;
+              location.href="/descripciones/gestionar/"+dependencia;
             }
           },
           error : function(xhr, status) {
