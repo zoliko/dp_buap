@@ -449,7 +449,7 @@
 
   function AgregaActividad(){
 
-   alert("Entre");
+  // alert("Entre");
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
@@ -461,10 +461,7 @@
                     "</td>"+
                     "<td>"+'<input type="text" class="form-control" id="input" >'+"</td>"+
                     
-                  "</tr>");
-
-
-  }
+                  "</tr>");}
 
  function ActividadEspecifica(){
 
@@ -565,11 +562,11 @@ $.ajax({
 
 function guardar_Actividades(){
   
-    var Actividad = $("#PactividadPrin").val();
+    var Actividad = $("#actividadPrin").val();
     console.log(Actividad);
     console.log(id_des);
     var dataForm = new FormData();
-        dataForm.append('Actividad',Proposito);
+        dataForm.append('Actividad',Actividad);
         dataForm.append('id_des',id_des);
 
         if (Proposito!="") {

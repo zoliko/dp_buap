@@ -48,8 +48,8 @@ Route::get('/descripciones','DescripcionesPuestosController@traeTodasDescripcion
 Route::post('/descripciones/registrar', 'DescripcionesPuestosController@registrarDescripcion');
 Route::post('/descripciones/actualizar', 'DescripcionesPuestosController@actualizarDescripcion');
 Route::post('/descripciones/trae_descripcion' , 'DescripcionesPuestosController@traeDetalleDescripcion');
-Route::get('/descripcion/{ID_descripcion}' , 'GestionUsuariosController@abrirdescripcion');
-Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardaproposito');
+Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abrirdescripcion');
+Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
 
 //dependencias
 Route::get('/dependencias', function () {

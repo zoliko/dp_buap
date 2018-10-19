@@ -1,7 +1,8 @@
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="javascript:void(0)" class="site_title"><i class="fa fa-university"></i> <span>DP - BUAP</span></a>
+              <a href="javascript:void(0)" class="site_title"><i class="fa fa-university"></i> <span>DP-BUAP</span></a>
+              <p align="center"><span>Descripciones de Puesto BUAP</span></p>
             </div>
 
             <div class="clearfix"></div>
@@ -46,12 +47,15 @@
                   
                 </ul>
               </div>
-
+                <p align="center"><span>Coordinación General Administrativa </span></p>
+              <p align="center"><span>Dirección de Recursos Humanos</span></p>
+              <p align="center"><span>Depto. de Ingreso y Evaluación</span></p>
             </div>
             <!-- /sidebar menu -->
-
+              
             <!-- /menu footer buttons -->
             <div class="sidebar-footer hidden-small">
+              
               <!--<a data-toggle="tooltip" data-placement="top" title="Settings">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
