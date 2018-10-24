@@ -50,15 +50,21 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name" >Puesto <span class="required">*</span>
               </label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="Nuevo_Nombre_Puesto" required="required" class="form-control col-md-12 col-xs-12" onchange="armarClave()">
+                <input type="text" id="Nuevo_Nombre_Puesto" required="required" class="form-control col-md-12 col-xs-12 text-uppercase" onchange="armarClave()">
               </div>
             </div>
-
+            <!--<div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name" >Titular <span class="required">*</span>
+              </label>
+              <div class="col-md-1 col-sm-1 col-xs-12">
+                <input type="checkbox" value="" onclick="puestoTitular()">
+              </div>
+            </div>-->
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Reporta a: <span class="required">*</span>
               </label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="Nuevo_Reporta_a" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="Nuevo_Reporta_a" name="last-name" required="required" class="form-control col-md-7 col-xs-12 text-uppercase">
               </div>
             </div>
 
@@ -66,7 +72,7 @@
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Área: <span class="required">*</span>
               </label>
               <div class="col-md-9 col-sm-9 col-xs-12">
-                <input type="text" id="Nuevo_Area" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                <input type="text" id="Nuevo_Area" name="last-name" required="required" class="form-control col-md-7 col-xs-12 text-uppercase">
               </div>
             </div>
 
@@ -220,7 +226,7 @@
         //traeDescripciones();
         $("#nombre_dependencia").text(dependencia);
         llenaDescripciones();
-        autollenado();
+        //autollenado();
         /*var des = {
           "CLAVE_DESC":"objDescripcion.clave",
           "ESTATUS_DESC":"ELABORACIÓN",
@@ -234,13 +240,20 @@
         //obtenerIniciales(dependencia);
     });
 
+    function archivos(){
+      $("#textoModalMensaje").text('Aqui se gestionan los archivos, organigramas u oficios que hayan llegado de la dependencia');
+      $("#modalMensaje").modal();
+    }
+
     function verCompleto(id_descripcion){
-      alert("Redirigiendo...");
+      //alert("Redirigiendo...");
+      location.href = "/descripcion/"+id_descripcion;
     }
 
     function redirigirDP(){
       var id_dp = $("#detalleIdDP").val();
-      alert(id_dp);
+      //alert(id_dp);
+      location.href = "/descripcion/"+id_dp;
     }
 
     function editarDP(){
@@ -397,6 +410,9 @@
                   '<span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>'+
                 '</button>'+
                 '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" id="btnAbrir_'+id_des+'" onclick="verCompleto('+id_des+')">'+
+                  '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
+                '</button>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
                   '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
                 '</button>'+
               "</td>"+

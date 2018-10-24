@@ -47,7 +47,7 @@
                 <input type="password" class="form-control" placeholder="Contraseña" id="pass" />
               </div>
               <div>
-                <a class="btn btn-default submit" onclick="login()">Ingresar</a>
+                <a class="btn btn-default submit" onclick="login2()">Ingresar</a>
               </div>
             </form>
           </section>
@@ -79,6 +79,10 @@
 
 
 <script type="text/javascript">
+
+  function login2(){
+    location.href = "/dependencias"
+  }
   
   function login(){
     var usuario = $("#usuario").val();

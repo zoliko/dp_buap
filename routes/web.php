@@ -61,6 +61,7 @@ Route::get('/dependencias/nueva', function () {
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
-
-
+//gestion de usuarios
+Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
+Route::get('/usuarios' , 'GestionUsuariosController@traeUsuarios');
 

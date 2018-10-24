@@ -59,7 +59,6 @@
             <thead>
               <tr>
                 <th>DESCRIPCION</th>
-                <th>ACCIONES</th>
               </tr>
             </thead>
             <tbody id="cuerpoTablaListado">
@@ -115,8 +114,11 @@
                     //"<a href='/descripciones/"+json['dependencias'][i]['ID_DEP']+"'>Gestionar</a><br>"+
                   '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
                     '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
-                  /*'</button>'+
-                    "<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
+                  '</button>'+
+                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="SUBIR ARCHIVO" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
+                    '<span class="glyphicon glyphicon-upload" aria-hidden="true" ></span>'+
+                  '</button>'+
+                    /*"<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
                   "</td>"+//*/
                 "</tr>"
 
@@ -154,6 +156,10 @@
       });//*/
     }
 
+    function archivos(){
+      $("#textoModalMensaje").text('Aqui se gestionan los archivos, organigramas u oficios que hayan llegado de la dependencia');
+      $("#modalMensaje").modal();
+    }
     function redirigeDescripciones(){
       var id_dep = $("#listadoIdDep").val();
       //alert(id_dep);
@@ -184,7 +190,6 @@
 
                   "<tr>"+
                     "<td id='nombre_"+json['descripcion'][i]['ID_DESC']+"'>"+json['descripcion'][i]['NOM_DESC']+"</td>"+
-                    "<td>"+'ACCIONES'+"</td>"+
                   "</tr>"
 
                 );

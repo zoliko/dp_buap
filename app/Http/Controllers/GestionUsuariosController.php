@@ -15,7 +15,17 @@
          * @param  int  $id
          * @return Response
          */
+        public function vistaUsuarios(){
+            /*if(\Session::get('usuario')==null){
+                return redirect('/');
+            }//*/
+            return view('usuarios');
+        }
 
+        public function traeUsuarios(){
+
+        }
+        
         public function login(Request $request){
             $usr = $request['usuario'];
             $contrasena = $request['contrasena'];
@@ -73,9 +83,9 @@
               );
 
             echo json_encode($data);
-
-
         }
+
+
 
 
     }

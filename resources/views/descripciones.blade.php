@@ -157,6 +157,9 @@
               '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" id="btnAbrir_'+id_des+'" onclick="verCompleto('+id_des+')">'+
                 '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
               '</button>'+
+              '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
+                '<span class="glyphicon glyphicon-upload" aria-hidden="true" ></span>'+
+              '</button>'+
             "</td>"+
           "</tr>"
         );
@@ -184,6 +187,11 @@
           }
         }
       });//*/
+    }
+
+    function archivos(){
+      $("#textoModalMensaje").text('Aqui se gestionan los archivos como oficios que cancelen la descripción de puestos');
+      $("#modalMensaje").modal();
     }
 
     function modalDetalle(id_descripcion){
@@ -240,12 +248,14 @@
     }
 
     function verCompleto(id_descripcion){
-      alert("Redirigiendo...");
+      //alert("Redirigiendo...");//
+      location.href = "/descripcion/"+id_descripcion;
     }
 
     function redirigirDP(){
       var id_dp = $("#detalleIdDP").val();
-      alert(id_dp);
+      //alert(id_dp);
+      location.href = "/descripcion/"+id_dp;
     }
   </script>
 
