@@ -37,7 +37,7 @@
                       <!-- required for floating -->
                       <!-- Nav tabs -->
                       <ul class="nav nav-tabs tabs-left">
-                        <li class="active" ><a href="#InfoGe" data-toggle="tab">Información General</a>
+                        <li class="active" ><a href="#InfoGe" data-toggle="tab" style="background: #000000">Información General</a>
                         </li>
                         <li><a href="#Actividad" data-toggle="tab">Actividades</a>
                         </li>
