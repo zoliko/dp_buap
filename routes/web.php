@@ -19,6 +19,11 @@
 Route::get('/', function () {
     return view('login');
 });
+
+
+Route::get('/revisado', function () {
+   return view('revisado');
+});
 //gestion de usuarios
 Route::post('/usuarios/login' , 'GestionUsuariosController@login');
 

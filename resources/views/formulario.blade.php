@@ -56,8 +56,8 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Informacion General y Porposito General del puesto</p>
-  <!--Formulario de informacion General-->
+                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-comment"></i></p>
+                         
                       <div class="x_panel">
                           <div class="x_content">
                           <br />
@@ -216,7 +216,7 @@
                         </div>
                         <div class="tab-pane" id="Perfil">
                           <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA</p>
-                          
+                          <i class="fas fa-comment-lines"></i>
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
                           <div class="form-group">
