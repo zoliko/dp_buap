@@ -55,6 +55,9 @@ Route::post('/descripcion/guarda_proposito', 'GestionUsuariosController@guardapr
 Route::get('/dependencias', function () {
     return view('dependencias');
 });
+Route::get('/dependencias/coordinacion', function () {
+    return view('principal_coordinacion');
+});
 Route::get('/dependencias/nueva', function () {
     return view('crear_dependencia');
 });
