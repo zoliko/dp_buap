@@ -37,17 +37,17 @@
                       <!-- required for floating -->
                       <!-- Nav tabs -->
                       <ul class="nav nav-tabs tabs-left">
-                        <li class="active" ><a href="#InfoGe" data-toggle="tab">Información General</a>
+                        <li class="active" ><a href="#InfoGe" data-toggle="tab" style="background:#9CCF15">Información General</a>
                         </li>
-                        <li><a href="#Actividad" data-toggle="tab">Actividades</a>
+                        <li><a href="#Actividad" data-toggle="tab" style="background:#9CCF15">Actividades</a>
                         </li>
-                        <li><a href="#Relacion" data-toggle="tab">Relaciones Criticas</a>
+                        <li><a href="#Relacion" data-toggle="tab" style="background:#9CCF15">Relaciones Criticas</a>
                         </li>
-                        <li><a href="#Perfil" data-toggle="tab">Perfil del Puesto</a>
+                        <li><a href="#Perfil" data-toggle="tab" style="background:#9CCF15">Perfil del Puesto</a>
                         </li>
-                        <li><a href="#Competencia" data-toggle="tab">Competencias</a>
+                        <li><a href="#Competencia" data-toggle="tab" style="background:#CF5315">Competencias</a>
                         </li>
-                        <li><a href="#Distribucion" data-toggle="tab">Lista de Distribución</a>
+                        <li><a href="#Distribucion" data-toggle="tab" style="background:#9CCF15" >Lista de Distribución</a>
                         </li>
                       </ul>
                     </div>
@@ -56,8 +56,8 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-comment"></i></p>
-                         
+                          <p class="lead">Informacion General y Porposito General del puesto</p>
+  <!--Formulario de informacion General-->
                       <div class="x_panel">
                           <div class="x_content">
                           <br />
@@ -66,21 +66,21 @@
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Psicologo">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinador">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinación de Bienestar emocional">
                             </div>
                           </div>
 
@@ -216,7 +216,7 @@
                         </div>
                         <div class="tab-pane" id="Perfil">
                           <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA</p>
-                          <i class="fas fa-comment-lines"></i>
+                          
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
                           <div class="form-group">
@@ -251,7 +251,10 @@
 
                           <table  class="table table-striped table-bordered">
                             <tr>
-                              <td colspan="2" ><div align="center"><strong>INSTITUCIONALES</strong></div></td>
+                              <td colspan="2" ><div align="center" ><strong>INSTITUCIONALES</strong>
+  <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="mensaje de observacion">!</button>
+
+                                                </div></td>
                               <td colspan="2"><div align="center"><strong>GENERICAS</strong></div></td>
                               <td colspan="2"><div align="center"><strong>TÉCNICAS</strong></div></td>
                             </tr>
@@ -438,173 +441,6 @@
 
 
 
-<script type="text/javascript">
- //var ID_DESCRIPCION;
-  var id_des=<?php echo $ID_descripcion ?>;
-  $( window ).load(function() {
-     //var id_des=<?php echo $ID_descripcion ?>;
-   //  alert(id_des);
-});
- 
-
-  function AgregaActividad(){
-
-  // alert("Entre");
-     $("#cuerpoTablaprincipales").append(
-
-                  "<tr>"+
-                    "<td id='nombre_"+5+"'></td>"+
-                    "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="actividadPrin"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                    "<td>"+'<input type="text" class="form-control" id="input" >'+"</td>"+
-                    
-                  "</tr>");}
-
- function ActividadEspecifica(){
-
-    
-     $("#cuerpoTablaespecificas").append(
-
-                  "<tr>"+
-                    "<td id='nombre_"+5+"'></td>"+
-                    "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                   
-                    
-                  "</tr>");
-
-
-  }
-
-  function AgregaRelacion(){
-
-    
-     $("#cuerporelaciones").append(
-
-                  "<tr>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
-                    "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
-                    
-                  "</tr>");
-
-
-  }
-  function AgregaRelacion2(){
-
-    
-     $("#cuerporelaciones2").append(
-
-                  "<tr>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
-                    "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
-                    
-                  "</tr>");
-
-
-  }
-
-  function guardar_proposito(){
-    var Proposito = $("#Proposito").val();
-    console.log(Proposito);
-    console.log(id_des);
-    var dataForm = new FormData();
-        dataForm.append('Proposito',Proposito);
-        dataForm.append('id_des',id_des);
-
-        if (Proposito!="") {
-$.ajax({
-          url :'/descripcion/guarda_proposito',
-          data : dataForm,
-          contentType:false,
-          processData:false,
-          headers:{
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-          type: 'POST',
-          dataType : 'json',
-          beforeSend: function (){
-            $("#modalCarga").modal();
-          },
-          success : function(json){
-             //Codigo en caso de que la visita haya sido correcta
-          },
-          error : function(xhr, status) {
-            $("#textoModalMensaje").text('Existió un problema al guardar el proposito');
-            $("#modalMensaje").modal();
-            $('#btnCancelar').prop('disabled', false);
-          },
-          complete : function(xhr, status){
-             $("#modalCarga").modal('hide');
-          }
-        });
-
-}else {
-  alert("no tiene proposito");
-}  }
-
-
-
-function guardar_Actividades(){
-  
-    var Actividad = $("#actividadPrin").val();
-    console.log(Actividad);
-    console.log(id_des);
-    var dataForm = new FormData();
-        dataForm.append('Actividad',Actividad);
-        dataForm.append('id_des',id_des);
-
-        if (Proposito!="") {
-      $.ajax({
-                url :'/descripcion/guarda_proposito',
-                data : dataForm,
-                contentType:false,
-                processData:false,
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  },
-                type: 'POST',
-                dataType : 'json',
-                beforeSend: function (){
-                  $("#modalCarga").modal();
-                },
-                success : function(json){
-                   //Codigo en caso de que la visita haya sido correcta
-                },
-                error : function(xhr, status) {
-                  $("#textoModalMensaje").text('Existió un problema al guardar el proposito');
-                  $("#modalMensaje").modal();
-                  $('#btnCancelar').prop('disabled', false);
-                },
-                complete : function(xhr, status){
-                   $("#modalCarga").modal('hide');
-                }
-              });
-
-      }else {
-        alert("no tiene proposito");
-      }  }
-
-
-
-
-
-</script>
 
 @endsection
 

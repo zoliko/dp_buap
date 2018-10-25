@@ -60,7 +60,7 @@
         }
         public function guardaproposito(Request $request){
             $exito=false;
-            //dd($request['Proposito']);
+            dd($request['Proposito']);
             $insertar=DB::table('DP_PROPOSITO_GENERAL')->insertGetId(
                 [
                     'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'], 

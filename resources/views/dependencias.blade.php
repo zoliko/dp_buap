@@ -73,6 +73,66 @@
       </div>
     </div>
   </div>
+  <!-- Modal Listado DP -->
+  <div class="modal fade" id="modalListadoArchivos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloModalListado">DEPENDENCIA</h3>
+        </div>
+        <div class="modal-body">
+          <table id="tablaListado" class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Archivo</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="cuerpoTablaArchivos">
+              <tr>
+                <th scope="row">Organigrama</th>
+                <td><a href="javascript:void(0)">Descargar</a>&nbsp&nbsp&nbsp<a href="javascript:void(0)" onclick="verImagen()">Ver</a></td>
+              </tr>
+              <tr>
+                <th scope="row">Oficio</th>
+                <td><a href="javascript:void(0)" onclick="descargarArchivo()">Descargar</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <input type="number" id="listadoIdDep" value="" hidden="hidden">
+          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Subir Archivos</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Listado DP -->
+  <div class="modal fade" id="modalVerImagen2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloModalListado">DEPENDENCIA</h3>
+        </div>
+        <div class="modal-footer">
+          <input type="number" id="listadoIdDep" value="" hidden="hidden">
+          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Subir Archivos</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal Carga-->
+        <div class="modal fade" id="modalVerImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-body" align="">
+          <img src="{{asset('images/organigrama1.PNG')}}">
+        </div>
+          </div>
+        </div>
 @endsection
 
 @section('script')
@@ -158,7 +218,14 @@
 
     function archivos(){
       $("#textoModalMensaje").text('Aqui se gestionan los archivos, organigramas u oficios que hayan llegado de la dependencia');
-      $("#modalMensaje").modal();
+      $("#modalListadoArchivos").modal();
+    }
+    function verImagen(){
+      $("#modalVerImagen").modal();
+    }
+    function descargarArchivo(){
+      console.log("Epa");
+      location.href="../images/organigrama1.PNG";
     }
     function redirigeDescripciones(){
       var id_dep = $("#listadoIdDep").val();
