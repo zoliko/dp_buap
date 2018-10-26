@@ -9,7 +9,7 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Seccion 1 de la página</h2>
+          <h2></h2>
           <!--<ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -91,11 +91,11 @@
             <tbody id="cuerpoTablaArchivos">
               <tr>
                 <th scope="row">Organigrama</th>
-                <td><a href="javascript:void(0)">Descargar</a>&nbsp&nbsp&nbsp<a href="javascript:void(0)" onclick="verImagen()">Ver</a></td>
+                <td><a href="javascript:void(0)" onclick="descargarArchivo()">Descargar</a>&nbsp&nbsp&nbsp<a href="javascript:void(0)" onclick="verImagen()">Ver</a></td>
               </tr>
               <tr>
                 <th scope="row">Oficio</th>
-                <td><a href="javascript:void(0)" onclick="descargarArchivo()">Descargar</a></td>
+                <td><a href="javascript:void(0)" onclick="descargarOficio()">Descargar</a></td>
               </tr>
             </tbody>
           </table>
@@ -226,6 +226,14 @@
     function descargarArchivo(){
       console.log("Epa");
       location.href="../images/organigrama1.PNG";
+    }
+    function descargarDescripcion(){
+      console.log("Epa");
+      location.href="../images/descripcion.PNG";
+    }
+    function descargarOficio(){
+      console.log("Epa");
+      location.href="../images/Oficio DAU-0750-2018 FOLIO 23768.pdf";
     }
     function redirigeDescripciones(){
       var id_dep = $("#listadoIdDep").val();
