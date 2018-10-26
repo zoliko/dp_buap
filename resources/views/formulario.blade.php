@@ -6,9 +6,10 @@
 @section('content')
 
 	<div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
+                <div class="x_panel">}
+                  
                   <div class="x_content">
+              <div class="col-md-12 col-sm-12 col-xs-12">
 <!--Agregar el formulario -->
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
@@ -56,7 +57,7 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-comment"></i></p>
+                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
                          
                       <div class="x_panel">
                           <div class="x_content">
@@ -120,7 +121,7 @@
                           </div>
 
                           <div class="ln_solid"></div>
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Proposito General del Puesto <span class="required"></label>
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Proposito General del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></label>
                           <div class="form-group">
                               <div class="col-md-12 col-sm-12 col-xs-12">
                               <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
@@ -137,7 +138,7 @@
                 </div>
                   <!--Inicio del modulo de actividades -->
                         <div class="tab-pane" id="Actividad">
-                          <p class="lead">Actividades Principales y Especificas </p>
+                          <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
           
 
                             <table id="tablaprincipales" class="table table-striped table-bordered">
@@ -173,7 +174,7 @@
                         </div>
                   <!--Fin del modulo de Relaciones -->
                         <div class="tab-pane" id="Relacion"> 
-                          <p class="lead">Relaciones Criticas del Puesto </p>
+                          <p class="lead">Relaciones Criticas del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
           
 
                             <table id="tablarelaciones" class="table table-striped table-bordered">
@@ -215,7 +216,7 @@
 
                         </div>
                         <div class="tab-pane" id="Perfil">
-                          <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA</p>
+                          <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
                           <i class="fas fa-comment-lines"></i>
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
@@ -244,7 +245,7 @@
 
 
                         <div class="tab-pane" id="Competencia">
-                          <p class="lead">COMPETENCIAS
+                          <p class="lead">COMPETENCIAS <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i>
 
                           </p>
                           <!--Comptencias inicio -->
@@ -401,7 +402,7 @@
 
                           <table class="table table-striped table-bordered">
                             <tr>
-                              <td colspan="2" align="center">LISTA DE DISTRIBUCIÓN</td>
+                              <td colspan="2" align="center">LISTA DE DISTRIBUCIÓN <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></td>
                             </tr>
             
                             <tr>
@@ -435,7 +436,11 @@
 @endsection
 
 @section('script')
-
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
 
 
 <script type="text/javascript">

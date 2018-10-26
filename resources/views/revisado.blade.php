@@ -251,10 +251,7 @@
 
                           <table  class="table table-striped table-bordered">
                             <tr>
-                              <td colspan="2" ><div align="center" ><strong>INSTITUCIONALES</strong>
-  <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top" data-content="mensaje de observacion">!</button>
-
-                                                </div></td>
+                              <td colspan="2" ><div align="center" ><strong>INSTITUCIONALES</strong></div></td>
                               <td colspan="2"><div align="center"><strong>GENERICAS</strong></div></td>
                               <td colspan="2"><div align="center"><strong>TÉCNICAS</strong></div></td>
                             </tr>
@@ -269,7 +266,7 @@
                               <tr>
                                 <td><div align="left" class="Estilo9">COMPROMISO</div></td>
                                 <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog1" type="text" class="Estilo5" ></td>
+                                <td><input name="cog1" type="text" class="Estilo5" value="Dominio del estres" ></td>
                                 <td> <select name="fg1">
                               <option>      </option>
                                  
