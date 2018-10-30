@@ -6,7 +6,7 @@
 @section('content')
 
 	<div class="row">
-                <div class="x_panel">}
+                <div class="x_panel">
                   
                   <div class="x_content">
               <div class="col-md-12 col-sm-12 col-xs-12">
@@ -57,7 +57,8 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda "></i></p>
+
                          
                       <div class="x_panel">
                           <div class="x_content">

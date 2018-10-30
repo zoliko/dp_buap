@@ -32,7 +32,8 @@
                     'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
                     )
                 ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
-                $descripciones[] = $descripcion[0];
+                //if(count($descripcion)>0)
+                    $descripciones[] = $descripcion[0];
                 //dd($id_descripcion->FK_DESCRIPCION);
             }
 
@@ -151,6 +152,7 @@
             $id_dependencia = $request['id_dependencia'];
             $dtp = $request['dtp'];
             $clave = $request['clave'];
+            $nivel = $request['nivel'];
             $rep_directos = $request['rep_directos'];
             $rep_indirectos = $request['rep_indirectos'];
             //dd($id_dependencia);
@@ -165,6 +167,7 @@
                     'DESCRIPCIONES_FECHA_CREACION' => date('Y-m-d'), 
                     //'DESCRIPCIONES_FECHA_REVISION' => date('Y-m-d'), 
                     'DESCRIPCIONES_N_REVISION' => 1, 
+                    'DESCRIPCIONES_NIVEL' => $nivel, 
                     'DESCRIPCIONES_REPORTAN_DIRECTOS' => $rep_directos, 
                     'DESCRIPCIONES_REPORTAN_INDIRECTOS' => $rep_indirectos,
                     'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION'

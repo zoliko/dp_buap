@@ -264,45 +264,45 @@
     function traeDependencias(){
     //alert("EPALE");
       var dataForm = new FormData();
-        dataForm.append('usuario',"usuario");
-        $.ajax({
-          url :'/dependencias/trae',
-          data : dataForm,
-          contentType:false,
-          processData:false,
-          headers:{
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-          type: 'POST',
-          dataType : 'json',
-          beforeSend: function (){
-            $("#modalCarga").modal();
+      dataForm.append('usuario',"usuario");
+      $.ajax({
+        url :'/dependencias/trae',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          success : function(json){
-            //console.log(json);
-            for(var i = 0; i<json['total'];i++){
-              if(!json['dependencias'][i]['ACTIVA']){
-                $("#selectDependencia").append(
-                    '<option value="'+json['dependencias'][i]['ID_DEP']+'">'+json['dependencias'][i]['NOM_DEP']+'</option>'
-                  );
-              }
-              $("#selectCabezaSector").append(
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+          //console.log(json);
+          for(var i = 0; i<json['total'];i++){
+            if(!json['dependencias'][i]['ACTIVA']){
+              $("#selectDependencia").append(
                   '<option value="'+json['dependencias'][i]['ID_DEP']+'">'+json['dependencias'][i]['NOM_DEP']+'</option>'
                 );
             }
-            $('#btnCancelar').prop('disabled', false);
-            $('#btnRegistrar').prop('disabled', false);
-            
-          },
-          error : function(xhr, status) {
-            $("#textoModalMensaje").text('Existió un problema al cargar el listado de dependencias');
-            $("#modalMensaje").modal();
-            $('#btnCancelar').prop('disabled', false);
-          },
-          complete : function(xhr, status){
-             $("#modalCarga").modal('hide');
+            $("#selectCabezaSector").append(
+                '<option value="'+json['dependencias'][i]['ID_DEP']+'">'+json['dependencias'][i]['NOM_DEP']+'</option>'
+              );
           }
-        });//*/
+          $('#btnCancelar').prop('disabled', false);
+          $('#btnRegistrar').prop('disabled', false);
+          
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema al cargar el listado de dependencias');
+          $("#modalMensaje").modal();
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
     }
 
 

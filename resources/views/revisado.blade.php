@@ -66,56 +66,56 @@
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Psicologo">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Psicologo" disabled="disabled">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinador">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinador" disabled="disabled">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinación de Bienestar emocional">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" value="Coordinación de Bienestar emocional" disabled="disabled">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Dirección:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Dirección">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Clave de Puesto:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Clave de Puesto">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de crecaión:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Fecha de creacion">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de revisión:</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Fecha de revision">
                             </div>
                           </div>
 
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revision: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="N° de revision">
                             </div>
                           </div>
 
@@ -123,7 +123,7 @@
                           <label class="control-label col-md-3 col-sm-3 col-xs-12">Proposito General del Puesto <span class="required"></label>
                           <div class="form-group">
                               <div class="col-md-12 col-sm-12 col-xs-12">
-                              <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
+                              <textarea class="form-control" rows="3" placeholder="" id="Proposito" disabled="disabled"> TODA LA DESCRIPCION DEL PUESTO</textarea>
                             </div>
                                
                           </div>
@@ -222,20 +222,20 @@
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formacion Profesional: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Formacion Profesional">
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Area">
                             </div>
                           </div>
 
                            <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="Años de Experiencia"> 
                             </div>
                             
                           </div>
@@ -244,7 +244,7 @@
 
 
                         <div class="tab-pane" id="Competencia">
-                          <p class="lead">COMPETENCIAS
+                          <p class="lead">COMPETENCIAS &nbsp &nbsp<i class="fa fa-question-circle" data-toggle="popover" title="Competencias" data-content="Debe proporcionar al menos 3 competencias."></i>
 
                           </p>
                           <!--Comptencias inicio -->
@@ -435,6 +435,11 @@
 @endsection
 
 @section('script')
+<script>
+$(document).ready(function(){
+    $('[data-toggle="popover"]').popover();   
+});
+</script>
 
 
 

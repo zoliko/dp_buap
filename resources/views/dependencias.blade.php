@@ -259,6 +259,7 @@
         },
         success : function(json){
           //console.log(json);
+          $("#cuerpoTablaListado").html("");
           if(json['total'] != 0){
             for(var i = 0; i<json['total'];i++){
               $("#cuerpoTablaListado").append(
