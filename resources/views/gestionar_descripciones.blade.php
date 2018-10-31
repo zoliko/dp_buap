@@ -146,8 +146,18 @@
 
         </div>
         <div class="modal-footer">
+          <button id="MarcarRevision" type="button" class="btn btn-default btn-md pull-left" data-toggle="tooltip" data-placement="right" title="DESMARCAR FUTURA REVISIÓN" onclick="futuraRevision(0)">
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+          </button>
+
+          <button id="DesmarcarRevision" type="button" class="btn btn-default btn-md pull-left" data-toggle="tooltip" data-placement="right" title="MARCAR FUTURA REVISIÓN" onclick="futuraRevision(1)">
+            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+          </button>
+
           <input type="number" id="edicionIdDP" value="" hidden="hidden">
+
           <button type="button" class="btn btn-primary" onclick="editarDP()"  id="editarDP">Guardar</button>
+
           <button type="button" class="btn btn-primary" onclick="registrarDP()" id="registrarDP">Crear</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
@@ -243,23 +253,29 @@
     var estatusEdicion = false;
 
     $(window).load(function () {
-      //console.log(descripciones);
-        // run code
-        //traeDescripciones();
         $("#nombre_dependencia").text(dependencia);
         llenaDescripciones();
         autollenado();
-        /*var des = {
-          "CLAVE_DESC":"objDescripcion.clave",
-          "ESTATUS_DESC":"ELABORACIÓN",
-          "ID_DESC":"json['id_descripcion']",
-          "NOM_DESC":"objDescripcion.puesto",
-          "REVISION_DESC":1
-        };
-        descripciones.push(des);
-        console.log(descripciones); //*/
-        //$("#modalDetalleDP").modal();
-        //obtenerIniciales(dependencia);
+    });
+
+    function futuraRevision(fl_revision){
+      //console.log(fl_revision);
+      var id_descripcion = $("#edicionIdDP").val();
+      console.log(id_descripcion);
+      if(fl_revision==1){
+        console.log("Marcando revision");
+        $("#MarcarRevision").show();//revision a futuro
+        $("#DesmarcarRevision").hide();//revision a futuro
+      }else{
+        console.log("Desmarcando revision");
+        $("#MarcarRevision").hide();//revision a futuro
+        $("#DesmarcarRevision").show();//revision a futuro
+      }
+
+    }
+    //inicializando tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
     });
 
     function archivos(){
@@ -387,6 +403,7 @@
             $("#Nuevo_Reporta_a").val(json['descripcion']['REPORTA_A_DESC']);
             $("#Nuevo_Area").val(json['descripcion']['AREA_DESC']);
             $("#selectDescripcion").val(((json['descripcion']['DTP_DESC'] == "PUESTO")?"DP":"DT"));
+            $("#selectNivel").val(json['descripcion']['NIVEL_DESC']);
             $("#rep_directos").val(json['descripcion']['DIRECTOS_DESC']);
             $("#rep_indirectos").val(json['descripcion']['INDIRECTOS_DESC']);
             $("#Nuevo_Direccion").val(dependencia);
@@ -396,6 +413,8 @@
             //---------------------------------------------------
             $("#registrarDP").hide();
             $("#editarDP").show();
+            $("#MarcarRevision").hide();//revision a futuro
+            $("#DesmarcarRevision").show();//revision a futuro
             $("#tituloModalDP").text("Editar descripción de puesto");
             $("#modalNuevaDP").modal();
           }
@@ -435,15 +454,16 @@
                 '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" id="btnAbrir_'+id_des+'" onclick="verCompleto('+id_des+')">'+
                   '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
                 '</button>'+
-                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
-                  '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnArchivos_'+id_des+'" onclick="archivos('+id_des+')">'+
+                  '<span class="glyphicon glyphicon-file" aria-hidden="true" ></span>'+
                 '</button>'+
               "</td>"+
             "</tr>"
           );
         $("#btnVer_"+id_des).tooltip('fixTitle');
         $("#btnAbrir_"+id_des).tooltip('fixTitle');
-        $("#btnEditar_"+id_des).tooltip('fixTitle');
+        $("#btnEditar_"+id_des).tooltip('fixTitle');//*/
+        $("#btnArchivos_"+id_des).tooltip('fixTitle');//*/
         PuestoConsecutivo++;
       }
         $('#tablaListado').DataTable({
@@ -547,6 +567,14 @@
       $("#rep_directos").val("5");
       $("#rep_indirectos").val("8");
     }
+    function limpiarModalRegistro(){
+      $("#Nuevo_Nombre_Puesto").val("");
+      $("#Nuevo_Reporta_a").val("");
+      $("#Nuevo_Area").val("");
+      $("#selectDescripcion").val("");
+      $("#rep_directos").val("");
+      $("#rep_indirectos").val("");
+    }
 
     function obtenerIniciales(cadena){
       var omitir = ['DE','Y','LA','E'];
@@ -586,10 +614,13 @@
     function nuevaDescripcion(){
       //alert("Epale");
       estatusEdicion = false;
+      limpiarModalRegistro();
       $("#registrarDP").show();
       $("#editarDP").hide();
       $("#tituloModalDP").text("Registrar descripción de puesto");
       armarClave();
+      $("#MarcarRevision").hide();//revision a futuro
+      $("#DesmarcarRevision").hide();//revision a futuro
       $("#Nuevo_Direccion").val(dependencia);
       $("#modalNuevaDP").modal();
     }

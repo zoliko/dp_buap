@@ -131,11 +131,27 @@
           "</td>"+
         "</tr>"
       );
-
-      /*$("#selectDependencia").append(
-                    '<option value="'+id_dependencia+'">'+dependencias[i]['NOMBRE_DEP']+'</option>'
-                  );//*/
     }
+
+      $('#tablaListadoDependencias').DataTable({
+          //responsive: true,
+          language: {
+            emptyTable: "No hay datos para mostrar en la tabla",
+            zeroRecords: "No hay datos para mostrar en la tabla",
+              "search": "Buscar:",
+              "info":"Se muestra los registros _START_ a _END_ de _TOTAL_ totales.",
+              "infoEmpty":"No se ha encontrado registros.",
+              "lengthMenu":"Mostrando _MENU_ registros",
+              "infoFiltered":"(Filtrado de un total de _MAX_ registros)",
+              "search": "Buscar: ",
+             paginate: {
+               "first":      "Primero",
+               "last":       "Ultimo",
+               "next":       "Siguiente",
+               "previous":   "Anterior"
+              }
+            }
+          });//*/
   }
 
   function modalDetalleUsuarios(id_dependencia,n_dependencia){
@@ -215,7 +231,7 @@
 
         }else{
           //$("#pass_puesto").text(json['contrasena']);
-          $("#textoModalMensaje").text('Existió un problema con la información, por favor intentelo nuevamente.');
+          $("#textoModalMensaje").text('Existió un problema con la información, es posible que la información ya se haya guardado con anterioridad o no exista ningún cambio en la información.');
           $("#modalMensaje").modal();
         }
           

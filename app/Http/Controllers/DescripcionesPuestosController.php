@@ -128,9 +128,11 @@
                 'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
                 'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
                 'DESCRIPCIONES_N_REVISION as N_REVISION_DESC',
+                'DESCRIPCIONES_NIVEL  as NIVEL_DESC',
                 'DESCRIPCIONES_REPORTAN_DIRECTOS as DIRECTOS_DESC',
                 'DESCRIPCIONES_REPORTAN_INDIRECTOS as INDIRECTOS_DESC',
-                'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                'DESCRIPCIONES_FUTURA_REVISION as REV_FUTURA_DESC'
                 )
             ->where('DESCRIPCIONES_ID',$id_descripcion)->get();//*/
             //dd($descripcion);

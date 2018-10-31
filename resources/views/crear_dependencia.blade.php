@@ -9,7 +9,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Seccion 1 de la página</h2>
+                    <h2></h2>
                     <!--<ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -43,7 +43,7 @@
                           </select>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-12">
-                          <input type="text" id="nomenclatura" required="required" class="form-control col-md-12 col-xs-12" placeholder="NOMENCLATURA">
+                          <input type="text" id="nomenclatura" required="required" class="form-control col-md-12 col-xs-12 text-uppercase" placeholder="NOMENCLATURA">
                           
                         </div>
                       </div>
@@ -52,7 +52,7 @@
                         <label class="control-label col-md-4 col-sm-4 col-xs-12" for="last-name">Titular <span class="required">*</span>
                         </label>
                         <div class="col-md-7 col-sm-7 col-xs-12">
-                          <input type="text" id="titular_dep" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="titular_dep" name="last-name" required="required" class="form-control col-md-7 col-xs-12 text-uppercase">
                         </div>
                       </div>
 
@@ -180,11 +180,11 @@
 
     function registrar(){
       var dependencia = $("#selectDependencia").val();
-      var titular_dep = $("#titular_dep").val();
+      var titular_dep = ($("#titular_dep").val()).toUpperCase();
 
       /*var flCS = $("#siEsCS").is(':checked');
       var nombreCS = $("#selectCabezaSector").val();//*/
-      var nomenclatura = $("#nomenclatura").val();
+      var nomenclatura = ($("#nomenclatura").val()).toUpperCase();
       var flCS = ((dependencia=="RECTORIA")?false:true);
       var nombreCS = $("#selectCabezaSector").val();
 

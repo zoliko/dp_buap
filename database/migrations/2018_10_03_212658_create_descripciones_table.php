@@ -28,6 +28,7 @@ class CreateDescripcionesTable extends Migration
             $table->integer('DESCRIPCIONES_REPORTAN_DIRECTOS');
             $table->integer('DESCRIPCIONES_REPORTAN_INDIRECTOS');
             $table->enum('DESCRIPCIONES_ESTATUS_GRAL',['ELABORACION','REVISION','REVISADO','AUTORIZADO']);
+            $table->integer('DESCRIPCIONES_FUTURA_REVISION')->nullable();
         });
     }
 
