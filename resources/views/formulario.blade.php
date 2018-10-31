@@ -153,8 +153,8 @@
                               <tbody id="cuerpoTablaprincipales"></tbody>
                             </table>
 
-                            <button onclick="AgregaActividad()">Agregar Actividad </button>
-                            <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>
+                            <button onclick="AgregaActividad()">Agregar</button>
+                          <!--  <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>-->
 
                             <table id="tablaespecificas" class="table table-striped table-bordered">
                               <thead>
@@ -452,22 +452,28 @@ $(document).ready(function(){
    //  alert(id_des);
 });
  
+ var cont_actG=1;
 
   function AgregaActividad(){
 
-  // alert("Entre");
+  //alert("Entre");
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
                     "<td id='nombre_"+5+"'></td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="actividadPrin"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'"></textarea>'+
                             '</div>'+
                     "</td>"+
-                    "<td>"+'<input type="text" class="form-control" id="input" >'+"</td>"+
+                    "<td>"+'<input type="text" class="form-control" id="indicador'+cont_actG+'" >'+"</td>"+
+                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_Actividades('+cont_actG+')">Guardar</button>'+"</td>"+
                     
-                  "</tr>");}
+                  "</tr>"
+      );//*/
+     cont_actG++;
+   }//*/
+
 
  function ActividadEspecifica(){
 
@@ -566,9 +572,10 @@ $.ajax({
 
 
 
-function guardar_Actividades(){
-  
-    var Actividad = $("#actividadPrin").val();
+function guardar_Actividades(tmp_cont_actG){
+  alert(tmp_cont_actG);
+  console.log("entre a la funcion guardar actividades");
+    var Actividad = $("#actividadPrin"+tmp_cont_actG).val();
     console.log(Actividad);
     console.log(id_des);
     var dataForm = new FormData();
@@ -577,7 +584,7 @@ function guardar_Actividades(){
 
         if (Proposito!="") {
       $.ajax({
-                url :'/descripcion/guarda_proposito',
+                url :'/descripcion/guardar_Actividades',
                 data : dataForm,
                 contentType:false,
                 processData:false,
@@ -593,7 +600,7 @@ function guardar_Actividades(){
                    //Codigo en caso de que la visita haya sido correcta
                 },
                 error : function(xhr, status) {
-                  $("#textoModalMensaje").text('Existió un problema al guardar el proposito');
+                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
                   $("#modalMensaje").modal();
                   $('#btnCancelar').prop('disabled', false);
                 },
@@ -603,8 +610,9 @@ function guardar_Actividades(){
               });
 
       }else {
-        alert("no tiene proposito");
-      }  }
+        alert("no tiene actividad");
+      }  
+    }
 
 
 

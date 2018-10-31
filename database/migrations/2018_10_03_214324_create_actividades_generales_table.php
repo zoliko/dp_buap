@@ -16,7 +16,7 @@ class CreateActividadesGeneralesTable extends Migration
         Schema::create('DP_ACTIVIDADES_GENERALES', function (Blueprint $table) {
             $table->increments('ACTIVIDADES_GENERALES_ID');
             $table->text('ACTIVIDADES_GENERALES_ACTIVIDAD');
-            $table->text('ACTIVIDADES_GENERALES_INDICADOR');
+            $table->text('ACTIVIDADES_GENERALES_INDICADOR')->nullable();
             $table->integer('ACTIVIDADES_GENERALES_ESTATUS');
             $table->text('ACTIVIDADES_GENERALES_MENSAJE')->nullable();
             $table->timestamps();

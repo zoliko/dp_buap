@@ -269,4 +269,36 @@
 
         }
 
+
+
+        public function guardarActividad(Request $request){
+            $exito=false;
+            //dd($request['Proposito']);
+            $insertar=DB::table('DP_ACTIVIDADES_GENERALES')->insertGetId(
+                [
+                    'ACTIVIDADES_GENERALES_ACTIVIDAD' => $request['Actividad'], 
+                    'ACTIVIDADES_GENERALES_INDICADOR' => "indicador",
+                    'ACTIVIDADES_GENERALES_ESTATUS'=> 0
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_ACT_GRAL_DESCRIPCION')->insert(
+                    [
+                        'FK_ACTIVIDAD_GENERAL' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
     }
