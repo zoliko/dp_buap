@@ -146,11 +146,11 @@
 
         </div>
         <div class="modal-footer">
-          <button id="MarcarRevision" type="button" class="btn btn-default btn-md pull-left" data-toggle="tooltip" data-placement="right" title="DESMARCAR FUTURA REVISIÓN" onclick="futuraRevision(0)">
+          <button id="MarcarRevision" type="button" class="btn btn-warning btn-md pull-left" data-toggle="tooltip" data-placement="right" title="DESMARCAR FUTURA REVISIÓN" onclick="futuraRevision(0)">
             <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
           </button>
 
-          <button id="DesmarcarRevision" type="button" class="btn btn-default btn-md pull-left" data-toggle="tooltip" data-placement="right" title="MARCAR FUTURA REVISIÓN" onclick="futuraRevision(1)">
+          <button id="DesmarcarRevision" type="button" class="btn btn-warning btn-md pull-left" data-toggle="tooltip" data-placement="right" title="MARCAR FUTURA REVISIÓN" onclick="futuraRevision(1)">
             <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
           </button>
 
@@ -262,15 +262,43 @@
       //console.log(fl_revision);
       var id_descripcion = $("#edicionIdDP").val();
       console.log(id_descripcion);
-      if(fl_revision==1){
-        console.log("Marcando revision");
-        $("#MarcarRevision").show();//revision a futuro
-        $("#DesmarcarRevision").hide();//revision a futuro
-      }else{
-        console.log("Desmarcando revision");
-        $("#MarcarRevision").hide();//revision a futuro
-        $("#DesmarcarRevision").show();//revision a futuro
-      }
+      var dataForm = new FormData();
+      dataForm.append('estatus_revision',fl_revision);
+      dataForm.append('id_descripcion',id_descripcion);
+      $.ajax({
+        url :'/descripciones/marcarRevisionFutura',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+          if(json['exito']==1){
+            if(fl_revision==0){
+              $("#MarcarRevision").hide();//revision a futuro
+              $("#DesmarcarRevision").show();//revision a futuro
+            }else{
+              $("#MarcarRevision").show();//revision a futuro
+              $("#DesmarcarRevision").hide();//revision a futuro
+            }
+          }
+          
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema al traer la información');
+          $("#modalMensaje").modal();
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
 
     }
     //inicializando tooltips
@@ -413,8 +441,14 @@
             //---------------------------------------------------
             $("#registrarDP").hide();
             $("#editarDP").show();
-            $("#MarcarRevision").hide();//revision a futuro
-            $("#DesmarcarRevision").show();//revision a futuro
+            if(json['descripcion']['REV_FUTURA_DESC']=='1'){
+              $("#MarcarRevision").show();//revision a futuro
+              $("#DesmarcarRevision").hide();//revision a futuro
+            }else{
+              $("#MarcarRevision").hide();//revision a futuro
+              $("#DesmarcarRevision").show();//revision a futuro
+
+            }
             $("#tituloModalDP").text("Editar descripción de puesto");
             $("#modalNuevaDP").modal();
           }

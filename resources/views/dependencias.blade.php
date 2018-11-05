@@ -102,7 +102,10 @@
         </div>
         <div class="modal-footer">
           <input type="number" id="listadoIdDep" value="" hidden="hidden">
-          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Subir Archivos</button>
+          <!-- input que contiene el archivo, esta oculto -->
+          <input type="file" id="inputSubirArchivo" name="" style="display: none;" onchange="cambioArchivo(this)">
+          <!-- boton que solo ejecuta un click en el input file -->
+          <button type="button" class="btn btn-success" id="btnSubirArchivo" onclick="inputArchivo()">Subir Archivos</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -116,7 +119,7 @@
           <h3 class="modal-title" id="tituloModalListado">DEPENDENCIA</h3>
         </div>
         <div class="modal-footer">
-          <input type="number" id="listadoIdDep" value="" hidden="hidden">
+          <input type="number" id="idDependencia" value="" hidden="hidden">
           <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Subir Archivos</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
@@ -126,13 +129,13 @@
 
 
   <!-- Modal Carga-->
-        <div class="modal fade" id="modalVerImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-body" align="">
-          <img src="{{asset('images/organigrama1.PNG')}}">
-        </div>
-          </div>
-        </div>
+  <div class="modal fade" id="modalVerImagen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-body" align="">
+    <img src="{{asset('images/organigrama1.PNG')}}">
+  </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -143,6 +146,115 @@
       //$("#modalListado").modal();
       //console.log( "ready!" );
     });
+
+    function inputArchivo(){
+      $("#inputSubirArchivo").trigger('click');
+    }
+
+    function cambioArchivo(input){
+      var curFiles = input.files;
+      if(curFiles.length === 0){
+        //$("#btnSubirArchivo").html("<span>Subir Archivos</span>");
+      }else{
+        //$("#btnSubirArchivo").html("<span>"+curFiles[0].name+"</span>");
+        //alert("Subiendo archivo");
+        ajaxSubirArchivo(curFiles);
+      }
+    }
+
+    function guardaArchivo(){
+      var url = "/archivos/subir"
+      var success;
+      var id_dependencia = $("#idDependencia").val();
+      console.log(id_dependencia);
+      var arch = document.getElementById('inputSubirArchivo');
+      archivoAdjunto = arch.files[0];
+      var dataForm = new FormData();
+      dataForm.append('archivo',archivoAdjunto);
+      dataForm.append('dependencia',id_dependencia);
+
+
+      success = llamaAjax(url,dataform);
+
+      if(success){
+        console.log(success);
+      }
+    }
+
+    //señor metodo maestro ajax
+    function metodoAjax(url,dataForm){
+      var resultado = null;
+      
+      $.ajax({
+        url :url,
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+          resultado = json;
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema al cargar el listado de dependencias');
+          $("#modalMensaje").modal();
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
+      return resultado;
+    }
+
+    function ajaxSubirArchivo(curFiles){
+      console.log(curFiles[0].name);
+      //console.log(curFiles);
+      if(curFiles[0].size > 2000000){
+        $("#textoModalMensaje").text('El archivo debe pesar máximo 2MB');
+        $("#modalMensaje").modal();
+      }else{
+        var id_dependencia = $("#idDependencia").val();
+        console.log(id_dependencia);
+        var arch = document.getElementById('inputSubirArchivo');
+        archivoAdjunto = arch.files[0];
+        var dataForm = new FormData();
+        dataForm.append('archivo',archivoAdjunto);
+        dataForm.append('dependencia',id_dependencia);
+        $.ajax({
+          url :'/archivos/subir',
+          data : dataForm,
+          contentType:false,
+          processData:false,
+          headers:{
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+          type: 'POST',
+          dataType : 'json',
+          beforeSend: function (){
+            $("#modalCarga").modal();
+          },
+          success : function(json){
+
+          },
+          error : function(xhr, status) {
+            $("#textoModalMensaje").text('Existió un problema al cargar el listado de dependencias');
+            $("#modalMensaje").modal();
+          },
+          complete : function(xhr, status){
+             $("#modalCarga").modal('hide');
+          }
+        });//*/
+        $(arch).val("");
+      }
+    }
+
+
 
     function traeDependencias(){
       //alert("EPALE");
@@ -216,7 +328,8 @@
       });//*/
     }
 
-    function archivos(){
+    function archivos(id_dependencia){
+      $("#idDependencia").val(id_dependencia);
       $("#textoModalMensaje").text('Aqui se gestionan los archivos, organigramas u oficios que hayan llegado de la dependencia');
       $("#modalListadoArchivos").modal();
     }

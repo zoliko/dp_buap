@@ -157,6 +157,7 @@
   function modalDetalleUsuarios(id_dependencia,n_dependencia){
     //console.log(id_dependencia);
     //console.log(dependencias[n_dependencia]['NOMBRE_DEP']);
+    $("#Encargado_usr").val("");
     $("#Nuevo_Dependencia").val(dependencias[n_dependencia]['NOMBRE_DEP']);
     var dataForm = new FormData();
     dataForm.append('dependencia',id_dependencia);
@@ -307,7 +308,10 @@
     //console.log(id_descripcion);
     if(id_descripcion!="false"){
       var dataForm = new FormData();
+      var id_dependencia = $("#id_dependencia").val();
+      //console.log(id_dependencia);
       dataForm.append('id_descripcion',id_descripcion);
+      dataForm.append('id_dependencia',id_dependencia);
       $.ajax({
         url :'/usuarios/trae_usuario',
         data : dataForm,
@@ -327,12 +331,14 @@
             $("#clave_puesto").text(json['descripcion'][0]['CLAVE_DES']);
             $("#ClaveUsr").val(json['descripcion'][0]['CLAVE_DES']);
             $("#nivelUsr").val(json['descripcion'][0]['NIVEL_DES']);
+
+            
             //var id_usr = $("#ClaveUsr").val();
             //alert(id_usr);
           }
-          //console.log(json['usuario'].length);
+          //console.log("Tamaño de usuarios: "+json['usuario'].length);
           //si existe el usuario entonces se autollena y se muestra el boton de guardar
-          if(json['usuario'].length != 0){
+          if(json['usuario'].length > 0){
             $("#pass_puesto").text(json['cuenta'][0]['CONTRASENA_LOGIN']);
             //$("#Encargado_usr").val("ALGUIEN");
             $("#Encargado_usr").val(json['usuario'][0]['RESPONSABLE_USUARIO']);
@@ -343,6 +349,11 @@
             $("#Encargado_usr").val("");
             $("#crearUsr").show();
             $("#editarUsr").hide();
+            if(json['descripcion'][0]['NIVEL_DES']=="TITULAR"){
+              $("#Encargado_usr").val(json['titular']);
+              //console.log(json['descripcion'][0]['NIVEL_DES']);
+              //console.log("titular");
+            }
           }
         },
         error : function(xhr, status) {
