@@ -95,6 +95,8 @@
             $existe = false;
             $usuario = null;
             $id_descripcion = $request['id_descripcion'];
+            $id_dependencia = $request['id_dependencia'];
+            $titular = null;
             //dd($id_descripcion);
             $descripcion = DB::table('DP_DESCRIPCIONES')
                 ->select(
@@ -118,6 +120,15 @@
                     'USUARIOS_NOMBRE_RESPONSABLE as RESPONSABLE_USUARIO'
 
                 )->get();
+                //dd($id_dependencia);
+                if(strcmp($descripcion[0]->NIVEL_DES, "TITULAR")==0){
+                    $titular = DB::table('DP_DEPENDENCIAS')
+                    ->where('DEPENDENCIAS_ID',$id_dependencia)
+                    ->select(
+                        'DEPENDENCIAS_NOM_TITULAR as TITULAR_DEPENDENCIA'
+                    )->get();
+                    $titular = $titular[0]->TITULAR_DEPENDENCIA;
+                }//*/
                 //dd($usuario);
                 if(count($usuario)>0){
                     $existe = true;
@@ -132,7 +143,8 @@
                 "existe" => $existe,
                 "descripcion" => $descripcion,
                 "usuario" => $usuario,
-                "cuenta" => $cuenta
+                "cuenta" => $cuenta,
+                "titular" => $titular
               );
 
             echo json_encode($data);

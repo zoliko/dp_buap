@@ -55,6 +55,7 @@ Route::post('/descripciones/actualizar', 'DescripcionesPuestosController@actuali
 Route::post('/descripciones/trae_descripcion' , 'DescripcionesPuestosController@traeDetalleDescripcion');
 Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abrirdescripcion');
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
+Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 
 //dependencias
 Route::get('/dependencias', function () {
@@ -74,3 +75,6 @@ Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
 Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
 Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
+
+
+Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');

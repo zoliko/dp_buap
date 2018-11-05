@@ -265,8 +265,22 @@
               );
 
             echo json_encode($data);
-
-
         }
+
+        public function marcarRevisionFutura(Request $request){
+            $id_descripcion = $request['id_descripcion'];
+            $estatus = $request['estatus_revision'];
+            $exito = false;
+            //dd($estatus);
+            $exito = DB::table('DP_DESCRIPCIONES')
+            ->where('DESCRIPCIONES_ID', $id_descripcion)
+            ->update(['DESCRIPCIONES_FUTURA_REVISION' => $estatus]);
+            $data = array(
+                "exito" => $exito
+            );
+            echo json_encode($data);
+        }
+
+        
 
     }
