@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelOficioDescripcionTable extends Migration
+class CreateRelArchivosDependenciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateRelOficioDescripcionTable extends Migration
      */
     public function up()
     {
-        Schema::create('REL_OFICIO_DESCRIPCION', function (Blueprint $table) {
+        Schema::create('REL_ARCHIVOS_DEPENDENCIAS', function (Blueprint $table) {
             $table->unsignedInteger('FK_ARCHIVO');
             $table->foreign('FK_ARCHIVO')->references('ARCHIVOS_ID')->on('DP_ARCHIVOS');
 
-            $table->unsignedInteger('FK_DESCRIPCION');
-            $table->foreign('FK_DESCRIPCION')->references('DESCRIPCIONES_ID')->on('DP_DESCRIPCIONES');
+            $table->unsignedInteger('FK_DEPENDENCIA');
+            $table->foreign('FK_DEPENDENCIA')->references('DEPENDENCIAS_ID')->on('DP_DEPENDENCIAS');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateRelOficioDescripcionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('REL_OFICIO_DESCRIPCION');
+        Schema::dropIfExists('REL_ARCHIVOS_DEPENDENCIAS');
     }
 }

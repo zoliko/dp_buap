@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
+    <link rel="icon" href="{{asset('favico.ico')}}" type="image/ico" />
+    <title>404 - Página no encontrada</title>
 
     <!-- Bootstrap -->
     <link href="{{asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -28,10 +28,10 @@
           <div class="col-middle">
             <div class="text-center text-center">
               <h1 class="error-number">404</h1>
-              <h2>Sorry but we couldn't find this page</h2>
-              <p>This page you are looking for does not exist <a href="#">Report this?</a>
-              </p>
-              <div class="mid_center">
+              <h2>Lo sentimos pero no pudimos encontrar esta página.</h2>
+              <p>Esta página que está buscando no esxiste.</p>
+              <p>Si el problema persiste, favor de reportarlo a la extensión 5897 de Recursos Humanos.</p>
+              <!--<div class="mid_center">
                 <h3>Search</h3>
                 <form>
                   <div class="col-xs-12 form-group pull-right top_search">
@@ -43,7 +43,7 @@
                     </div>
                   </div>
                 </form>
-              </div>
+              </div>-->
             </div>
           </div>
         </div>
