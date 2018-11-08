@@ -78,3 +78,6 @@ Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuari
 
 
 Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');
+Route::post('/archivos/trae/dependencia' , 'ArchivosController@TraerArchivosDependencia');
+Route::get('/archivos/descargar/{carpeta}/{nombre}' , 'ArchivosController@descargarArchivo');
+Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependencia');

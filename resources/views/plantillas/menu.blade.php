@@ -12,6 +12,8 @@
 
     <!-- Bootstrap -->
     
+    <!--Imagenes-->
+    <link href="{{asset('css/estilo_imagen.css')}}" rel="stylesheet">
     <!--<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">-->
     <link href="{{asset('vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->

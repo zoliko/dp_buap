@@ -15,7 +15,9 @@ class CreateArchivosTable extends Migration
     {
         Schema::create('DP_ARCHIVOS', function (Blueprint $table) {
             $table->increments('ARCHIVOS_ID');
+            $table->string('ARCHIVOS_NOMBRE');
             $table->string('ARCHIVOS_RUTA',1000);
+            //$table->enum('ARCHIVOS_TIPO',['ORGANIGRAMA','OFICIO'])->nullable();
             $table->timestamps();
         });
     }
