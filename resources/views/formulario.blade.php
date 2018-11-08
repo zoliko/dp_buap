@@ -14,7 +14,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><i class="fa fa-bars"></i> "Puesto" <small>Descripcion de puestos</small></h2>
+                    <h2><i class="fa fa-bars"></i> "Puesto" <small>Descripción de puestos</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -42,7 +42,7 @@
                         </li>
                         <li><a href="#Actividad" data-toggle="tab">Actividades</a>
                         </li>
-                        <li><a href="#Relacion" data-toggle="tab">Relaciones Criticas</a>
+                        <li><a href="#Relacion" data-toggle="tab">Relaciones Críticas</a>
                         </li>
                         <li><a href="#Perfil" data-toggle="tab">Perfil del Puesto</a>
                         </li>
@@ -57,7 +57,7 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Informacion General y Porposito General del puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">Información General y Proposito General del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
                          
                       <div class="x_panel">
                           <div class="x_content">
@@ -114,7 +114,7 @@
                           </div>
 
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revision: </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revisión: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
@@ -216,7 +216,7 @@
 
                         </div>
                         <div class="tab-pane" id="Perfil">
-                          <p class="lead">FORMACION PROFESIONAL Y EXPERIENCIA <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">FORMACIÓN PROFESIONAL Y EXPERIENCIA <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
                           <i class="fas fa-comment-lines"></i>
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
