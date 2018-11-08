@@ -183,8 +183,6 @@
     }
 
     function guardaArchivo(curFiles){
-
-            
       if(curFiles[0].size > 2000000){
         $("#textoModalMensaje").text('El archivo debe pesar máximo 2MB');
         $("#modalMensaje").modal();
@@ -201,6 +199,8 @@
         dataForm.append('carpeta','dependencias');
         //en esta función recibimos lo que salió del ajax y lo almacenamos en success
         //también contiene lo que haría el success
+        //var consecutivo = listadoArchivos['archivos'].length;
+        //alert(consecutivo);
         metodoAjax(url,dataForm,function(success){
           //console.log(success);
           if(success['error']){
@@ -211,7 +211,8 @@
             var id_archivo = success['ID_ARCHIVO'];
             var url_archivo = success['URL_ARCHIVO'];
             var ruta_archivo = success['RUTA_ARCHIVO'];
-            var acciones = "BOTONES";
+            var consecutivo = listadoArchivos['archivos'].length;
+            var acciones = creaAccionesArchivo(id_archivo,archivo,consecutivo);
             $("#cuerpoTablaArchivos").append(
               "<tr id='tr_archivo_"+id_archivo+"'>"+
                 "<td id='nombre_"+id_archivo+"'>"+
@@ -221,7 +222,7 @@
                   acciones+
                 "</td>"+
               "</tr>"
-            );//*/
+            );
             var arr_archivos = {
               "ID_ARCHIVO":id_archivo,
               "NOMBRE_ARCHIVO":archivo,
@@ -229,9 +230,9 @@
               "URL_ARCHIVO":url_archivo
             };
             listadoArchivos['archivos'].push(arr_archivos);
-            console.log(listadoArchivos);
+            //console.log(listadoArchivos);
           }
-        });
+        });//*/
       }//*/
     }
 
@@ -280,28 +281,6 @@
           var nombre_archivo = success['archivos'][i]['NOMBRE_ARCHIVO'];
           //var ext = [".png",".PNG",".jpg",".JPG",".jpeg" ,".JPEG"];
           acciones = creaAccionesArchivo(id_archivo,nombre_archivo,i);
-
-          /*for(var j = 0; j<ext.length; j++){
-            if(nombre_archivo.includes(ext[j])){
-              //console.log(j + " " + nombre_archivo + " tiene " + ext[j]);
-              acciones = acciones + '<button type="button" class="btn btn-default btn-xs" onclick="verImagen('+id_archivo+','+i+')">'+
-                            '<span class="glyphicon glyphicon-picture" aria-hidden="true"></span>'+
-                          '</button>';
-              j=acciones.length;
-            }
-          }
-          if(nombre_archivo.includes(".PDF") || nombre_archivo.includes(".pdf")){
-              //console.log(j + " " + nombre_archivo + " tiene " + ext[j]);
-              acciones = acciones + '<button type="button" class="btn btn-default btn-xs" onclick="abrirPdf('+id_archivo+','+i+')">'+
-                            '<span class="fa fa-file-pdf-o" aria-hidden="true"></span>'+
-                          '</button>';
-            }
-          acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" onclick="descargarArchivo('+id_archivo+','+i+')">'+
-                            '<span class="glyphicon glyphicon-download" aria-hidden="true"></span>'+
-                          '</button>';//
-          acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" onclick="decisionEliminar('+id_archivo+','+i+')">'+
-                            '<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>'+
-                          '</button>';//*/
           $("#cuerpoTablaArchivos").append(
               "<tr id='tr_archivo_"+id_archivo+"'>"+
                 "<td id='nombre_"+id_archivo+"'>"+
@@ -316,7 +295,7 @@
         }//*/
         $("#idDependencia").val(id_dependencia);
         $("#modalListadoArchivos").modal();
-        console.log(listadoArchivos);
+        //console.log(listadoArchivos);
       });
 
     }
@@ -350,13 +329,12 @@
     }
 
     function decisionEliminar(id_archivo,indice){
-      /*$("#areaBotones").html(        
+      $("#areaBotones").html(        
           '<button type="button" class="btn btn-danger" onclick="eliminarArchivo('+id_archivo+","+indice+')">Eliminar</button>'+
-          '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>'
+          '<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>'
         );
       $("#modalDecideEliminar").modal();//*/
 
-      $("#tr_archivo_"+id_archivo).remove();
     }
     
     function eliminarArchivo(id_archivo,indice){
@@ -370,7 +348,8 @@
       dataForm.append('ruta_archivo',ruta_archivo);
       //lamando al metodo ajax
       metodoAjax(url,dataForm,function(success){
-
+        $("#tr_archivo_"+id_archivo).remove();
+        $("#modalDecideEliminar").modal('hide');
       });
     }
     //-----------------------------------------------------------------------

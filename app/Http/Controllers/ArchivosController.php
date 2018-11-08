@@ -23,7 +23,14 @@
             $nombreArchivo = $request->archivo->getClientOriginalName();
             $nuevoNombre = $request['identificador'].'_'.$nombreArchivo;
             $pathArchivo = 'public/'.$request['carpeta'].'/'.$nuevoNombre;
-
+            $i = 1;
+            while(Storage::exists($pathArchivo)) {
+                $nuevoNombre = $i."_".$nombreArchivo;
+                $i++;
+                $nuevoNombre = $request['identificador'].'_'.$nuevoNombre;
+                $pathArchivo = 'public/'.$request['carpeta'].'/'.$nuevoNombre;
+                //dd($nuevoNombre);
+            }
             if(Storage::exists($pathArchivo)){
                 $error = 'El archivo ya está almacenado en el sistema';
             }else{
