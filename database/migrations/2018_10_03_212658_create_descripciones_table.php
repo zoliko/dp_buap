@@ -24,9 +24,11 @@ class CreateDescripcionesTable extends Migration
             $table->date('DESCRIPCIONES_FECHA_CREACION');
             $table->date('DESCRIPCIONES_FECHA_REVISION')->nullable();
             $table->integer('DESCRIPCIONES_N_REVISION');
+            $table->enum('DESCRIPCIONES_NIVEL',['TITULAR','SUBDIRECTOR','JEFE_DEPARTAMENTO','SUBJEFE_DEPARTAMENTO','COORDINADOR','GESTOR','PROFESIONAL','ESPECIALISTA','TECNICO','AUXILIAR']);
             $table->integer('DESCRIPCIONES_REPORTAN_DIRECTOS');
             $table->integer('DESCRIPCIONES_REPORTAN_INDIRECTOS');
             $table->enum('DESCRIPCIONES_ESTATUS_GRAL',['ELABORACION','REVISION','REVISADO','AUTORIZADO']);
+            $table->integer('DESCRIPCIONES_FUTURA_REVISION')->nullable();
         });
     }
 

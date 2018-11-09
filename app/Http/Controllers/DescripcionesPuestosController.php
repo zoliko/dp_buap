@@ -32,7 +32,8 @@
                     'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
                     )
                 ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
-                $descripciones[] = $descripcion[0];
+                //if(count($descripcion)>0)
+                    $descripciones[] = $descripcion[0];
                 //dd($id_descripcion->FK_DESCRIPCION);
             }
 
@@ -127,9 +128,11 @@
                 'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
                 'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
                 'DESCRIPCIONES_N_REVISION as N_REVISION_DESC',
+                'DESCRIPCIONES_NIVEL  as NIVEL_DESC',
                 'DESCRIPCIONES_REPORTAN_DIRECTOS as DIRECTOS_DESC',
                 'DESCRIPCIONES_REPORTAN_INDIRECTOS as INDIRECTOS_DESC',
-                'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                'DESCRIPCIONES_FUTURA_REVISION as REV_FUTURA_DESC'
                 )
             ->where('DESCRIPCIONES_ID',$id_descripcion)->get();//*/
             //dd($descripcion);
@@ -151,6 +154,7 @@
             $id_dependencia = $request['id_dependencia'];
             $dtp = $request['dtp'];
             $clave = $request['clave'];
+            $nivel = $request['nivel'];
             $rep_directos = $request['rep_directos'];
             $rep_indirectos = $request['rep_indirectos'];
             //dd($id_dependencia);
@@ -165,6 +169,7 @@
                     'DESCRIPCIONES_FECHA_CREACION' => date('Y-m-d'), 
                     //'DESCRIPCIONES_FECHA_REVISION' => date('Y-m-d'), 
                     'DESCRIPCIONES_N_REVISION' => 1, 
+                    'DESCRIPCIONES_NIVEL' => $nivel, 
                     'DESCRIPCIONES_REPORTAN_DIRECTOS' => $rep_directos, 
                     'DESCRIPCIONES_REPORTAN_INDIRECTOS' => $rep_indirectos,
                     'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION'
@@ -260,11 +265,21 @@
               );
 
             echo json_encode($data);
-
-
         }
 
-
+        public function marcarRevisionFutura(Request $request){
+            $id_descripcion = $request['id_descripcion'];
+            $estatus = $request['estatus_revision'];
+            $exito = false;
+            //dd($estatus);
+            $exito = DB::table('DP_DESCRIPCIONES')
+            ->where('DESCRIPCIONES_ID', $id_descripcion)
+            ->update(['DESCRIPCIONES_FUTURA_REVISION' => $estatus]);
+            $data = array(
+                "exito" => $exito
+            );
+            echo json_encode($data);
+        }
 
         public function guardarActividad(Request $request){
             $exito=false;
@@ -295,5 +310,6 @@
 
 
         }
+
 
     }

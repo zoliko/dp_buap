@@ -58,6 +58,7 @@
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
                           <p class="lead">Información General y Proposito General del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+
                          
                       <div class="x_panel">
                           <div class="x_content">

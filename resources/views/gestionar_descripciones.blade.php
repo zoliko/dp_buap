@@ -105,6 +105,28 @@
 
             </div>
 
+            <div class="form-group">
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nivel: <span class="required">*</span>
+              </label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <select id="selectNivel" class="form-control" onchange="armarClave()">
+                  <option value="false">------</option>
+                  <option value="TITULAR">TITULAR</option>
+                  <option value="SUBDIRECTOR">SUBDIRECTOR/A</option>
+                  <option value="JEFE_DEPARTAMENTO">JEFE/A DE DEPARTAMENTO</option>
+                  <option value="SUBJEFE_DEPARTAMENTO">SUBJEFE/A DE DEPARTAMENTO</option>
+                  <option value="COORDINADOR">COORDINADOR/A</option>
+                  <option value="GESTOR">GESTOR/A</option>
+                  <option value="PROFESIONAL">PROFESIONAL</option>
+                  <option value="ESPECIALISTA">ESPECIALISTA</option>
+                  <option value="TECNICO">TÉCNICO</option>
+                  <option value="AUXILIAR">AUXILIAR</option>
+                </select>
+              </div>
+
+            </div>
+
             <h4 class="modal-title" id="exampleModalLongTitle" align="center">Personas que le reportan</h4><br>
 
             <div class="form-group">
@@ -124,8 +146,18 @@
 
         </div>
         <div class="modal-footer">
+          <button id="MarcarRevision" type="button" class="btn btn-warning btn-md pull-left" data-toggle="tooltip" data-placement="right" title="DESMARCAR FUTURA REVISIÓN" onclick="futuraRevision(0)">
+            <span class="glyphicon glyphicon-check" aria-hidden="true"></span>
+          </button>
+
+          <button id="DesmarcarRevision" type="button" class="btn btn-warning btn-md pull-left" data-toggle="tooltip" data-placement="right" title="MARCAR FUTURA REVISIÓN" onclick="futuraRevision(1)">
+            <span class="glyphicon glyphicon-unchecked" aria-hidden="true"></span>
+          </button>
+
           <input type="number" id="edicionIdDP" value="" hidden="hidden">
+
           <button type="button" class="btn btn-primary" onclick="editarDP()"  id="editarDP">Guardar</button>
+
           <button type="button" class="btn btn-primary" onclick="registrarDP()" id="registrarDP">Crear</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
@@ -221,23 +253,57 @@
     var estatusEdicion = false;
 
     $(window).load(function () {
-      //console.log(descripciones);
-        // run code
-        //traeDescripciones();
         $("#nombre_dependencia").text(dependencia);
         llenaDescripciones();
-        //autollenado();
-        /*var des = {
-          "CLAVE_DESC":"objDescripcion.clave",
-          "ESTATUS_DESC":"ELABORACIÓN",
-          "ID_DESC":"json['id_descripcion']",
-          "NOM_DESC":"objDescripcion.puesto",
-          "REVISION_DESC":1
-        };
-        descripciones.push(des);
-        console.log(descripciones); //*/
-        //$("#modalDetalleDP").modal();
-        //obtenerIniciales(dependencia);
+        autollenado();
+    });
+
+    function futuraRevision(fl_revision){
+      //console.log(fl_revision);
+      var id_descripcion = $("#edicionIdDP").val();
+      console.log(id_descripcion);
+      var dataForm = new FormData();
+      dataForm.append('estatus_revision',fl_revision);
+      dataForm.append('id_descripcion',id_descripcion);
+      $.ajax({
+        url :'/descripciones/marcarRevisionFutura',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+          if(json['exito']==1){
+            if(fl_revision==0){
+              $("#MarcarRevision").hide();//revision a futuro
+              $("#DesmarcarRevision").show();//revision a futuro
+            }else{
+              $("#MarcarRevision").show();//revision a futuro
+              $("#DesmarcarRevision").hide();//revision a futuro
+            }
+          }
+          
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema al traer la información');
+          $("#modalMensaje").modal();
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
+
+    }
+    //inicializando tooltips
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
     });
 
     function archivos(){
@@ -365,6 +431,7 @@
             $("#Nuevo_Reporta_a").val(json['descripcion']['REPORTA_A_DESC']);
             $("#Nuevo_Area").val(json['descripcion']['AREA_DESC']);
             $("#selectDescripcion").val(((json['descripcion']['DTP_DESC'] == "PUESTO")?"DP":"DT"));
+            $("#selectNivel").val(json['descripcion']['NIVEL_DESC']);
             $("#rep_directos").val(json['descripcion']['DIRECTOS_DESC']);
             $("#rep_indirectos").val(json['descripcion']['INDIRECTOS_DESC']);
             $("#Nuevo_Direccion").val(dependencia);
@@ -374,6 +441,14 @@
             //---------------------------------------------------
             $("#registrarDP").hide();
             $("#editarDP").show();
+            if(json['descripcion']['REV_FUTURA_DESC']=='1'){
+              $("#MarcarRevision").show();//revision a futuro
+              $("#DesmarcarRevision").hide();//revision a futuro
+            }else{
+              $("#MarcarRevision").hide();//revision a futuro
+              $("#DesmarcarRevision").show();//revision a futuro
+
+            }
             $("#tituloModalDP").text("Editar descripción de puesto");
             $("#modalNuevaDP").modal();
           }
@@ -394,6 +469,7 @@
       //alert("Llenado");
       //console.log(descripciones);
       for(var i=0;i<descripciones.length;i++){
+        console.log(PuestoConsecutivo);
         var id_des = descripciones[i]['ID_DESC'];
         $("#cuerpoTablaListado").append(
             "<tr>"+
@@ -412,15 +488,16 @@
                 '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" id="btnAbrir_'+id_des+'" onclick="verCompleto('+id_des+')">'+
                   '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
                 '</button>'+
-                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
-                  '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnArchivos_'+id_des+'" onclick="archivos('+id_des+')">'+
+                  '<span class="glyphicon glyphicon-file" aria-hidden="true" ></span>'+
                 '</button>'+
               "</td>"+
             "</tr>"
           );
         $("#btnVer_"+id_des).tooltip('fixTitle');
         $("#btnAbrir_"+id_des).tooltip('fixTitle');
-        $("#btnEditar_"+id_des).tooltip('fixTitle');
+        $("#btnEditar_"+id_des).tooltip('fixTitle');//*/
+        $("#btnArchivos_"+id_des).tooltip('fixTitle');//*/
         PuestoConsecutivo++;
       }
         $('#tablaListado').DataTable({
@@ -524,6 +601,14 @@
       $("#rep_directos").val("5");
       $("#rep_indirectos").val("8");
     }
+    function limpiarModalRegistro(){
+      $("#Nuevo_Nombre_Puesto").val("");
+      $("#Nuevo_Reporta_a").val("");
+      $("#Nuevo_Area").val("");
+      $("#selectDescripcion").val("");
+      $("#rep_directos").val("");
+      $("#rep_indirectos").val("");
+    }
 
     function obtenerIniciales(cadena){
       var omitir = ['DE','Y','LA','E'];
@@ -563,25 +648,31 @@
     function nuevaDescripcion(){
       //alert("Epale");
       estatusEdicion = false;
+      limpiarModalRegistro();
       $("#registrarDP").show();
       $("#editarDP").hide();
       $("#tituloModalDP").text("Registrar descripción de puesto");
       armarClave();
+      $("#MarcarRevision").hide();//revision a futuro
+      $("#DesmarcarRevision").hide();//revision a futuro
       $("#Nuevo_Direccion").val(dependencia);
       $("#modalNuevaDP").modal();
     }
 
     function registrarDP(){
       var objDescripcion = new Object();
-      objDescripcion.puesto = $("#Nuevo_Nombre_Puesto").val();
-      objDescripcion.reporta_a = $("#Nuevo_Reporta_a").val();
-      objDescripcion.area = $("#Nuevo_Area").val();
+      objDescripcion.puesto = ($("#Nuevo_Nombre_Puesto").val()).toUpperCase();
+      objDescripcion.reporta_a = ($("#Nuevo_Reporta_a").val()).toUpperCase();
+      objDescripcion.area = ($("#Nuevo_Area").val()).toUpperCase();
       objDescripcion.direccion = dependencia;
       objDescripcion.dtp = $("#selectDescripcion").val();
       objDescripcion.clave = $("#clave_puesto").text();
       objDescripcion.rep_directos = $("#rep_directos").val();
       objDescripcion.rep_indirectos = $("#rep_indirectos").val();
-
+      objDescripcion.nivel = $("#selectNivel").val();
+      /*console.log(objDescripcion.puesto);
+      console.log(objDescripcion.reporta_a);
+      console.log(objDescripcion.area);//*/
       //if(puesto!="" && reporta_a != "" && area != "" && dtp != "ninguno" && )
       if(objDescripcion.puesto==""){
         $("#textoModalMensaje").text('Debe registrar el puesto');
@@ -594,6 +685,9 @@
         $("#modalMensaje").modal();
       }else if(objDescripcion.dtp == "ninguno"){
         $("#textoModalMensaje").text('Debe indicar si es "Descripción Puesto" o "Descripción Tipo"');
+        $("#modalMensaje").modal();
+      }else if(objDescripcion.nivel == "false"){
+        $("#textoModalMensaje").text('Debe indicar el nivel');
         $("#modalMensaje").modal();
       }else if(objDescripcion.rep_directos == ""){
         $("#textoModalMensaje").text('Debe registrar el número de personas directas que le reportan, en caso contrario ingresar 0');
@@ -610,6 +704,7 @@
         dataForm.append('id_dependencia',id_dependencia);
         dataForm.append('dtp',objDescripcion.dtp);
         dataForm.append('clave',objDescripcion.clave);
+        dataForm.append('nivel',objDescripcion.nivel);
         dataForm.append('rep_directos',objDescripcion.rep_directos);
         dataForm.append('rep_indirectos',objDescripcion.rep_indirectos);
         ajaxRegistrarDP(dataForm, objDescripcion);
@@ -636,6 +731,7 @@
           if(json['exito']){
             var id_des = json['id_descripcion'];
             PuestoConsecutivo++;
+            console.log(PuestoConsecutivo);
             var des = {
               "CLAVE_DESC":objDescripcion.clave,
               "ESTATUS_DESC":"ELABORACIÓN",
@@ -665,6 +761,7 @@
     function recargarListado(){
       $("#tablaListado").DataTable().destroy();
       $("#cuerpoTablaListado").empty();
+      PuestoConsecutivo = 1;
       llenaDescripciones();
     }
   </script>

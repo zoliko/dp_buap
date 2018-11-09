@@ -55,7 +55,11 @@ Route::post('/descripciones/actualizar', 'DescripcionesPuestosController@actuali
 Route::post('/descripciones/trae_descripcion' , 'DescripcionesPuestosController@traeDetalleDescripcion');
 Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abrirdescripcion');
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
+
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
+
+Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
+
 
 //dependencias
 Route::get('/dependencias', function () {
@@ -72,5 +76,12 @@ Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenc
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
 //gestion de usuarios
 Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
-Route::get('/usuarios' , 'GestionUsuariosController@traeUsuarios');
+Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
+Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
+Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
 
+
+Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');
+Route::post('/archivos/trae/dependencia' , 'ArchivosController@TraerArchivosDependencia');
+Route::get('/archivos/descargar/{carpeta}/{nombre}' , 'ArchivosController@descargarArchivo');
+Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependencia');
