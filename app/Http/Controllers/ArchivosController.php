@@ -17,6 +17,7 @@
          */
 
         public function subirArchivos(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             //dd($request);
             $error=null;
             $idArchivo=null;
@@ -42,7 +43,8 @@
                 //registro del archivo a la base de datos
                 $idArchivo = DB::table('DP_ARCHIVOS')->insertGetId([
                     'ARCHIVOS_NOMBRE' => $nuevoNombre,
-                    'ARCHIVOS_RUTA' => $pathArchivo
+                    'ARCHIVOS_RUTA' => $pathArchivo,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]);//*/
 
                 //registrando relacion con la tabla
@@ -114,18 +116,18 @@
         }
 
         public function eliminarArchivoDependencia(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $id_archivo = $request['id_archivo'];
             $ruta_archivo = $request['ruta_archivo'];
             $error = null;
             //dd($ruta_archivo);
             if(Storage::exists($ruta_archivo)){
                 DB::table('REL_ARCHIVOS_DEPENDENCIAS')
-                ->where('FK_ARCHIVO', $id_archivo)
-                ->delete();
-                /*DB::table('DP_ARCHIVOS')
-                ->where('ARCHIVOS_ID', $id_archivo)
-                ->delete();
-                Storage::delete($ruta_archivo);//*/
+                    ->where('FK_ARCHIVO', $id_archivo)
+                    ->delete();//*/
+                DB::table('DP_ARCHIVOS')
+                    ->where('ARCHIVOS_ID', $id_archivo)
+                    ->update(['updated_at' => date('Y-m-d H:i:s')]);
             }else{
                 $error = "El archivo no existe o ya fué eliminado por otra persona";
             }

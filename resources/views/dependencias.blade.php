@@ -96,7 +96,7 @@
         <div class="modal-footer">
           <input type="number" id="idDependencia" value="" hidden="hidden">
           <!-- input que contiene el archivo, esta oculto -->
-          <input type="file" id="inputSubirArchivo" name="" style="display: none;" onchange="cambioArchivo(this)" onclick="limpiarInput(this)">
+          <input type="file" id="inputSubirArchivo" name="" style="display: none;" onchange="cambioArchivo(this)" onclick="limpiarInput(this)" accept="image/*,application/pdf">
           <!-- boton que solo ejecuta un click en el input file -->
           <button type="button" class="btn btn-success" id="btnSubirArchivo" onclick="inputArchivo()">Subir Archivos</button>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -354,7 +354,7 @@
     }
     //-----------------------------------------------------------------------
 
-    //señor metodo maestro ajax
+    /*//señor metodo maestro ajax
     function metodoAjax(url,dataForm,callback){
       var resultado = null;
       
@@ -382,8 +382,8 @@
         complete : function(xhr, status){
            $("#modalCarga").modal('hide');
         }
-      });//*/
-    }
+      });//
+    }//*/
 
     function traeDependencias(){
       //alert("EPALE");
