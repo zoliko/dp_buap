@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Nueva Dependencia')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Registrar dependencia')
 
 @section('content')

@@ -79,8 +79,17 @@
             echo json_encode($data);//*/
         }
 
+
+        //este metodo trae todas las descripciones que le corresponden a la dependencia y que tiene autorizado en caso de que sea un encargado
         public function traeTodasDescripciones(){
             $userLog = true;
+            //if(\Session::get('categoria')[0],'FACILITADOR')
+            $usuario = \Session::get('usuario')[0];
+            $dependencia = DB::table('REL_USUARIO_DEPENDENCIA')
+                ->select('FK_DEPENDENCIA')
+                ->where('FK_USUARIO',$usuario)
+                ->get();
+            //dd($dependencia[0]);                                
             if($userLog){
                 $descripciones = array();
                 

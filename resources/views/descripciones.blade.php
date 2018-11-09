@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Descripciones')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Listado de descripciones de puestos')
 
 @section('content')
@@ -157,9 +156,9 @@
               '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" id="btnAbrir_'+id_des+'" onclick="verCompleto('+id_des+')">'+
                 '<span class="glyphicon glyphicon-new-window" aria-hidden="true" ></span>'+
               '</button>'+
-              '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
+              /*'<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnAbrir_'+id_des+'" onclick="archivos('+id_des+')">'+
                 '<span class="glyphicon glyphicon-upload" aria-hidden="true" ></span>'+
-              '</button>'+
+              '</button>'+//*/
             "</td>"+
           "</tr>"
         );

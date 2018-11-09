@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Usuarios')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Gestión de usuarios')
 
 @section('content')

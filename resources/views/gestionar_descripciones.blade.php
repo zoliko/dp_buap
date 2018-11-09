@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Gestionar Descripciones')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Gestion de descripciones de puestos')
 
 @section('content')

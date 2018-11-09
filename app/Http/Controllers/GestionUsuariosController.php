@@ -34,6 +34,49 @@
             return view('usuarios_facilitadores');
         }
 
+        public function crearFacilitador(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $usuario = $request['usuario'];
+            $nombre = $request['nombre'];
+            $tipo = $request['tipo_usuario'];
+            //dd($usuario);
+            $password = null;
+            $exito = false;
+            $error = "";
+            $existe = DB::table('DP_LOGIN')
+                        ->where('LOGIN_USUARIO', $usuario)->get();
+            //dd($existe);
+            if(count($existe)>0){
+                $error="El usuario ya fué registrado anteriormente.";
+                //dd("El usuario ya está registrado");
+            }else{
+                $password = GestionUsuariosController::randomPassword();
+                DB::table('DP_LOGIN')->insert(
+                    [
+                        'LOGIN_USUARIO' => $usuario, 
+                        'LOGIN_CONTRASENA' => $password,
+                        'LOGIN_CATEGORIA' => $tipo,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+                DB::table('DP_USUARIOS')->insert(
+                    [
+                        'USUARIOS_USUARIO' => $usuario, 
+                        'USUARIOS_NOMBRE_RESPONSABLE' => $nombre,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+
+             $data = array(
+                    "contrasena" => $password,
+                    "error" => $error
+                  );
+
+            echo json_encode($data);
+
+        }
+
         public function traeUsuarios(){
 
         }
@@ -46,18 +89,22 @@
             $usuario = "";
             $existe = DB::table('DP_LOGIN')->where(['LOGIN_USUARIO'=> $usr, 'LOGIN_CONTRASENA' => $contrasena])->get();
             if(count($existe)>0){
+                $n_usuario = DB::table('DP_USUARIOS')->where('USUARIOS_USUARIO', $usr)->get();
                 $fl = true;
                 //$usuario = $existe[0]->LOGIN_USUARIO;
                 if(\Session::get('usuario')!=null){
                     \Session::forget('usuario');
                     \Session::forget('categoria');
+                    \Session::forget('nombre');
                 }
                 \Session::push('usuario',$existe[0]->LOGIN_USUARIO);
                 \Session::push('categoria',$existe[0]->LOGIN_CATEGORIA);
+                \Session::push('nombre',$n_usuario[0]->USUARIOS_NOMBRE_RESPONSABLE);
             }
             $data = array(
                 "usuario"=>\Session::get('usuario')[0],
                 "categoria"=>\Session::get('categoria')[0],
+                "nombre"=>\Session::get('nombre')[0],
                 "exito" => $fl
               );
 

@@ -75,6 +75,7 @@ Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
 Route::get('/usuarios/facilitador' , 'GestionUsuariosController@vistaCrearFacilitadores');
 Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
 Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
+Route::post('/usuarios/crear/facilitador' , 'GestionUsuariosController@crearFacilitador');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
 
 
