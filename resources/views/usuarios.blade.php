@@ -284,6 +284,8 @@
         success : function(json){
 
           $("#pass_puesto").text(json['contrasena']);
+            $("#crearUsr").hide();
+            $("#editarUsr").show();
           
         },
         error : function(xhr, status) {
@@ -303,7 +305,7 @@
 
   function cambioPuesto(){
     var id_descripcion = $("#selectPuestos option:selected").val();
-
+    //$("#Encargado_usr").val("");
     //console.log(typeof id_descripcion);
     //console.log(id_descripcion);
     if(id_descripcion!="false"){

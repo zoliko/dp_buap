@@ -47,7 +47,7 @@
                 <input type="password" class="form-control" placeholder="Contraseña" id="pass" />
               </div>
               <div>
-                <a class="btn btn-default submit" onclick="login2()">Ingresar</a>
+                <a class="btn btn-default submit" onclick="login()">Ingresar</a>
               </div>
             </form>
           </section>
@@ -107,7 +107,7 @@
             //$("#modalCarga").modal();
           },
           success : function(json){
-            console.log(json);
+            //console.log(json);
             if(!json['exito']){
               //$("#tituloModalMensaje").text('ATENCION');
               $("#textoModalMensaje").text('Usuario o contraseña incorrecta.');
