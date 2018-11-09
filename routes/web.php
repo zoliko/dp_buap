@@ -72,6 +72,7 @@ Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenc
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
 //gestion de usuarios
 Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
+Route::get('/usuarios/facilitador' , 'GestionUsuariosController@vistaCrearFacilitadores');
 Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
 Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');

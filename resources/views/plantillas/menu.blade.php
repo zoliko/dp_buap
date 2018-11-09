@@ -184,5 +184,38 @@
   </body>
 </html>
 
+<script type="text/javascript">
+  //señor metodo maestro ajax
+    function metodoAjax(url,dataForm,callback){
+      var resultado = null;
+      
+      $.ajax({
+        url :url,
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+          //resultado = json;
+          callback(json);
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema con la operación');
+          $("#modalMensaje").modal();
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
+    }
+</script>
+
 @yield('script')
 

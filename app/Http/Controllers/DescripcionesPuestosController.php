@@ -206,7 +206,8 @@
             $clave = $request['clave'];
             $rep_directos = $request['rep_directos'];
             $rep_indirectos = $request['rep_indirectos'];
-            //dd($request);
+            $nivel = $request['nivel'];
+            //dd($nivel);
             $actualizar = DB::table('DP_DESCRIPCIONES')
             ->where('DESCRIPCIONES_ID' , $id_descripcion)
             ->update([
@@ -221,6 +222,7 @@
                     //'DESCRIPCIONES_N_REVISION' => 1, 
                     'DESCRIPCIONES_REPORTAN_DIRECTOS' => $rep_directos, 
                     'DESCRIPCIONES_REPORTAN_INDIRECTOS' => $rep_indirectos,
+                    'DESCRIPCIONES_NIVEL' => $nivel,
                     //'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION'
                 ]);
             if($actualizar){

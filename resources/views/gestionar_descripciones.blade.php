@@ -333,6 +333,7 @@
       var clave = $("#clave_puesto").text();
       var rep_directos = $("#rep_directos").val();
       var rep_indirectos = $("#rep_indirectos").val();
+      var nivel = $("#selectNivel").val();
 
       //alert("Actualizando");
 
@@ -367,6 +368,7 @@
         dataForm.append('clave',clave);
         dataForm.append('rep_directos',rep_directos);
         dataForm.append('rep_indirectos',rep_indirectos);
+        dataForm.append('nivel',nivel);
         ajaxGuardarEdicion(dataForm,id_dp,puesto,clave);
       }
     }
@@ -469,7 +471,7 @@
       //alert("Llenado");
       //console.log(descripciones);
       for(var i=0;i<descripciones.length;i++){
-        console.log(PuestoConsecutivo);
+        //console.log(PuestoConsecutivo);
         var id_des = descripciones[i]['ID_DESC'];
         $("#cuerpoTablaListado").append(
             "<tr>"+

@@ -27,11 +27,19 @@
             ]);
         }
 
+        public function vistaCrearFacilitadores(){
+            /*if(\Session::get('usuario')==null){
+                return redirect('/');
+            }//*/
+            return view('usuarios_facilitadores');
+        }
+
         public function traeUsuarios(){
 
         }
         
         public function login(Request $request){
+            //dd("epale");
             $usr = $request['usuario'];
             $contrasena = $request['contrasena'];
             $fl = false;
@@ -48,7 +56,8 @@
                 \Session::push('categoria',$existe[0]->LOGIN_CATEGORIA);
             }
             $data = array(
-                "usuario"=>\Session::get('categoria')[0],
+                "usuario"=>\Session::get('usuario')[0],
+                "categoria"=>\Session::get('categoria')[0],
                 "exito" => $fl
               );
 

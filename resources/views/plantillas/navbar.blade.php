@@ -19,7 +19,7 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  @if(strcmp(\Session::get('usuario'),'FACILITADOR')!=0)
+                  @if(strcmp(\Session::get('usuario')[0],'FACILITADOR')==0)
                   <li><a><i class="fa fa-plus-square"></i> Dependencias <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/dependencias">Listado de dependencias</a></li>
@@ -27,11 +27,13 @@
                     </ul>
                   </li>
                   @endif
+                  @if(strcmp(\Session::get('usuario')[0],'FACILITADOR')!=0)
                   <li><a><i class="fa fa-file-text"></i>Descripciones<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/descripciones">Listado de descripciones</a></li>
                     </ul>
                   </li>
+                  @endif
                   <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/usuarios">Gestionar usuarios</a></li>
