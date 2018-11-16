@@ -75,6 +75,37 @@
       </div>
     </div>
   </div>
+
+
+      <!-- modales -->
+      <!-- Modal -->
+      <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title" id="tituloModalMensaje"></h2>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h3 id="textoModalMensaje" align="center"> </h3>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Carga-->
+        <div class="modal fade" id="modalCarga" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div align="center">
+              <img src="{{ asset('images/carga3.gif') }}" class="img-rounded" alt="Cinque Terre">
+            </div>
+          </div>
+        </div>
 </html>
 
 
@@ -87,8 +118,8 @@
   function login(){
     var usuario = $("#usuario").val();
     var contrasena = $("#pass").val();
-    console.log("Usuario: "+usuario);
-    console.log("Contraseña: "+contrasena);
+    //console.log("Usuario: "+usuario);
+    //console.log("Contraseña: "+contrasena);
     //alert("EPALE");
     var dataForm = new FormData();
         dataForm.append('usuario',usuario);
@@ -104,18 +135,18 @@
           type: 'POST',
           dataType : 'json',
           beforeSend: function (){
-            //$("#modalCarga").modal();
+            $("#modalCarga").modal();
           },
           success : function(json){
             //console.log(json);
             if(!json['exito']){
-              //$("#tituloModalMensaje").text('ATENCION');
+              $("#tituloModalMensaje").text('ATENCION');
               $("#textoModalMensaje").text('Usuario o contraseña incorrecta.');
               $("#modalMensaje").modal();
             }
           },
           error : function(xhr, status) {
-            $("#contenidoMensaje").text(mensaje);
+            $("#contenidoMensaje").text("Existió un error al cargar");
             $("#modalMensaje").modal();
           },
           complete : function(xhr, status){

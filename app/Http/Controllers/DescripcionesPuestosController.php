@@ -89,7 +89,14 @@
                 ->select('FK_DEPENDENCIA')
                 ->where('FK_USUARIO',$usuario)
                 ->get();
-            //dd($dependencia[0]);                                
+            //dd($dependencia[0]);
+            $rel_descripciones =  DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                ->select('FK_DESCRIPCION')
+                ->where('FK_DEPENDENCIA',$dependencia)
+                ->get();
+
+
+            //---------------------------------------------------------------------      
             if($userLog){
                 $descripciones = array();
                 

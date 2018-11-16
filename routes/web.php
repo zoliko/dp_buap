@@ -24,8 +24,6 @@ Route::get('/', function () {
 Route::get('/revisado', function () {
    return view('revisado');
 });
-//gestion de usuarios
-Route::post('/usuarios/login' , 'GestionUsuariosController@login');
 
 Route::get('/blanco', function () {
 	if(\Session::get('usuario')==null){
@@ -77,6 +75,7 @@ Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
 Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
 Route::post('/usuarios/crear/facilitador' , 'GestionUsuariosController@crearFacilitador');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
+Route::post('/usuarios/login' , 'GestionUsuariosController@login');
 
 
 Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');

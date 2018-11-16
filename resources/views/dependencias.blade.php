@@ -58,6 +58,7 @@
             <thead>
               <tr>
                 <th>DESCRIPCION</th>
+                <th>ACCIONES</th>
               </tr>
             </thead>
             <tbody id="cuerpoTablaListado">
@@ -67,7 +68,9 @@
         <div class="modal-footer">
           <input type="number" id="listadoIdDep" value="" hidden="hidden">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Gestionar Descripciones</button>
+          @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
+            <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Gestionar Descripciones</button>
+          @endif
         </div>
       </div>
     </div>
@@ -152,7 +155,8 @@
 
 @section('script')
   <script type="text/javascript">
-
+    var categoria_usr = "<?php echo (string)\Session::get('categoria')[0]; ?>";
+    console.log("Categoría: "+categoria_usr);
     $( document ).ready(function() {
       traeDependencias();
       //$("#modalDecideEliminar").modal();
@@ -249,16 +253,18 @@
       }
       if(nombre_archivo.includes(".PDF") || nombre_archivo.includes(".pdf")){
           //console.log(j + " " + nombre_archivo + " tiene " + ext[j]);
-          acciones = acciones + '<button type="button" class="btn btn-default btn-xs" onclick="abrirPdf('+id_archivo+','+i+')">'+
+          acciones = acciones + '<button type="button" class="btn btn-default btn-xs " aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER PDF" onclick="abrirPdf('+id_archivo+','+i+')" id="btnPdf_'+id_archivo+'" >'+
                         '<span class="fa fa-file-pdf-o" aria-hidden="true"></span>'+
                       '</button>';
         }
-      acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" onclick="descargarArchivo('+id_archivo+','+i+')">'+
+      acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DESCARGAR ARCHIVO" onclick="descargarArchivo('+id_archivo+','+i+')" id="btnDescargar_'+id_archivo+'">'+
                         '<span class="glyphicon glyphicon-download" aria-hidden="true"></span>'+
                       '</button>';//*/
-      acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" onclick="decisionEliminar('+id_archivo+','+i+')">'+
+      if(categoria_usr=="FACILITADOR"){                     
+      acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ELIMINAR" onclick="decisionEliminar('+id_archivo+','+i+')" id="btnEliminar_'+id_archivo+'">'+
                         '<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>'+
                       '</button>';
+      }
       return acciones;
     }
 
@@ -290,6 +296,10 @@
                 "</td>"+
               "</tr>"
             );//*/
+          $("#btnPdf_"+(i+1)).tooltip('fixTitle');
+          $("#btnDescargar_"+(i+1)).tooltip('fixTitle');
+          $("#btnEliminar_"+(i+1)).tooltip('fixTitle');
+          console.log("#btnPdf_"+(i+1));
           //acciones = "";
         }//*/
         $("#idDependencia").val(id_dependencia);
@@ -415,8 +425,8 @@
                   '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
                     '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
                   '</button>'+
-                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="SUBIR ARCHIVO" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
-                    '<span class="glyphicon glyphicon-upload" aria-hidden="true" ></span>'+
+                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ARCHIVOS" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
+                    '<span class="glyphicon glyphicon-paperclip" aria-hidden="true" ></span>'+
                   '</button>'+
                     /*"<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
                   "</td>"+//*/
@@ -424,6 +434,7 @@
 
               );
               $("#btnVer_"+json['dependencias'][i]['ID_DEP']).tooltip('fixTitle');
+              $("#btnAbrir_"+json['dependencias'][i]['ID_DEP']).tooltip('fixTitle');
           }
           $('#tablaDatos').DataTable({
           //responsive: true,
@@ -483,16 +494,35 @@
           $("#cuerpoTablaListado").html("");
           if(json['total'] != 0){
             for(var i = 0; i<json['total'];i++){
+              var acciones = "";
+              var id_descripcion = json['descripcion'][i]['ID_DESC'];
+
+              if(categoria_usr=="DIRECTOR_DRH"){                     
+                acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="APROBAR DESCRIPCION" onclick="aprobar('+id_descripcion+')" id="btnAprobar_'+id_descripcion+'">'+
+                                  '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'+
+                                '</button>';
+              }
+              acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" onclick="abrirDescripcion('+id_descripcion+')" id="btnAbrir_'+id_descripcion+'">'+
+                  '<span class="fa fa-external-link" aria-hidden="true"></span>'+
+                '</button>';
+              acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER PDF" onclick="verPdfDesc('+id_descripcion+')" id="btnPdf_'+id_descripcion+'">'+
+                  '<span class="fa fa-file-pdf-o" aria-hidden="true"></span>'+
+                '</button>';
               $("#cuerpoTablaListado").append(
 
-                  "<tr>"+
-                    "<td id='nombre_"+json['descripcion'][i]['ID_DESC']+"'>"+json['descripcion'][i]['NOM_DESC']+"</td>"+
+                  "<tr id='"+id_descripcion+"'>"+
+                    "<td id='nombre_"+id_descripcion+"'>"+json['descripcion'][i]['NOM_DESC']+"</td>"+
+
+                    "<td id='acciones_"+id_descripcion+"'>"+acciones+"</td>"+
                   "</tr>"//*/
 
                 );
+              $("#btnAprobar_"+id_descripcion).tooltip('fixTitle');
+              $("#btnAbrir_"+id_descripcion).tooltip('fixTitle');
+              $("#btnPdf_"+id_descripcion).tooltip('fixTitle');
+            }
               $("#listadoIdDep").val(id_dependencia);
               $("#modalListado").modal();
-            }
           }else{
             $("#textoModalMensaje").html('Aún no ha creado descripciones de puestos para esta dependencia.<br><h5><u><a href="/descripciones/gestionar/'+id_dependencia+'">CREAR DESCRIPCIONES</a></u></h5>');
             $("#modalMensaje").modal();
@@ -508,6 +538,15 @@
            $("#modalCarga").modal('hide');
         }
       });//*/
+    }
+
+    function abrirDescripcion(id_descripcion){
+      //location.href = "/descripcion/"+id_descripcion;
+      window.open("/descripcion/"+id_descripcion,'_blank');
+    }
+
+    function verPdfDesc(id_descripcion){
+      console.log("Mostrando descripcion");
     }
 
   </script>
