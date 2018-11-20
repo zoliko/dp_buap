@@ -150,6 +150,7 @@
             $("#modalMensaje").modal();
           },
           complete : function(xhr, status){
+            $("#modalCarga").modal('hide');
           }
         });//*/
   }

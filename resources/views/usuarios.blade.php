@@ -94,6 +94,20 @@
 
           </form>
 
+          <hr/>
+          <div>
+            <table id="tablaVinculacionDescripciones" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>DESCRIPCION</th>
+                  <th>ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpoVinculacionDescripciones">
+              </tbody>
+            </table>
+          </div>
+
         </div>
         <div class="modal-footer">
           <input type="text" id="ClaveUsr" value="" hidden="hidden">

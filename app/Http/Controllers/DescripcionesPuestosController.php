@@ -85,40 +85,44 @@
             $userLog = true;
             //if(\Session::get('categoria')[0],'FACILITADOR')
             $usuario = \Session::get('usuario')[0];
-            $dependencia = DB::table('REL_USUARIO_DEPENDENCIA')
-                ->select('FK_DEPENDENCIA')
-                ->where('FK_USUARIO',$usuario)
-                ->get();
-            //dd($dependencia[0]);
-            $rel_descripciones =  DB::table('REL_DEPENDENCIA_DESCRIPCION')
-                ->select('FK_DESCRIPCION')
-                ->where('FK_DEPENDENCIA',$dependencia)
-                ->get();
-
+            $cagtegoria = \Session::get('categoria')[0];
+            //dd($cagtegoria);           
 
             //---------------------------------------------------------------------      
-            if($userLog){
+            if($usuario){
                 $descripciones = array();
-                
-                $descrip = DB::table('DP_DESCRIPCIONES')
-                ->select(
-                    'DESCRIPCIONES_ID as ID_DESC', 
-                    'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
-                    'DESCRIPCIONES_DIRECCION as DIR_DESC',
-                    'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
-                    'DESCRIPCIONES_N_REVISION as REVISION_DESC',
-                    'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
-                )->get();//*/
+                $dependencia = DB::table('REL_USUARIO_DEPENDENCIA')
+                    ->select('FK_DEPENDENCIA')
+                    ->where('FK_USUARIO',$usuario)
+                    ->get();
+                //dd($dependencia[0]);
 
-                foreach ($descrip as $descripcion) {
-                    //dd($descripcion->ID_DESC);
-                    $relacion = DB::table('REL_DEPENDENCIA_DESCRIPCION')->where('FK_DESCRIPCION',$descripcion->ID_DESC)->get();
-                    //dd($relacion);
-                    if(count($relacion)>0){
-                        $nom_dependencia = DB::table('DP_DEPENDENCIAS')->where('DEPENDENCIAS_ID',$relacion[0]->FK_DEPENDENCIA)->get();
-                        $descripcion->ID_DEP = $relacion[0]->FK_DEPENDENCIA;//*/
-                        $descripciones[]=$descripcion;
-                    }
+                $rel_descripciones =  DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                    ->select('FK_DESCRIPCION')
+                    ->where('FK_DEPENDENCIA',$dependencia[0]->FK_DEPENDENCIA)
+                    ->get();
+
+                //No se requiere que se obtenga la dependencia pues ya está incluida en DIR_DESC
+                /*$nom_dependencia = DB::table('DP_DEPENDENCIAS')
+                    ->where('DEPENDENCIAS_ID',$dependencia[0]->FK_DEPENDENCIA)
+                    ->select("DEPENDENCIAS_NOM_DEPENDENCIA")
+                    ->get();
+                $nom_dependencia = $nom_dependencia[0]->DEPENDENCIAS_NOM_DEPENDENCIA;//*/
+                //dd($nom_dependencia);
+                foreach ($rel_descripciones as $descripcion) {
+                    $descrip = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_DIRECCION as DIR_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                        'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                    )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
+                    ->get();//*/
+                    //$descrip[0]->ID_DEP = $nom_dependencia;
+
+                    $descripciones[]=$descrip[0];
                 }
                 //dd($descripciones);
                 //return view('descripciones')->with('descripciones', $descripciones);
@@ -127,7 +131,7 @@
                     'descripciones'=> $descripciones
                 ]);//*/
             }else{
-                return view('error.error_404');
+                return view('errors.404');
             }
         }
 

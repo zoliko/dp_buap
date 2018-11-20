@@ -110,6 +110,12 @@
 
             echo json_encode($data);//*/
         }
+        public function cerrarSesion(){
+            \Session::forget('usuario');
+            \Session::forget('categoria');
+            \Session::forget('nombre');
+            return redirect('/');
+        }
 
         public function verificaSesion(){
 
@@ -150,9 +156,10 @@
         public function traeUsuario(Request $request){
             $existe = false;
             $usuario = null;
-            $id_descripcion = $request['id_descripcion'];
+            $id_descripcion = $request['id_descripcion'];//es el usuario
             $id_dependencia = $request['id_dependencia'];
             $titular = null;
+            $permisos = array();
             //dd($id_descripcion);
             $descripcion = DB::table('DP_DESCRIPCIONES')
                 ->select(
@@ -188,6 +195,7 @@
                 //dd($usuario);
                 if(count($usuario)>0){
                     $existe = true;
+                    $permisos = GestionUsuariosController::traeDescripcionesPermitidas($id_dependencia,$descripcion[0]->CLAVE_DES);
                     //dd($usuario[0]);
                     //dd($descripcion[0]);
                 }else{
@@ -198,12 +206,44 @@
             $data = array(
                 "existe" => $existe,
                 "descripcion" => $descripcion,
+                "permisos" => $permisos,
                 "usuario" => $usuario,
                 "cuenta" => $cuenta,
                 "titular" => $titular
               );
 
             echo json_encode($data);
+        }
+
+        public static function traeDescripcionesPermitidas($id_dependencia,$id_usuario){
+            //dd($id_dependencia);
+            $descripciones = array();
+            $permisos = array();
+            $rel_descripciones = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                ->where('FK_DEPENDENCIA',$id_dependencia)
+                ->get();//*/
+            foreach ($rel_descripciones as $descripcion) {
+                $descrip = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC'
+                    )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
+                    ->get();//*/
+                    //$descrip[0]->ID_DEP = $nom_dependencia;
+
+                
+                $permiso = DB::table('REL_USUARIO_DESCRIPCION')
+                    ->where("FK_USUARIO",$descripcion->FK_DESCRIPCION)
+                    ->get();//*/
+                if(count($permiso)>0){
+                    $descrip[0]->PERMISO = 1;
+                }else{
+                    $descrip[0]->PERMISO = null;
+                }
+                $descripciones[]=$descrip[0];
+            }
+            //dd($descripciones);
+            return $descripciones;
         }
 
         public static function randomPassword() {

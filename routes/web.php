@@ -76,6 +76,7 @@ Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
 Route::post('/usuarios/crear/facilitador' , 'GestionUsuariosController@crearFacilitador');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
 Route::post('/usuarios/login' , 'GestionUsuariosController@login');
+Route::get('/usuarios/salir' , 'GestionUsuariosController@cerrarSesion');
 
 
 Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');
