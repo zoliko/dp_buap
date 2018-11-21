@@ -41,6 +41,15 @@
     <link href="{{asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <!-- Archivos adicionales -->
     @yield('cssFiles')
+
+    <style type="text/css">
+      .test[style] {
+         padding-right:0 !important;
+     }
+     .test.modal-open {
+        overflow: auto;
+     }
+    </style>
   </head>
 
   <body class="nav-md">

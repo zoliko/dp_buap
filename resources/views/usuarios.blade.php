@@ -346,7 +346,7 @@
             $("#clave_puesto").text(json['descripcion'][0]['CLAVE_DES']);
             $("#ClaveUsr").val(json['descripcion'][0]['CLAVE_DES']);
             $("#nivelUsr").val(json['descripcion'][0]['NIVEL_DES']);
-
+            llenaTablaPermisos(json['permisos']);
             
             //var id_usr = $("#ClaveUsr").val();
             //alert(id_usr);
@@ -386,6 +386,36 @@
       $("#clave_puesto").text("XX/XX/XX-XX");
     }
   }
+
+  function llenaTablaPermisos(arrayPermisos){
+    var acciones;
+    $("#cuerpoVinculacionDescripciones").html("");
+    for(var i=0;i<arrayPermisos.length; i++){
+      var id_descripcion = arrayPermisos[i]['ID_DESC'];
+      if(arrayPermisos[i]['PERMISO']==null){
+        acciones = '<a id="accion_'+id_descripcion+'" href="javascript:void(0)" onclick="permisos('+id_descripcion+',1)">PERMITIR</a>';
+      }else{
+        acciones = '<a id="accion_'+id_descripcion+'" href="javascript:void(0)" onclick="permisos('+id_descripcion+',0)">DENEGAR</a>';
+      }//*/
+      $("#cuerpoVinculacionDescripciones").append(
+        "<tr>"+
+          "<td id='nombre_dep_"+id_descripcion+"'>"+arrayPermisos[i]['NOM_DESC']+"</td>"+
+          "<td id='acciones_desc_"+id_descripcion+"'>"+ 
+            acciones+
+          "</td>"+
+        "</tr>"
+      );
+    }
+  }
+  function permisos(id_descripcion,fl){
+    console.log("DESCRIPCION: "+id_descripcion);
+  }
+
+  $('#modalNuevoUsuario').on('hidden.bs.modal', function () {
+    // do something…
+      $('body').addClass('test');
+      $("#cuerpoVinculacionDescripciones").html("");
+  });
 
 
 

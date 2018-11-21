@@ -225,7 +225,8 @@
             foreach ($rel_descripciones as $descripcion) {
                 $descrip = DB::table('DP_DESCRIPCIONES')
                     ->select(
-                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_ID as ID_DESC',
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
                         'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC'
                     )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
                     ->get();//*/
