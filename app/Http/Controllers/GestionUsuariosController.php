@@ -15,6 +15,16 @@
          * @param  int  $id
          * @return Response
          */
+        
+
+        public function redirigeAyuda(){
+            $usuario = \Session::get('usuario')[0];
+            if($usuario){
+                return view('ayuda');
+            }else{
+                return redirect('/');
+            }
+        }
 
         public function vistaUsuarios(){
             /*if(\Session::get('usuario')==null){
