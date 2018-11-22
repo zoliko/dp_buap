@@ -380,7 +380,7 @@ $(document).ready(function(){
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
-                    "<td id='nombre_"+5+"'></td>"+
+                    "<td id='nombre_"+cont_actG+"'>"+cont_actG+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
                             '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'"></textarea>'+
@@ -435,11 +435,11 @@ function AgregarCompetenciaTecnicas(){
 
 
                   "<tr>"+
-                    "<td id='nombre_"+cont_AE+"'>"+"</td>"+
+                    "<td id='nombre_"+cont_AE+"'>"+cont_AE+"</td>"+
                     "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-
+                            '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
                             '</div>'+
+                    "</td>"+
                     "</td>"+
                    
                     
