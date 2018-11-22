@@ -414,6 +414,8 @@
         success : function(json){
           //console.log(json);
           for(var i = 0; i<json['total'];i++){
+            var acciones = "";
+
             $("#cuerpoTabla").append(
 
                 "<tr>"+
@@ -422,14 +424,14 @@
                   "<td>"+json['dependencias'][i]['CABEZA_SECTOR']+"</td>"+
                   "<td>"+
                     //"<a href='/descripciones/"+json['dependencias'][i]['ID_DEP']+"'>Gestionar</a><br>"+
-                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
-                    '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
-                  '</button>'+
-                  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ARCHIVOS" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
-                    '<span class="glyphicon glyphicon-paperclip" aria-hidden="true" ></span>'+
-                  '</button>'+
-                    /*"<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +
-                  "</td>"+//*/
+                    '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
+                      '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
+                    '</button>'+
+                    '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ARCHIVOS" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
+                      '<span class="glyphicon glyphicon-paperclip" aria-hidden="true" ></span>'+
+                    '</button>'+
+                    /*"<a href='javascript:void(0)' onclick='mostrarListado("+json['dependencias'][i]['ID_DEP']+")'>Descripciones</a>" +*/
+                  "</td>"+//
                 "</tr>"
 
               );
@@ -502,9 +504,11 @@
                                   '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'+
                                 '</button>';
               }
-              acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" onclick="abrirDescripcion('+id_descripcion+')" id="btnAbrir_'+id_descripcion+'">'+
-                  '<span class="fa fa-external-link" aria-hidden="true"></span>'+
-                '</button>';
+              if(categoria_usr!='CGA'){
+                acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ABRIR DESCRIPCION" onclick="abrirDescripcion('+id_descripcion+')" id="btnAbrir_'+id_descripcion+'">'+
+                    '<span class="fa fa-external-link" aria-hidden="true"></span>'+
+                  '</button>';
+              }
               acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER PDF" onclick="verPdfDesc('+id_descripcion+')" id="btnPdf_'+id_descripcion+'">'+
                   '<span class="fa fa-file-pdf-o" aria-hidden="true"></span>'+
                 '</button>';

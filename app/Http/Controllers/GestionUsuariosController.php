@@ -31,7 +31,12 @@
             /*if(\Session::get('usuario')==null){
                 return redirect('/');
             }//*/
-            return view('usuarios_facilitadores');
+            $categoria = \Session::get('categoria')[0];
+            if(strcasecmp($categoria, 'FACILITADOR')==0){
+                return view('usuarios_facilitadores');
+            }else{
+                return redirect('/');
+            }
         }
 
         public function crearFacilitador(Request $request){
@@ -222,6 +227,7 @@
             $rel_descripciones = DB::table('REL_DEPENDENCIA_DESCRIPCION')
                 ->where('FK_DEPENDENCIA',$id_dependencia)
                 ->get();//*/
+                //dd($rel_descripciones);
             foreach ($rel_descripciones as $descripcion) {
                 $descrip = DB::table('DP_DESCRIPCIONES')
                     ->select(
@@ -231,11 +237,15 @@
                     )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
                     ->get();//*/
                     //$descrip[0]->ID_DEP = $nom_dependencia;
-
+                //dd($descripcion->FK_DESCRIPCION);
                 
                 $permiso = DB::table('REL_USUARIO_DESCRIPCION')
-                    ->where("FK_USUARIO",$descripcion->FK_DESCRIPCION)
+                    ->where([
+                        ["FK_USUARIO",$id_usuario],
+                        ["FK_DESCRIPCION",$descripcion->FK_DESCRIPCION]
+                    ])
                     ->get();//*/
+                //dd($permiso);
                 if(count($permiso)>0){
                     $descrip[0]->PERMISO = 1;
                 }else{
@@ -246,6 +256,8 @@
             //dd($descripciones);
             return $descripciones;
         }
+
+
 
         public static function randomPassword() {
             $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -260,6 +272,7 @@
 
         public function crearUsuario(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            $permisos;
             $usr = $request['id_usr'];
             $responsable = $request['responsable'];
             $nivel = $request['nivel'];
@@ -293,8 +306,11 @@
 
             //dd($responsable);
 
+            $permisos = GestionUsuariosController::traeDescripcionesPermitidas($dependencia,$usr);
+
             $data = array(
-                "contrasena" => $password
+                "contrasena" => $password,
+                "permisos" => $permisos
               );
 
             echo json_encode($data);

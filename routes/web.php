@@ -54,17 +54,16 @@ Route::post('/descripciones/trae_descripcion' , 'DescripcionesPuestosController@
 Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abrirdescripcion');
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
+Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
 
 //dependencias
-Route::get('/dependencias', function () {
-    return view('dependencias');
-});
+Route::get('/dependencias','DependenciasController@redirigeDependencias');
+
 Route::get('/dependencias/coordinacion', function () {
     return view('principal_coordinacion');
 });
-Route::get('/dependencias/nueva', function () {
-    return view('crear_dependencia');
-});
+Route::get('/dependencias/nueva','DependenciasController@redirigeNuevaDependencia');
+
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');

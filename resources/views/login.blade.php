@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{asset('favico.ico')}}" type="image/ico" />
 
     <title>Descripción de Puestos BUAP</title>
     <!-- jQuery -->
@@ -143,10 +144,25 @@
               $("#tituloModalMensaje").text('ATENCION');
               $("#textoModalMensaje").text('Usuario o contraseña incorrecta.');
               $("#modalMensaje").modal();
+            }else{
+              if(json['categoria']=='DIRECTOR_DRH'){
+                location.href='/dependencias'
+              }else if(json['categoria']=='FACILITADOR'){
+                location.href='/dependencias'
+              }else if(json['categoria']=='DIRECTOR_D/UA'){
+                location.href='/descripciones'
+              }else if(json['categoria']=='ENCARGADO_D/UA'){
+                location.href='/descripciones'
+              }else if(json['categoria']=='CGA'){
+                location.href='/dependencias'
+              }else{
+                $("#textoModalMensaje").text("No existe la categoría: "+json['categoria']);
+                $("#modalMensaje").modal();
+              }
             }
           },
           error : function(xhr, status) {
-            $("#contenidoMensaje").text("Existió un error al cargar");
+            $("#textoModalMensaje").text("Existió un error al cargar");
             $("#modalMensaje").modal();
           },
           complete : function(xhr, status){

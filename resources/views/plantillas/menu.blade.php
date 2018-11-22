@@ -224,6 +224,12 @@
         }
       });//*/
     }
+
+    $(".modal").on('hidden.bs.modal', function () {
+    // do something…
+      $('body').addClass('test');//solución para que no se recorra el body hacia la izquierda
+      //$("#cuerpoVinculacionDescripciones").html("");
+  });
 </script>
 
 @yield('script')
