@@ -47,7 +47,7 @@
                 <input type="password" class="form-control" placeholder="Contraseña" id="pass" />
               </div>
               <div>
-                <a class="btn btn-default submit" onclick="login()">Ingresar</a>
+                <a class="btn btn-default submit" onclick="login2()">Ingresar</a>
               </div>
             </form>
           </section>

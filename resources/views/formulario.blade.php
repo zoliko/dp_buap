@@ -203,6 +203,8 @@
                               </thead>
                               <tbody id="cuerporelaciones2"></tbody>
                             </table><button onclick="AgregaRelacion2()">Agregar Relacion </button>
+               
+
                         </div>
 
 
@@ -222,13 +224,15 @@
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formacion Profesional: </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formación Profesional: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fi
+
+                            rst-name">Área: </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
@@ -251,147 +255,61 @@
                           </p>
                           <!--Comptencias inicio -->
 
-                          <table  class="table table-striped table-bordered">
+                         <table id="tablaprincipales" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th colspan="2" align="center"><strong>GENERICAS</strong>  </th>
+                                </tr>
+                                <tr>
+                                <th>Competencias</th>
+                                <th>Grado de Dominio</th></tr>
+                              </thead>
+                              <tbody id="tablacompetenciasG"></tbody>
+                            </table>
+                          <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
+
+                           <table id="tablaprincipales" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th colspan="2" align="center"><strong>TÉCNICAS</strong> </th>
+                                </tr>
+                                <tr>
+                                <th>Competencias</th>
+                                <th>Grado de Dominio </th>
+                              </tr>
+                              </thead>
+                              <tbody id="tablacompetenciasT"></tbody>
+                            </table>
+                          <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
+
+
+
+                       <!--   <table  class="table table-striped table-bordered">
                             <tr>
-                              <td colspan="2" ><div align="center"><strong>INSTITUCIONALES</strong></div></td>
                               <td colspan="2"><div align="center"><strong>GENERICAS</strong></div></td>
                               <td colspan="2"><div align="center"><strong>TÉCNICAS</strong></div></td>
                             </tr>
                               <tr>
-                                <td width="287"><div align="center"><strong>COMPETENCIAS</strong></div></td>
-                                <td width="106"><div align="center" class="Estilo5">Grado de Dominio </div></td>
                                 <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
                                 <td width="107"><div align="center" class="Estilo5">Grado de Dominio </div></td>
                                 <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
                                 <td width="106" class="Estilo5">Grado de Dominio </td>
                               </tr>
                               <tr>
-                                <td><div align="left" class="Estilo9">COMPROMISO</div></td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
                                 <td><input name="cog1" type="text" class="Estilo5" ></td>
                                 <td> <select name="fg1">
-                              <option>      </option>
-                                 
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
                                 </select></td>
-                                <td><input name="cot1" type="text" class="Estilo5" ></td>
-                                <td><select name="ft1">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">CONCIENCIA ORGANIZACIONAL </td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog2" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg2">
-                              <option>      </option>
-                                  
-                                </select></td>
-                                <td><input name="cot2" type="text" class="Estilo5"></td>
-                                <td><select name="ft2">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">EQUIDAD</td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog3" type="text" class="Estilo5"></td>
-                                <td> <select name="fg3">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot3" type="text" class="Estilo5" ></td>
-                                <td><select name="ft3">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">ÉTICA</td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog4" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg4">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot4" type="text" class="Estilo5"></td>
-                                <td><select name="ft4">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">RESPONSABILIDAD</td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog5" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg5">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot5" type="text" class="Estilo5"></td>
-                                <td><select name="ft5">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">RESPONSABILIDAD SOCIAL </td>
-                                <td class="Estilo9"><div align="center">ÚNICO</div></td>
-                                <td><input name="cog6" type="text" class="Estilo5"></td>
-                                <td> <select name="fg6">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot6" type="text" class="Estilo5"></td>
-                                <td><select name="ft6">
-                              <option>      </option>
-                                 
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">&nbsp;</td>
-                                <td class="Estilo9"><div align="center"></div></td>
-                                <td><input name="cog7" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg7">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot7" type="text" class="Estilo5" ></td>
-                                <td><select name="ft7">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">&nbsp;</td>
-                                <td class="Estilo9"><div align="center"></div></td>
-                                <td><input name="cog8" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg8">
-                              <option>      </option>
-                                 
-                                </select></td>
-                                <td><input name="cot8" type="text" class="Estilo5" ></td>
-                                <td><select name="ft8">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              <tr>
-                                <td class="Estilo9">&nbsp;</td>
-                                <td class="Estilo9"><div align="center"></div></td>
-                                <td><input name="cog9" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg10">
-                              <option>      </option>
-                                  
-                                </select></td>
-                                <td><input name="cot9" type="text" class="Estilo5" ></td>
-                                <td><select name="ft9">
-                              <option>      </option>
-                                  
-                                </select></td>
-                              </tr>
-                              </table>
+                               
+                              </table>-->
+
+
+
+
+
                                <p class="lead">IDIOMAS </p>
 
                                <p class="lead">COMPUTACIÓN</p>
@@ -448,15 +366,18 @@ $(document).ready(function(){
  //var ID_DESCRIPCION;
   var id_des=<?php echo $ID_descripcion ?>;
   $( window ).load(function() {
-     //var id_des=<?php echo $ID_descripcion ?>;
-   //  alert(id_des);
+     //alert(id_des);
 });
  
  var cont_actG=1;
+ var con_CG=1;
+ var con_CT=1;
+ var cont_AE=1;
+
 
   function AgregaActividad(){
 
-  //alert("Entre");
+//  alert("Entre");
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
@@ -471,8 +392,40 @@ $(document).ready(function(){
                     
                   "</tr>"
       );//*/
-     cont_actG++;
+     cont_actG++;//*/
    }//*/
+
+
+function AgregarCompetenciaGenericas(){
+//alert("Competencia Generica");
+  $("#tablacompetenciasG").append(
+     " <tr>"+
+        "<td>"+'<input type="text" class="Estilo5" id="CompetenciaG'+con_CG+'">'+"</td>"+
+          "<td>"+'<select name="fg1"id="indicador'+con_CG+'">'+
+                 '<option value="I">I</option>'+
+                  '<option value="II">II</option>'+
+                  '<option value="III">III</option>'+
+                  '<option value="IV">IV</option>'+
+               "</select>"+"</td>"+
+        "</tr>"
+    );
+  con_CG++;
+}
+
+function AgregarCompetenciaTecnicas(){
+//alert("Competencia Técnicas");
+  $("#tablacompetenciasT").append(
+     " <tr>"+
+        "<td>"+'<input name="cog1" type="text" class="Estilo5"  id="CompetenciaT'+con_CT+'">'+"</td>"+
+          "<td>"+ '<select name="fg1" id="indicador'+con_CT+'">'+
+                 '<option value="Básico">Basico</option>'+
+                  '<option value="Medio">Medio </option>'+
+                  '<option value="Avanzado">Avanzado</option>'+
+                  
+               "</select>"+"</td>"+
+        "</tr>"
+    );
+}
 
 
  function ActividadEspecifica(){
@@ -480,18 +433,20 @@ $(document).ready(function(){
     
      $("#cuerpoTablaespecificas").append(
 
+
+
                   "<tr>"+
-                    "<td id='nombre_"+5+"'></td>"+
+                    "<td id='nombre_"+cont_AE+"'>"+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+
                             '</div>'+
                     "</td>"+
                    
                     
                   "</tr>");
 
-
+cont_AE++;
   }
 
   function AgregaRelacion(){
@@ -614,6 +569,17 @@ function guardar_Actividades(tmp_cont_actG){
       }  
     }
 
+    function algo(){
+      var success;
+      var url = "/archivos/subir"
+      var dataForm = new FormData();
+      dataForm.append('archivo',"p1");
+      dataForm.append('archivo',"p2");
+      metodoAjax(url,dataForm,function(success){
+
+
+      });//*/
+    }
 
 
 
