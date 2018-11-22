@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Usuarios')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Gestión de usuarios')
 
 @section('content')
@@ -9,7 +8,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2></h2><button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalNuevoUsuario"">REGISTRAR USUARIO</button>
+          <h2></h2>
+          <!--<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modalNuevoUsuario"">REGISTRAR USUARIO</button>-->
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -94,6 +94,21 @@
             </div>-->           
 
           </form>
+
+          <hr/>
+          <div>
+            <label>Permitir que el usuario edite las descripciones de puestos:</label>
+            <table id="tablaVinculacionDescripciones" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>DESCRIPCION</th>
+                  <th>ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody id="cuerpoVinculacionDescripciones">
+              </tbody>
+            </table>
+          </div>
 
         </div>
         <div class="modal-footer">
@@ -226,15 +241,14 @@
         },
         success : function(json){
           if(json['exito']==true){
-          //$("#pass_puesto").text(json['contrasena']);
-          $("#textoModalMensaje").text('Guardado correctamente.');
-          $("#modalMensaje").modal();
-
-        }else{
-          //$("#pass_puesto").text(json['contrasena']);
-          $("#textoModalMensaje").text('Existió un problema con la información, es posible que la información ya se haya guardado con anterioridad o no exista ningún cambio en la información.');
-          $("#modalMensaje").modal();
-        }
+            //$("#pass_puesto").text(json['contrasena']);
+            $("#textoModalMensaje").text('Guardado correctamente.');
+            $("#modalMensaje").modal();
+          }else{
+            //$("#pass_puesto").text(json['contrasena']);
+            $("#textoModalMensaje").text('Existió un problema con la información, es posible que la información ya se haya guardado con anterioridad o no exista ningún cambio en la información.');
+            $("#modalMensaje").modal();
+          }
           
         },
         error : function(xhr, status) {
@@ -284,8 +298,13 @@
         success : function(json){
 
           $("#pass_puesto").text(json['contrasena']);
-            $("#crearUsr").hide();
-            $("#editarUsr").show();
+          $("#crearUsr").hide();
+          $("#editarUsr").show();
+          llenaTablaPermisos(json['permisos']);
+
+
+          //llenaTablaPermisos(json['permisos']);
+
           
         },
         error : function(xhr, status) {
@@ -333,7 +352,7 @@
             $("#clave_puesto").text(json['descripcion'][0]['CLAVE_DES']);
             $("#ClaveUsr").val(json['descripcion'][0]['CLAVE_DES']);
             $("#nivelUsr").val(json['descripcion'][0]['NIVEL_DES']);
-
+            llenaTablaPermisos(json['permisos']);
             
             //var id_usr = $("#ClaveUsr").val();
             //alert(id_usr);
@@ -371,8 +390,58 @@
       $("#crearUsr").hide();
       $("#editarUsr").hide();
       $("#clave_puesto").text("XX/XX/XX-XX");
+      $("#Encargado_usr").val("");
+      $("#cuerpoVinculacionDescripciones").html("");
     }
   }
+
+  function llenaTablaPermisos(arrayPermisos){
+    var acciones;
+    $("#cuerpoVinculacionDescripciones").html("");
+    for(var i=0;i<arrayPermisos.length; i++){
+      var id_descripcion = arrayPermisos[i]['ID_DESC'];
+      if(arrayPermisos[i]['PERMISO']==null){
+        acciones = '<a id="accion_'+id_descripcion+'" href="javascript:void(0)" onclick="permisos('+id_descripcion+',1,this)">PERMITIR</a>';
+      }else{
+        acciones = '<a id="accion_'+id_descripcion+'" href="javascript:void(0)" onclick="permisos('+id_descripcion+',0,this)">DENEGAR</a>';
+      }//*/
+      $("#cuerpoVinculacionDescripciones").append(
+        "<tr>"+
+          "<td id='nombre_dep_"+id_descripcion+"'>"+arrayPermisos[i]['NOM_DESC']+"</td>"+
+          "<td id='acciones_desc_"+id_descripcion+"'>"+ 
+            acciones+
+          "</td>"+
+        "</tr>"
+      );
+    }
+  }
+  function permisos(id_descripcion,fl,elemento){
+    console.log("DESCRIPCION: "+id_descripcion);
+    var success;
+    var url = "/descripciones/permisos_usuarios";
+    var id_usuario = $("#ClaveUsr").val();
+    var dataForm = new FormData();
+    dataForm.append('id_descripcion',id_descripcion);
+    dataForm.append('id_usuario',id_usuario);
+    dataForm.append('fl',fl);
+    //lamando al metodo ajax
+    metodoAjax(url,dataForm,function(success){
+      if(fl == 1){
+        $(elemento).attr('onclick','permisos('+id_descripcion+',0,this)');
+        $(elemento).text('DENEGAR');
+      }else{
+        $(elemento).attr('onclick','permisos('+id_descripcion+',1,this)');
+        $(elemento).text('PERMITIR');
+      }
+    });
+  }
+
+  
+  $('#modalNuevoUsuario').on('hidden.bs.modal', function () {
+    // do something…
+      //$('body').addClass('test');//solución para que no se recorra el body hacia la izquierda
+      $("#cuerpoVinculacionDescripciones").html("");
+  });
 
 
 

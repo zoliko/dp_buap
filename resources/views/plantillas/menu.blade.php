@@ -41,6 +41,15 @@
     <link href="{{asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css')}}" rel="stylesheet">
     <!-- Archivos adicionales -->
     @yield('cssFiles')
+
+    <style type="text/css">
+      .test[style] {
+         padding-right:0 !important;
+     }
+     .test.modal-open {
+        overflow: auto;
+     }
+    </style>
   </head>
 
   <body class="nav-md">
@@ -215,6 +224,12 @@
         }
       });//*/
     }
+
+    $(".modal").on('hidden.bs.modal', function () {
+    // do something…
+      $('body').addClass('test');//solución para que no se recorra el body hacia la izquierda
+      //$("#cuerpoVinculacionDescripciones").html("");
+  });
 </script>
 
 @yield('script')

@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Formulario')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','Descripción de Puestos')
 
 @section('content')

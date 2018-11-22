@@ -31,7 +31,55 @@
             /*if(\Session::get('usuario')==null){
                 return redirect('/');
             }//*/
-            return view('usuarios_facilitadores');
+            $categoria = \Session::get('categoria')[0];
+            if(strcasecmp($categoria, 'FACILITADOR')==0){
+                return view('usuarios_facilitadores');
+            }else{
+                return redirect('/');
+            }
+        }
+
+        public function crearFacilitador(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $usuario = $request['usuario'];
+            $nombre = $request['nombre'];
+            $tipo = $request['tipo_usuario'];
+            //dd($usuario);
+            $password = null;
+            $exito = false;
+            $error = "";
+            $existe = DB::table('DP_LOGIN')
+                        ->where('LOGIN_USUARIO', $usuario)->get();
+            //dd($existe);
+            if(count($existe)>0){
+                $error="El usuario ya fué registrado anteriormente.";
+                //dd("El usuario ya está registrado");
+            }else{
+                $password = GestionUsuariosController::randomPassword();
+                DB::table('DP_LOGIN')->insert(
+                    [
+                        'LOGIN_USUARIO' => $usuario, 
+                        'LOGIN_CONTRASENA' => $password,
+                        'LOGIN_CATEGORIA' => $tipo,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+                DB::table('DP_USUARIOS')->insert(
+                    [
+                        'USUARIOS_USUARIO' => $usuario, 
+                        'USUARIOS_NOMBRE_RESPONSABLE' => $nombre,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+
+             $data = array(
+                    "contrasena" => $password,
+                    "error" => $error
+                  );
+
+            echo json_encode($data);
+
         }
 
         public function traeUsuarios(){
@@ -46,22 +94,32 @@
             $usuario = "";
             $existe = DB::table('DP_LOGIN')->where(['LOGIN_USUARIO'=> $usr, 'LOGIN_CONTRASENA' => $contrasena])->get();
             if(count($existe)>0){
+                $n_usuario = DB::table('DP_USUARIOS')->where('USUARIOS_USUARIO', $usr)->get();
                 $fl = true;
                 //$usuario = $existe[0]->LOGIN_USUARIO;
                 if(\Session::get('usuario')!=null){
                     \Session::forget('usuario');
                     \Session::forget('categoria');
+                    \Session::forget('nombre');
                 }
                 \Session::push('usuario',$existe[0]->LOGIN_USUARIO);
                 \Session::push('categoria',$existe[0]->LOGIN_CATEGORIA);
+                \Session::push('nombre',$n_usuario[0]->USUARIOS_NOMBRE_RESPONSABLE);
             }
             $data = array(
                 "usuario"=>\Session::get('usuario')[0],
                 "categoria"=>\Session::get('categoria')[0],
+                "nombre"=>\Session::get('nombre')[0],
                 "exito" => $fl
               );
 
             echo json_encode($data);//*/
+        }
+        public function cerrarSesion(){
+            \Session::forget('usuario');
+            \Session::forget('categoria');
+            \Session::forget('nombre');
+            return redirect('/');
         }
 
         public function verificaSesion(){
@@ -103,9 +161,10 @@
         public function traeUsuario(Request $request){
             $existe = false;
             $usuario = null;
-            $id_descripcion = $request['id_descripcion'];
+            $id_descripcion = $request['id_descripcion'];//es el usuario
             $id_dependencia = $request['id_dependencia'];
             $titular = null;
+            $permisos = array();
             //dd($id_descripcion);
             $descripcion = DB::table('DP_DESCRIPCIONES')
                 ->select(
@@ -141,6 +200,7 @@
                 //dd($usuario);
                 if(count($usuario)>0){
                     $existe = true;
+                    $permisos = GestionUsuariosController::traeDescripcionesPermitidas($id_dependencia,$descripcion[0]->CLAVE_DES);
                     //dd($usuario[0]);
                     //dd($descripcion[0]);
                 }else{
@@ -151,6 +211,7 @@
             $data = array(
                 "existe" => $existe,
                 "descripcion" => $descripcion,
+                "permisos" => $permisos,
                 "usuario" => $usuario,
                 "cuenta" => $cuenta,
                 "titular" => $titular
@@ -158,6 +219,45 @@
 
             echo json_encode($data);
         }
+
+        public static function traeDescripcionesPermitidas($id_dependencia,$id_usuario){
+            //dd($id_dependencia);
+            $descripciones = array();
+            $permisos = array();
+            $rel_descripciones = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                ->where('FK_DEPENDENCIA',$id_dependencia)
+                ->get();//*/
+                //dd($rel_descripciones);
+            foreach ($rel_descripciones as $descripcion) {
+                $descrip = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC',
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC'
+                    )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
+                    ->get();//*/
+                    //$descrip[0]->ID_DEP = $nom_dependencia;
+                //dd($descripcion->FK_DESCRIPCION);
+                
+                $permiso = DB::table('REL_USUARIO_DESCRIPCION')
+                    ->where([
+                        ["FK_USUARIO",$id_usuario],
+                        ["FK_DESCRIPCION",$descripcion->FK_DESCRIPCION]
+                    ])
+                    ->get();//*/
+                //dd($permiso);
+                if(count($permiso)>0){
+                    $descrip[0]->PERMISO = 1;
+                }else{
+                    $descrip[0]->PERMISO = null;
+                }
+                $descripciones[]=$descrip[0];
+            }
+            //dd($descripciones);
+            return $descripciones;
+        }
+
+
 
         public static function randomPassword() {
             $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -172,6 +272,7 @@
 
         public function crearUsuario(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            $permisos;
             $usr = $request['id_usr'];
             $responsable = $request['responsable'];
             $nivel = $request['nivel'];
@@ -205,8 +306,11 @@
 
             //dd($responsable);
 
+            $permisos = GestionUsuariosController::traeDescripcionesPermitidas($dependencia,$usr);
+
             $data = array(
-                "contrasena" => $password
+                "contrasena" => $password,
+                "permisos" => $permisos
               );
 
             echo json_encode($data);

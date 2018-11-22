@@ -1,6 +1,5 @@
 @extends('plantillas.menu')
 @section('title','Prueba DPBUAP')
-@section('nombre_usuario','Marvin Eliosa')
 @section('tittle_page','titulo pagina')
 
 @section('content')
@@ -42,6 +41,19 @@
   <script type="text/javascript">
     $(window).load(function () {
       });
+
+    function ejemploAjax(){
+      var success;
+      var url = "/ruta1/ruta2";
+      var dataForm = new FormData();
+      dataForm.append('p1',"p1");
+      dataForm.append('p2','p2');
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+      });
+    }
   </script>
 
 @endsection
