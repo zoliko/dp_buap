@@ -19,29 +19,38 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
-                  @if(strcmp(\Session::get('usuario')[0],'FACILITADOR')==0)
-                  <li><a><i class="fa fa-plus-square"></i> Dependencias <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/dependencias">Listado de dependencias</a></li>
-                      <li><a href="/dependencias/nueva">Nueva dependencia</a></li>
-                    </ul>
-                  </li>
+                  <!-- Dependencias -->
+                  @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0 || strcmp(\Session::get('categoria')[0],'DIRECTOR_DRH')==0 || strcmp(\Session::get('categoria')[0],'CGA')==0)
+                    <li><a><i class="fa fa-plus-square"></i> Dependencias <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/dependencias">Listado de dependencias</a></li>
+                        @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
+                          <li><a href="/dependencias/nueva">Nueva dependencia</a></li>
+                        @endif
+                      </ul>
+                    </li>
                   @endif
-                  @if(strcmp(\Session::get('usuario')[0],'FACILITADOR')!=0)
-                  <li><a><i class="fa fa-file-text"></i>Descripciones<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/descripciones">Listado de descripciones</a></li>
-                    </ul>
-                  </li>
+                  <!-- descripciones -->
+                  @if(strcmp(\Session::get('categoria')[0],'DIRECTOR_D/UA')==0 || strcmp(\Session::get('categoria')[0],'ENCARGADO_D/UA')==0)
+                    <li><a><i class="fa fa-file-text"></i>Descripciones<span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/descripciones">Listado de descripciones</a></li>
+                      </ul>
+                    </li>
                   @endif
+                  <!-- Usuarios -->
+                  @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
                   <li><a><i class="fa fa-user"></i>Usuarios<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/usuarios">Gestionar usuarios</a></li>
+                      <li><a href="/usuarios/facilitador">Crear usuario</a></li>
                     </ul>
                   </li>
+                  @endif
+                  <!-- Ayuda -->
                    <li><a><i class="fa fa-comment-o"></i>Ayuda<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/descripciones">Listado de descripciones</a></li>
+                      <li><a href="/ayuda">Ver contacto</a></li>
                     </ul>
                   </li>
                   
@@ -67,7 +76,7 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a> -->
-              <a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Cerrar Sesión" href="/usuarios/salir">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>
@@ -87,11 +96,12 @@
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     @yield('nombre_usuario')
+                    {{\Session::get('nombre')[0]}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Cuenta</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
+                    <!--<li><a href="javascript:;"> Cuenta</a></li>-->
+                    <li><a href="/usuarios/salir"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesión</a></li>
                   </ul>
                 </li>
               </ul>

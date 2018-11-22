@@ -16,6 +16,38 @@
          * @return Response
          */
 
+        //validación de usuario en dependencias
+        public function redirigeDependencias(){
+            $categoria = \Session::get('categoria')[0];
+            switch ($categoria) {
+                case 'DIRECTOR_DRH':
+                    return view('dependencias');
+                    break;
+                case 'FACILITADOR':
+                    return view('dependencias');
+                    break;
+                case 'CGA':
+                    return view('dependencias');
+                    break;
+                default:
+                    return redirect('/');
+                    break;
+            }
+        }
+
+        //validación de usuario en nueva dependencia dependencias
+        public function redirigeNuevaDependencia(){
+            $categoria = \Session::get('categoria')[0];
+            switch ($categoria) {
+                case 'FACILITADOR':
+                    return view('crear_dependencia');
+                    break;
+                default:
+                    return redirect('/');
+                    break;
+            }
+        }
+
         //funcion que trae todas las dependencias
         public function traeDependencias(Request $request){
             //dd('Epale');

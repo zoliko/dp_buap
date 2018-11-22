@@ -24,8 +24,6 @@ Route::get('/', function () {
 Route::get('/revisado', function () {
    return view('revisado');
 });
-//gestion de usuarios
-Route::post('/usuarios/login' , 'GestionUsuariosController@login');
 
 Route::get('/blanco', function () {
 	if(\Session::get('usuario')==null){
@@ -59,18 +57,17 @@ Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@gua
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
+Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
 
 
 //dependencias
-Route::get('/dependencias', function () {
-    return view('dependencias');
-});
+Route::get('/dependencias','DependenciasController@redirigeDependencias');
+
 Route::get('/dependencias/coordinacion', function () {
     return view('principal_coordinacion');
 });
-Route::get('/dependencias/nueva', function () {
-    return view('crear_dependencia');
-});
+Route::get('/dependencias/nueva','DependenciasController@redirigeNuevaDependencia');
+
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
@@ -79,7 +76,10 @@ Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
 Route::get('/usuarios/facilitador' , 'GestionUsuariosController@vistaCrearFacilitadores');
 Route::post('/usuarios/trae_usuario' , 'GestionUsuariosController@traeUsuario');
 Route::post('/usuarios/crear' , 'GestionUsuariosController@crearUsuario');
+Route::post('/usuarios/crear/facilitador' , 'GestionUsuariosController@crearFacilitador');
 Route::post('/usuarios/actualizar' , 'GestionUsuariosController@actualizarUsuario');
+Route::post('/usuarios/login' , 'GestionUsuariosController@login');
+Route::get('/usuarios/salir' , 'GestionUsuariosController@cerrarSesion');
 
 
 Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');

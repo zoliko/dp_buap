@@ -15,38 +15,80 @@
          * @param  int  $id
          * @return Response
          */
+
+        public function descripcionesPermisos(Request $request){
+            $id_dependencia = $request['id_dependencia'];
+            $id_usuario = $request['id_usuario'];
+            dd("ENTRANDO");
+            $permisos = GestionUsuariosController::traeDescripcionesPermitidas($id_dependencia,$descripcion[0]->CLAVE_DES);
+        }
+        //gestion de permisos entre usuarios y descripciones de puestos
+        public function permisosDescripciones(Request $request){
+            $id_descripcion = $request['id_descripcion'];
+            $fl = $request['fl'];
+            //$usuario = \Session::get('usuario')[0];
+            $usuario = $request['id_usuario'];
+            //dd($usuario);
+            //dd(gettype($fl));
+            //dd($fl);
+            if(strcmp($fl,"1")==0){
+                DB::table('REL_USUARIO_DESCRIPCION')->insert(
+                    [   
+                        'FK_USUARIO' => $usuario, 
+                        'FK_DESCRIPCION' => $id_descripcion
+                    ]
+                );
+                //dd("PERMITIR");
+            }else{
+                //dd($id_descripcion);
+                DB::table('REL_USUARIO_DESCRIPCION')
+                    ->where([
+                        ["FK_USUARIO",$usuario],
+                        ["FK_DESCRIPCION",$id_descripcion]
+                    ])
+                    ->delete();//*/
+            }
+            $data = array(
+                "descripcion"=>"eee"
+              );
+
+            echo json_encode($data);//*/
+        }
+
         //trae las descripciones de una dependencia por metodo get
         public function traeDescripciones($dependencia){
-            //dd($dependencia);
-            $relacion = DB::table('REL_DEPENDENCIA_DESCRIPCION')->where('FK_DEPENDENCIA',$dependencia)->get();
-            $nom_dependencia = DB::table('DP_DEPENDENCIAS')->where('DEPENDENCIAS_ID',$dependencia)->get();
-            //dd($nom_dependencia[0]);
-            $descripciones = array();
-            foreach ($relacion as $id_descripcion) {
-                $descripcion = DB::table('DP_DESCRIPCIONES')
-                ->select(
-                    'DESCRIPCIONES_ID as ID_DESC', 
-                    'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
-                    'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
-                    'DESCRIPCIONES_N_REVISION as REVISION_DESC',
-                    'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
-                    )
-                ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
-                //if(count($descripcion)>0)
-                    $descripciones[] = $descripcion[0];
-                //dd($id_descripcion->FK_DESCRIPCION);
+            $usuario = \Session::get('categoria')[0];
+            if(strcasecmp($usuario, 'FACILITADOR')==0){
+                $relacion = DB::table('REL_DEPENDENCIA_DESCRIPCION')->where('FK_DEPENDENCIA',$dependencia)->get();
+                $nom_dependencia = DB::table('DP_DEPENDENCIAS')->where('DEPENDENCIAS_ID',$dependencia)->get();
+                //dd($nom_dependencia[0]);
+                $descripciones = array();
+                foreach ($relacion as $id_descripcion) {
+                    $descripcion = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                        'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                        )
+                    ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
+                    //if(count($descripcion)>0)
+                        $descripciones[] = $descripcion[0];
+                    //dd($id_descripcion->FK_DESCRIPCION);
+                }
+
+                //dd($descripciones[0][0]->ID_DESC);
+                //dd($descripciones);
+                return view('gestionar_descripciones',[
+                    'descripciones'=> $descripciones,
+                    'id_dependencia'=> $dependencia,
+                    'nomenclatura'=> $nom_dependencia[0]->DEPENDENCIAS_NOMENCLATURA,
+                    'dependencia' => $nom_dependencia[0]->DEPENDENCIAS_NOM_DEPENDENCIA
+                ]);
+            }else{
+                return redirect('/');
             }
-
-            //dd($descripciones[0][0]->ID_DESC);
-            //dd($descripciones);
-
-            //return view('gestionar_descripciones')->with('descripciones', $descripciones);
-            return view('gestionar_descripciones',[
-                'descripciones'=> $descripciones,
-                'id_dependencia'=> $dependencia,
-                'nomenclatura'=> $nom_dependencia[0]->DEPENDENCIAS_NOMENCLATURA,
-                'dependencia' => $nom_dependencia[0]->DEPENDENCIAS_NOM_DEPENDENCIA
-            ]);
         }
 
         //trae las descripciones de una dependencia por metodo POST
@@ -79,30 +121,62 @@
             echo json_encode($data);//*/
         }
 
-        public function traeTodasDescripciones(){
-            $userLog = true;
-            if($userLog){
-                $descripciones = array();
-                
-                $descrip = DB::table('DP_DESCRIPCIONES')
-                ->select(
-                    'DESCRIPCIONES_ID as ID_DESC', 
-                    'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
-                    'DESCRIPCIONES_DIRECCION as DIR_DESC',
-                    'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
-                    'DESCRIPCIONES_N_REVISION as REVISION_DESC',
-                    'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
-                )->get();//*/
 
-                foreach ($descrip as $descripcion) {
-                    //dd($descripcion->ID_DESC);
-                    $relacion = DB::table('REL_DEPENDENCIA_DESCRIPCION')->where('FK_DESCRIPCION',$descripcion->ID_DESC)->get();
-                    //dd($relacion);
-                    if(count($relacion)>0){
-                        $nom_dependencia = DB::table('DP_DEPENDENCIAS')->where('DEPENDENCIAS_ID',$relacion[0]->FK_DEPENDENCIA)->get();
-                        $descripcion->ID_DEP = $relacion[0]->FK_DEPENDENCIA;//*/
-                        $descripciones[]=$descripcion;
-                    }
+        //este metodo trae todas las descripciones que le corresponden a la dependencia y que tiene autorizado en caso de que sea un encargado
+        public function traeTodasDescripciones(){
+            //$usuario = true;
+            //if(\Session::get('categoria')[0],'FACILITADOR')
+            $usuario = \Session::get('usuario')[0];
+            $cagtegoria = \Session::get('categoria')[0];
+            //dd($cagtegoria);           
+
+            //---------------------------------------------------------------------      
+            if(strcmp($cagtegoria, 'DIRECTOR_D/UA')==0 || strcmp($cagtegoria, 'ENCARGADO_D/UA')==0){
+                //dd("epale");
+                $descripciones = array();
+                //obtenemos la dependencia a la que pertenece el usuario
+                $dependencia = DB::table('REL_USUARIO_DEPENDENCIA')
+                    ->select('FK_DEPENDENCIA')
+                    ->where('FK_USUARIO',$usuario)
+                    ->get();
+                //dd($usuario);
+                if(strcmp($cagtegoria, 'DIRECTOR_D/UA')==0){
+                    //obtenemos las descripciones que estan enlazadas a la dependencia
+                    $rel_descripciones =  DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                        ->select('FK_DESCRIPCION')
+                        ->where('FK_DEPENDENCIA',$dependencia[0]->FK_DEPENDENCIA)
+                        ->get();
+                }else{
+                    //obtenemos las descripciones que estan enlazadas a la dependencia
+                    $rel_descripciones =  DB::table('REL_USUARIO_DESCRIPCION')
+                        ->select('FK_DESCRIPCION')
+                        ->where('FK_USUARIO',$usuario)
+                        ->get();
+
+                }
+                //No se requiere que se obtenga la dependencia pues ya está incluida en DIR_DESC
+                /*$nom_dependencia = DB::table('DP_DEPENDENCIAS')
+                    ->where('DEPENDENCIAS_ID',$dependencia[0]->FK_DEPENDENCIA)
+                    ->select("DEPENDENCIAS_NOM_DEPENDENCIA")
+                    ->get();
+                $nom_dependencia = $nom_dependencia[0]->DEPENDENCIAS_NOM_DEPENDENCIA;//*/
+                //dd($nom_dependencia);
+
+                //obtenemos el detalle de las descripciones ontenidas en $rel_descripciones
+                foreach ($rel_descripciones as $descripcion) {
+                    $descrip = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_DIRECCION as DIR_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                        'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                    )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
+                    ->get();//*/
+                    //$descrip[0]->ID_DEP = $nom_dependencia;
+
+                    $descripciones[]=$descrip[0];
                 }
                 //dd($descripciones);
                 //return view('descripciones')->with('descripciones', $descripciones);
@@ -111,7 +185,7 @@
                     'descripciones'=> $descripciones
                 ]);//*/
             }else{
-                return view('error.error_404');
+                return view('errors.404');
             }
         }
 
