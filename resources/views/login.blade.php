@@ -48,7 +48,7 @@
                 <input type="password" class="form-control" placeholder="Contraseña" id="pass" />
               </div>
               <div>
-                <a class="btn btn-default submit" onclick="login2()">Ingresar</a>
+                <a class="btn btn-default submit" onclick="login()">Ingresar</a>
               </div>
             </form>
           </section>
@@ -119,8 +119,8 @@
   function login(){
     var usuario = $("#usuario").val();
     var contrasena = $("#pass").val();
-    //console.log("Usuario: "+usuario);
-    //console.log("Contraseña: "+contrasena);
+    console.log("Usuario: "+usuario);
+    console.log("Contraseña: "+contrasena);
     //alert("EPALE");
     var dataForm = new FormData();
         dataForm.append('usuario',usuario);
