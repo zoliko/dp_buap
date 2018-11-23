@@ -56,97 +56,112 @@
                       <!-- Tab panes -->
                       <div class="tab-content">
                         <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Información General y Proposito General del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
-
-                         
-                      <div class="x_panel">
-                          <div class="x_content">
-                          <br />
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                          
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                          <p class="lead">Información General y Propósito General del Puesto 
+                            <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i>
+                          </p>
+                          <div class="x_panel">
+                            <div class="x_content">
+                            <br />
+                          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                            
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Dirección:</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Dirección:</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Clave de Puesto:</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Clave de Puesto:</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de crecaión:</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de crecaión:</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de revisión:</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de revisión:</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revisión: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revisión: </label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="ln_solid"></div>
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12">Proposito General del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></label>
-                          <div class="form-group">
-                              <div class="col-md-12 col-sm-12 col-xs-12">
-                              <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
+                            <div class="ln_solid"></div>
+
+
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">Propósito General del Puesto 
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="left" title="Proposito General" data-content="Indicar la razón u objetivo principal del puesto, es decir, el tipo de necesidad que cubre y para qué fue creado o resulta necesario, enunciarlo preferentemente con verbos en infinitivo y responder: ¿qué hace?, ¿Cómo lo hace o por medio de qué lo hace? y ¿para qué lo hace?, es importante utilizar las palabras adecuadas al nivel que ocupa en puesto dentro del organigrama, según su grado de responsabilidad, (ejemplo: coordinar y gestionar…).">
+                                </i>
+                              </label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
+                              </div>
                             </div>
-                               
-                          </div>
 
-                            <button class="btn btn-primary" type="button" onclick="guardar_proposito()">Guardar</button>
+                              
 
-                    </form>
+                              <button class="btn btn-primary pull-right" type="button" onclick="guardar_proposito()">Guardar</button>
+
+                        </form>
+                    </div>
                   </div>
-                </div>
                           <!--Fin del Formulario de información General-->
                 </div>
                   <!--Inicio del modulo de actividades -->
                         <div class="tab-pane" id="Actividad">
-                          <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Actividades Principales y Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a."></i></p>
           
 
                             <table id="tablaprincipales" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
                                   <th>N°</th>
-                                  <th>Principales actividades generales </th>
-                                  <th>Indicadores de desempeño</th>
+                                  <th>
+                                    Principales actividades generales 
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales actividades generales" data-content="Enlistar cada una de las funciones que corresponden al puesto de forma obligatoria, constante y correcta, necesarias para cumplir con su objetivo; enunciarlas preferentemente con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Es obligatorio para todas las descripciones de puesto, incluir en las actividades generales la siguiente: mantener la confidencialidad de la información de la Unidad Académica o Dependencia Administrativa. (Consultar Anexo III, donde se indica propuesta de verbos para enunciar las actividades generales).">
+                                    </i>
+
+                                  </th>
+                                  <th>
+                                    Indicadores de desempeño
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Indicadores de desempeño" data-content="Incluir la información que nos permiten identificar cualitativa o cuantitativamente lo esperado de las actividades y funciones que desempeña el puesto, deben ser medibles, y comprobables, por lo que son opcionales de indicarse (no obligatorios).">
+                                    </i>
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody id="cuerpoTablaprincipales"></tbody>
@@ -159,7 +174,10 @@
                               <thead>
                                 <tr>
                                   <th>N°</th>
-                                  <th >Principales Actividades Especificas (No Obligatorias)</th>
+                                  <th >
+                                    Principales Actividades Especificas (No Obligatorias)
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a.">
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody id="cuerpoTablaespecificas"></tbody>
@@ -174,15 +192,27 @@
                         </div>
                   <!--Fin del modulo de Relaciones -->
                         <div class="tab-pane" id="Relacion"> 
-                          <p class="lead">Relaciones Criticas del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">Relaciones Criticas del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Relaciones Criticas del Puesto" data-content="El propósito de este apartado es que el ocupante del puesto conozca con qué puestos se relaciona y tenga claridad de los productos o servicios que proporciona o que o recibe; es decir, se describe la relación cliente/proveedor, proveedor/cliente. "></i></p>
           
 
                             <table id="tablarelaciones" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th>PUESTOS QUE SON SUS PROVEEDORES</th>
-                                  <th>INSUMOS QUE OBTIENE </th>
-                                  <th>FRECUENCIA</th>
+                                  <th>
+                                    Puestos que son sus proveedores
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus proveedores" data-content="Enlistar las diferentes áreas o puestos, de las que recibe los productos, servicios o entregables para realizar su labor, con el fin de que, el ocupante del puesto conozca qué debe recibir y de qué puesto/s o áreas, es decir, se describe su relación como cliente/proveedor.">
+                                    </i>
+                                  </th>
+                                  <th>
+                                    Insumos que obtiene
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Insumos que obtiene" data-content="Mencionar las productos, servicios o entregables que recibe de los puestos o áreas que son sus proveedores.">
+                                    </i>
+                                  </th>
+                                  <th>
+                                    Frecuencia
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se reciben productos, servicios o entregables por parte del proveedor; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                                    </i>
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody id="cuerporelaciones"></tbody>
@@ -195,17 +225,28 @@
                             <table id="tablarelaciones2" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th>PUESTOS QUE SON SUSS CLIENTES</th>
-                                  <th>PRODUCTOS QUE OFRECE </th>
-                                  <th>FRECUENCIA</th>
+                                  <th>
+                                    Puestos que son sus clientes
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus clientes" data-content="Enlistar las diferentes áreas o puestos a los cuales ofrece productos, servicios o entregables, tras realizar la labor respectiva del puesto, es decir, se describe su relación como proveedor/cliente.">
+                                    </i>
+                                  </th>
+                                  <th>
+                                    Productos que ofrece
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Productos que ofrece" data-content="Mencionar los productos, servicios o entregables que se generan y entregan del puesto a los clientes.">
+                                    </i>
+                                  </th>
+                                  </th>
+                                  <th>
+                                    Frecuencia
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                                    </i>
+                                  </th>
                                 </tr>
                               </thead>
                               <tbody id="cuerporelaciones2"></tbody>
                             </table><button onclick="AgregaRelacion2()">Agregar Relacion </button>
                
-
                         </div>
-
 
                           <div class="ln_solid"></div>
                           <div class="form-group">
@@ -218,38 +259,43 @@
 
                         </div>
                         <div class="tab-pane" id="Perfil">
-                          <p class="lead">FORMACIÓN PROFESIONAL Y EXPERIENCIA <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></p>
+                          <p class="lead">Formación Profesional y Experiencia <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i></p>
                           <i class="fas fa-comment-lines"></i>
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Formación Profesional: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                              Formación Profesional:
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
                             </div>
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                                </i>
                           </div>
                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="fi
-
-                            rst-name">Área: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
                             </div>
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
+                              </i>
                           </div>
 
                            <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
                             </div>
-                            
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
+                              </i>
                           </div>
                         </form>
                       </div>
 
-
                         <div class="tab-pane" id="Competencia">
-                          <p class="lead">COMPETENCIAS <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i>
+                          <p class="lead">Competencias 
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="En  este apartado se definen el tipo y grado de dominio de las habilidades, destrezas, actitudes y conocimientos que requiere tener y/o desarrollar el ocupante del puesto."></i>
 
                           </p>
                           <!--Comptencias inicio -->
@@ -257,11 +303,20 @@
                          <table id="tablaprincipales" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th colspan="2" align="center"><strong>GENERICAS</strong>  </th>
+                                  <th colspan="2" align="center"><strong>Genéricas</strong>  
+                                    <i class="fa fa-question-circle" data-placement="auto" data-toggle="popover" title="Competencias Genéricas" data-content="Son las características específicas requeridas para el puesto. Para facilitar la definición de estas competencias ver “Diccionario de Competencias” en la página Web de la DRH apartado Formatos. Para indicar el grado de dominio, elegir nivel: V, III, II o I según el grado de responsabilidad y la necesidad del puesto."></i>
+                                  </th>
                                 </tr>
                                 <tr>
-                                <th>Competencias</th>
-                                <th>Grado de Dominio</th></tr>
+                                <th>
+                                  Competencias
+                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
+                                </th>
+                                <th>
+                                  Grado de Dominio
+                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Se elije entre Avanzado, Medio o Básico."></i>
+                                </th>
+                              </tr>
                               </thead>
                               <tbody id="tablacompetenciasG"></tbody>
                             </table>
@@ -270,18 +325,28 @@
                            <table id="tablaprincipales" class="table table-striped table-bordered">
                               <thead>
                                 <tr>
-                                  <th colspan="2" align="center"><strong>TÉCNICAS</strong> </th>
+                                  <th colspan="2" align="center">
+                                    <strong>Técnicas</strong>
+                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Competencias Técnicas" data-content="Se indican los conocimientos técnicos, prácticos o especializados que requiere el puesto, cada Unidad Académica o Dependencia Administrativa deberá elaborar su propio diccionario de competencias técnicas con sus diferentes niveles. Los grados establecidos para las competencias técnicas utilizables en la Institución son:
+                                    Avanzado: trabajo día a día desempeñando conocimiento, creación, planeación, establecimiento, ejecución, supervisión, solución, actualización y modificación de la competencia.
+                                    Medio: trabajo día a día en desempeño del conocimiento, ejecución y reporte con supervisión de la competencia.
+                                    Básico: trabajo día a día en la aplicación del conocimiento bajo supervisión."></i>
+                                  </th>
                                 </tr>
                                 <tr>
-                                <th>Competencias</th>
-                                <th>Grado de Dominio </th>
+                                <th>
+                                  Competencias
+                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
+                                </th>
+                                <th>
+                                  Grado de Dominio
+                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Para indicar el grado de dominio, elegir nivel: Avanzado, Medio o Básico."></i>
+                                </th>
                               </tr>
                               </thead>
                               <tbody id="tablacompetenciasT"></tbody>
                             </table>
                           <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
-
-
 
                        <!--   <table  class="table table-striped table-bordered">
                             <tr>
@@ -305,13 +370,9 @@
                                
                               </table>-->
 
+                               <p class="lead">Idiomas </p>
 
-
-
-
-                               <p class="lead">IDIOMAS </p>
-
-                               <p class="lead">COMPUTACIÓN</p>
+                               <p class="lead">Computación</p>
 
                            <!--Comptencias Fin-->
                          </div>
@@ -320,7 +381,7 @@
 
                           <table class="table table-striped table-bordered">
                             <tr>
-                              <td colspan="2" align="center">LISTA DE DISTRIBUCIÓN <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i></td>
+                              <td colspan="2" align="center">Lista de Distribución <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Lista de Distribución" data-content="Mencionar el/os puestos a los que compete visualizar la descripción, con el fin de que el SIGI realice el alta y distribución correspondiente y pueda ser consultado por los puestos a que se asigne."></i></td>
                             </tr>
             
                             <tr>
@@ -346,7 +407,6 @@
                 </div>
               </div>
 
-
                   </div>
                 </div>
               </div>
@@ -356,7 +416,9 @@
 @section('script')
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover();   
+    $('[data-toggle="popover"]').popover({
+      container: 'body'
+    });   
 });
 </script>
 
@@ -426,9 +488,7 @@ function AgregarCompetenciaTecnicas(){
     );
 }
 
-
  function ActividadEspecifica(){
-
     
      $("#cuerpoTablaespecificas").append(
 
