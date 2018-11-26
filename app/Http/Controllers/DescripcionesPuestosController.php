@@ -311,35 +311,99 @@
         }
 
          public function abrirdescripcion($ID_descripcion){
-             return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
+            $descripcion = array();
+            $proposito_gral = null;
 
+            //Obtenemos los datos principales de la descripcion
+            $descrip = DB::table('DP_DESCRIPCIONES')
+                ->select([
+                            'DESCRIPCIONES_ID as ID_DESCRIPCION',
+                            'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                            'DESCRIPCIONES_REPORTA_A as REPORTA_A_DESC',
+                            'DESCRIPCIONES_AREA as AREA_DESC',
+                            'DESCRIPCIONES_DIRECCION as DIRECCION_DESC',
+                            'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                            'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
+                            'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
+                            'DESCRIPCIONES_N_REVISION as N_REVISION_DESC'
+                        ])
+                ->where('DESCRIPCIONES_ID',$ID_descripcion)
+                ->get();
+            $descripcion['DATOS'] = $descrip[0];
+
+            //aqui obtenemos el proposito general de la descripcion de pestos
+            $existe_proposito = DB::table('REL_PROPOSITO_DESCRIPCION')
+            ->where([
+                        ['FK_DESCRIPCION',$ID_descripcion]
+                    ])
+            ->get();
+            if(count($existe_proposito)>0){
+                $proposito = DB::table('DP_PROPOSITO_GENERAL')
+                    ->where([
+                                ['PROPOSITO_GENERAL_ID',$existe_proposito[0]->FK_PROPOSITO]
+                            ])
+                    ->select([
+                                'PROPOSITO_GENERAL_DESCRIPCION as PROPOSITO_GENERAL',
+                                'PROPOSITO_GENERAL_ESTATUS as ESTATUS_PROPOSITO_GENERAL',
+                                'PROPOSITO_GENERAL_MENSAJE as MENSAJE_PROPOSITO_GENERAL',
+                            ])
+                    ->get();
+                $proposito_gral = $proposito[0];    
+            }
+            $descripcion['PROPOSITO_GENERAL'] = $proposito_gral;
+            return view('formulario') ->with ("descripcion",$descripcion);
         }
 
 
-          public function guardaproposito(Request $request){
+        public function guardaproposito(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $exito=false;
+            $accion = "";
             //dd($request['Proposito']);
-            $insertar=DB::table('DP_PROPOSITO_GENERAL')->insertGetId(
-                [
-                    'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'], 
-                    'PROPOSITO_GENERAL_ESTATUS' => 0
-                ]
-            );
-
-        if($insertar){
-            DB::table('REL_PROPOSITO_DESCRIPCION')->insert(
+            //verificamos que exista el proposito
+            $existe_proposito = DB::table('REL_PROPOSITO_DESCRIPCION')
+                ->where([
+                            ['FK_DESCRIPCION',$request['id_des']]
+                        ])
+                ->get();
+            //dd($existe_proposito);
+            //en caso de que exista el proposito entonces actualizamos
+            if(count($existe_proposito)>0){
+                //dd("actualizando...");
+                $accion = "Actualización";
+                DB::table('DP_PROPOSITO_GENERAL')
+                    ->where('PROPOSITO_GENERAL_ID', $existe_proposito[0]->FK_PROPOSITO)
+                    ->update(
+                        [
+                            'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'],
+                            'updated_at' => date('Y-m-d')
+                        ]);
+            }else{
+                //dd("Insertar");
+                $accion = "Inserción";
+                $insertar=DB::table('DP_PROPOSITO_GENERAL')->insertGetId(
                     [
-                        'FK_PROPOSITO' => $insertar, 
-                        'FK_DESCRIPCION' =>  $request['id_des']
-
+                        'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'], 
+                        'PROPOSITO_GENERAL_ESTATUS' => 0,
+                        'created_at' => date('Y-m-d')
                     ]
-                        );
-            $exito=true;
-         }
-         $data = array(
-                "exito" => $exito
-              );
+                );
 
+                if($insertar){
+                    DB::table('REL_PROPOSITO_DESCRIPCION')->insert(
+                        [
+                            'FK_PROPOSITO' => $insertar, 
+                            'FK_DESCRIPCION' =>  $request['id_des']
+
+                        ]
+                    );
+                    $exito=true;
+                }
+            }
+            $data = array(
+                "exito" => $exito,
+                "accion" => $accion
+            );
             echo json_encode($data);
         }
 

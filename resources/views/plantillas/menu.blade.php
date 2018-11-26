@@ -42,6 +42,9 @@
     <!-- Archivos adicionales -->
     @yield('cssFiles')
 
+    <!-- sweet alert -->
+    <link href="{{asset('sweetalert-master/dist/sweetalert.css')}}" rel="stylesheet">
+
     <style type="text/css">
       .test[style] {
          padding-right:0 !important;
@@ -155,7 +158,7 @@
     <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-
+    <script src="{{asset('sweetalert-master/dist/sweetalert.min.js')}}"></script>
     <!-- Archivos adicionales -->
     @yield('jsFiles')
 

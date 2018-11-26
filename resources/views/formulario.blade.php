@@ -13,22 +13,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2><i class="fa fa-bars"></i> "Puesto" <small>Descripción de puestos</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
+                    <h2 id="nombre_descripcion"> CARGANDO... </h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
@@ -67,56 +52,56 @@
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_nombre_puesto" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_reporta_a" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_area_desc" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Dirección:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_direccion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Clave de Puesto:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_clave" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de crecaión:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_creacion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de revisión:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_frevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revisión: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
+                                <input type="text" id="infg_nrevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
                               </div>
                             </div>
 
@@ -132,8 +117,6 @@
                                 <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
                               </div>
                             </div>
-
-                              
 
                               <button class="btn btn-primary pull-right" type="button" onclick="guardar_proposito()">Guardar</button>
 
@@ -161,6 +144,9 @@
                                     Indicadores de desempeño
                                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Indicadores de desempeño" data-content="Incluir la información que nos permiten identificar cualitativa o cuantitativamente lo esperado de las actividades y funciones que desempeña el puesto, deben ser medibles, y comprobables, por lo que son opcionales de indicarse (no obligatorios).">
                                     </i>
+                                  </th>
+                                  <th>
+                                    Acciones
                                   </th>
                                 </tr>
                               </thead>
@@ -416,29 +402,68 @@
 @section('script')
 <script>
 $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({
-      container: 'body'
-    });   
 });
 </script>
 
 
 <script type="text/javascript">
  //var ID_DESCRIPCION;
-  var id_des=<?php echo $ID_descripcion ?>;
+  var json_descripcion=<?php echo json_encode($descripcion) ?>;
+  var id_des = json_descripcion['DATOS']['ID_DESCRIPCION'];
   $( window ).load(function() {
+    console.log(json_descripcion);
+    llenado();
      //alert(id_des);
-});
+  });
+
+  function llenado(){
+
+    //parte principal
+    $("#nombre_descripcion").text(json_descripcion['DATOS']['NOM_DESC']);
+    $("#infg_nombre_puesto").val(json_descripcion['DATOS']['NOM_DESC']);
+    $("#infg_reporta_a").val(json_descripcion['DATOS']['REPORTA_A_DESC']);
+    $("#infg_area_desc").val(json_descripcion['DATOS']['AREA_DESC']);
+    $("#infg_direccion").val(json_descripcion['DATOS']['DIRECCION_DESC']);
+    $("#infg_clave").val(json_descripcion['DATOS']['CLAVE_DESC']);
+    $("#infg_creacion").val(json_descripcion['DATOS']['CREACION_DESC']);
+    $("#infg_frevision").val(((json_descripcion['DATOS']['NOM_DESC'])?json_descripcion['DATOS']['NOM_DESC']:""));
+    $("#infg_nrevision").val(json_descripcion['DATOS']['N_REVISION_DESC']);
+
+    if(json_descripcion['PROPOSITO_GENERAL']){
+      $("#Proposito").val(json_descripcion['PROPOSITO_GENERAL']['PROPOSITO_GENERAL']);
+      if(json_descripcion['PROPOSITO_GENERAL']['ESTATUS_PROPOSITO_GENERAL']==1){
+        $("#Proposito").prop('disabled', true);
+      }
+    }
+    //swal("", "Información almacenada correctamente", "success");
+  }
  
- var cont_actG=1;
- var con_CG=1;
- var con_CT=1;
- var cont_AE=1;
+  var cont_actG=1;
+  var con_CG=1;
+  var con_CT=1;
+  var cont_AE=1;
+
+  //ejecutar popover al cargar la página
+  $('[data-toggle="popover"]').popover({
+    container: 'body'
+  }); 
+
+  //solo abrir un popover a la vez
+  $('.fa-question-circle').on('click', function (e) {
+      $('.fa-question-circle').not(this).popover('hide');
+  });
+
+  //cerrar popover cuando se da click fuera, en el body
+  $('body').on('click', function (e) {
+      //did not click a popover toggle or popover
+      if ($(e.target).data('toggle') !== 'popover'
+          && $(e.target).parents('.popover.in').length === 0) { 
+          $('[data-toggle="popover"]').popover('hide');
+      }
+  });
 
 
   function AgregaActividad(){
-
-//  alert("Entre");
      $("#cuerpoTablaprincipales").append(
 
                   "<tr>"+
@@ -454,58 +479,52 @@ $(document).ready(function(){
                   "</tr>"
       );//*/
      cont_actG++;//*/
-   }//*/
+  }//*/
 
 
-function AgregarCompetenciaGenericas(){
-//alert("Competencia Generica");
-  $("#tablacompetenciasG").append(
-     " <tr>"+
-        "<td>"+'<input type="text" class="Estilo5" id="CompetenciaG'+con_CG+'">'+"</td>"+
-          "<td>"+'<select name="fg1"id="indicador'+con_CG+'">'+
-                 '<option value="I">I</option>'+
-                  '<option value="II">II</option>'+
-                  '<option value="III">III</option>'+
-                  '<option value="IV">IV</option>'+
-               "</select>"+"</td>"+
-        "</tr>"
-    );
-  con_CG++;
-}
+  function AgregarCompetenciaGenericas(){
+  //alert("Competencia Generica");
+    $("#tablacompetenciasG").append(
+       " <tr>"+
+          "<td>"+'<input type="text" class="Estilo5" id="CompetenciaG'+con_CG+'">'+"</td>"+
+            "<td>"+'<select name="fg1"id="indicador'+con_CG+'">'+
+                   '<option value="I">I</option>'+
+                    '<option value="II">II</option>'+
+                    '<option value="III">III</option>'+
+                    '<option value="IV">IV</option>'+
+                 "</select>"+"</td>"+
+          "</tr>"
+      );
+    con_CG++;
+  }
 
-function AgregarCompetenciaTecnicas(){
-//alert("Competencia Técnicas");
-  $("#tablacompetenciasT").append(
-     " <tr>"+
-        "<td>"+'<input name="cog1" type="text" class="Estilo5"  id="CompetenciaT'+con_CT+'">'+"</td>"+
-          "<td>"+ '<select name="fg1" id="indicador'+con_CT+'">'+
-                 '<option value="Básico">Basico</option>'+
-                  '<option value="Medio">Medio </option>'+
-                  '<option value="Avanzado">Avanzado</option>'+
-                  
-               "</select>"+"</td>"+
-        "</tr>"
-    );
-}
-
- function ActividadEspecifica(){
-    
-     $("#cuerpoTablaespecificas").append(
-
-
-
-                  "<tr>"+
-                    "<td id='nombre_"+cont_AE+"'>"+cont_AE+"</td>"+
-                    "<td>"+'<div class="form-group">'+
-                            '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                    "</td>"+
-                   
+  function AgregarCompetenciaTecnicas(){
+  //alert("Competencia Técnicas");
+    $("#tablacompetenciasT").append(
+       " <tr>"+
+          "<td>"+'<input name="cog1" type="text" class="Estilo5"  id="CompetenciaT'+con_CT+'">'+"</td>"+
+            "<td>"+ '<select name="fg1" id="indicador'+con_CT+'">'+
+                   '<option value="Básico">Basico</option>'+
+                    '<option value="Medio">Medio </option>'+
+                    '<option value="Avanzado">Avanzado</option>'+
                     
-                  "</tr>");
+                 "</select>"+"</td>"+
+          "</tr>"
+      );
+  }
 
-cont_AE++;
+  function ActividadEspecifica(){
+   $("#cuerpoTablaespecificas").append(
+    "<tr>"+
+      "<td id='nombre_"+cont_AE+"'>"+cont_AE+"</td>"+
+        "<td>"+
+          '<div class="form-group">'+
+            '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
+          '</div>'+
+        "</td>"+
+      "</td>"+        
+    "</tr>");
+    cont_AE++;
   }
 
   function AgregaRelacion(){
@@ -520,15 +539,24 @@ cont_AE++;
                             '<textarea class="form-control" rows="5" id="comment"></textarea>'+
                             '</div>'+
                     "</td>"+
-                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+
+                      '<select name="fg1"id="indicador'+con_CG+'">'+
+                        '<option value="VARIABLE">VARIABLE</option>'+
+                        '<option value="DIARIO">DIARIO</option>'+
+                        '<option value="SEMANAL">SEMANAL</option>'+
+                        '<option value="QUINCENAL">QUINCENAL</option>'+
+                        '<option value="MENSUAL">MENSUAL</option>'+
+                        '<option value="TRIMESTRAL">TRIMESTRAL</option>'+
+                        '<option value="SEMESTRAL">SEMESTRAL</option>'+
+                        '<option value="ANUAL">ANUAL</option>'+
+                       "</select>"+
+                    "</td>"+
                     
                   "</tr>");
 
 
   }
   function AgregaRelacion2(){
-
-    
      $("#cuerporelaciones2").append(
 
                   "<tr>"+
@@ -541,49 +569,45 @@ cont_AE++;
                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
                     
                   "</tr>");
-
-
   }
 
   function guardar_proposito(){
     var Proposito = $("#Proposito").val();
-    console.log(Proposito);
-    console.log(id_des);
+    //console.log(Proposito);
+    //console.log(id_des);
     var dataForm = new FormData();
-        dataForm.append('Proposito',Proposito);
-        dataForm.append('id_des',id_des);
-
-        if (Proposito!="") {
-$.ajax({
-          url :'/descripcion/guarda_proposito',
-          data : dataForm,
-          contentType:false,
-          processData:false,
-          headers:{
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-          type: 'POST',
-          dataType : 'json',
-          beforeSend: function (){
-            $("#modalCarga").modal();
+    dataForm.append('Proposito',Proposito);
+    dataForm.append('id_des',id_des);
+    if (Proposito!="") {
+      $.ajax({
+        url :'/descripcion/guarda_proposito',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          success : function(json){
-             //Codigo en caso de que la visita haya sido correcta
-          },
-          error : function(xhr, status) {
-            $("#textoModalMensaje").text('Existió un problema al guardar el proposito');
-            $("#modalMensaje").modal();
-            $('#btnCancelar').prop('disabled', false);
-          },
-          complete : function(xhr, status){
-             $("#modalCarga").modal('hide');
-          }
-        });
-
-}else {
-  alert("no tiene proposito");
-}  }
-
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+           //Codigo en caso de que la visita haya sido correcta
+          swal("", "Información almacenada correctamente", "success");
+        },
+        error : function(xhr, status) {
+          swal("¡Error!", "Existió un problema con el servidor!", "error");
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
+    }else {
+      swal("¡Atención!", "El campo Próposito General está vacío", "warning");
+    }  
+  }
 
 
 function guardar_Actividades(tmp_cont_actG){
@@ -639,7 +663,6 @@ function guardar_Actividades(tmp_cont_actG){
 
       });//*/
     }
-
 
 
 
