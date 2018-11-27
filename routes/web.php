@@ -88,3 +88,13 @@ Route::get('/archivos/descargar/{carpeta}/{nombre}' , 'ArchivosController@descar
 Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependencia');
 
 Route::get('/ayuda' , 'GestionUsuariosController@redirigeAyuda');
+
+//PDF
+Route::get('pdf',function(){
+  $pdf = PDF::loadView('pdf.descripcion');
+  return $pdf->download('login.pdf');
+});
+
+Route::get('pdf/visualizar', function(){
+  return view('pdf.descripcion');
+});
