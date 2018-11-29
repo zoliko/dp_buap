@@ -15,7 +15,24 @@
          * @param  int  $id
          * @return Response
          */
+        public function crearPdf($id_descripcion){
+            $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
+            $pdf = \PDF::loadView('pdf.descripcion',['descripcion'=>$descripcion]);
+            return $pdf->download('login.pdf');
+        }
 
+        /*public function visualizaPdf($id_descripcion){
+            $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
+            //dd($descripcion);
+            return view('pdf.descripcion')->with("descripcion",$descripcion);
+        }//*/
+
+        public function visualizaPdf(){
+            $id_descripcion = 7;
+            $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
+            //dd($descripcion);
+            return view('pdf.descripcion')->with("descripcion",$descripcion);
+        }
         public function descripcionesPermisos(Request $request){
             $id_dependencia = $request['id_dependencia'];
             $id_usuario = $request['id_usuario'];
@@ -310,7 +327,12 @@
             echo json_encode($data);//*/
         }
 
-         public function abrirdescripcion($ID_descripcion){
+        public function abrirdescripcion($ID_descripcion){
+            $descripcion = DescripcionesPuestosController::ontenerDescripcion($ID_descripcion);
+            return view('formulario') ->with ("descripcion",$descripcion);
+        }
+
+         public function ontenerDescripcion($ID_descripcion){
             $descripcion = array();
             $proposito_gral = null;
 
@@ -351,7 +373,8 @@
                 $proposito_gral = $proposito[0];    
             }
             $descripcion['PROPOSITO_GENERAL'] = $proposito_gral;
-            return view('formulario') ->with ("descripcion",$descripcion);
+            //return view('formulario') ->with ("descripcion",$descripcion);
+            return $descripcion;
         }
 
 
