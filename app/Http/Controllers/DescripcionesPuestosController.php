@@ -451,5 +451,35 @@
 
         }
 
+        public function guardar_ActividadesEspecifica(Request $request){
+            $exito=false;
+            //dd($request['Proposito']);
+            $insertar=DB::table('DP_ACTIVIDADES_ESPECIFICAS')->insertGetId(
+                [
+                    'ACTIVIDADES_ESPECIFICAS_ACTIVIDA' => $request['ActividadE'], 
+                    'ACTIVIDADES_GENERALES_ESTATUS'=> 0
+
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_ACT_ESP_DESCRIPCION')->insert(
+                    [
+                        'FK_ACTIVIDAD_ESPECIFICA' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
 
     }

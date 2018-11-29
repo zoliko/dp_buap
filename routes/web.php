@@ -55,6 +55,7 @@ Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abr
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
 
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
+Route::post('/descripcion/guardar_ActividadesE', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');

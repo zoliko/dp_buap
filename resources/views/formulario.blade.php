@@ -520,6 +520,7 @@ $(document).ready(function(){
         "<td>"+
           '<div class="form-group">'+
             '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
+             "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_ActividadesE('+cont_AE+')">Guardar</button>'+"</td>"+
           '</div>'+
         "</td>"+
       "</td>"+        
@@ -612,7 +613,7 @@ $(document).ready(function(){
 
 function guardar_Actividades(tmp_cont_actG){
   alert(tmp_cont_actG);
-  console.log("entre a la funcion guardar actividades");
+  //console.log("entre a la funcion guardar actividades");
     var Actividad = $("#actividadPrin"+tmp_cont_actG).val();
     console.log(Actividad);
     console.log(id_des);
@@ -620,7 +621,7 @@ function guardar_Actividades(tmp_cont_actG){
         dataForm.append('Actividad',Actividad);
         dataForm.append('id_des',id_des);
 
-        if (Proposito!="") {
+        if (Actividad!="") {
       $.ajax({
                 url :'/descripcion/guardar_Actividades',
                 data : dataForm,
@@ -636,6 +637,51 @@ function guardar_Actividades(tmp_cont_actG){
                 },
                 success : function(json){
                    //Codigo en caso de que la visita haya sido correcta
+                   swal("", "Información almacenada correctamente", "success");
+                },
+                error : function(xhr, status) {
+                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                  $("#modalMensaje").modal();
+                  $('#btnCancelar').prop('disabled', false);
+                },
+                complete : function(xhr, status){
+                   $("#modalCarga").modal('hide');
+                }
+              });
+
+      }else {
+        alert("no tiene actividad");
+      }  
+    }
+
+
+function guardar_ActividadesE(tmp_cont_actE){
+  alert(tmp_cont_actE);
+  console.log("entre a la funcion guardar actividades específica");
+    var ActividadE = $("#ActividadEspecifica"+tmp_cont_actE).val();
+    console.log(ActividadE);
+    console.log(id_des);
+    var dataForm = new FormData();
+        dataForm.append('ActividadE',ActividadE);
+        dataForm.append('id_des',id_des);
+
+        if (ActividadE!="") {
+      $.ajax({
+                url :'/descripcion/guardar_ActividadesEspecifica',
+                data : dataForm,
+                contentType:false,
+                processData:false,
+                headers:{
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  },
+                type: 'POST',
+                dataType : 'json',
+                beforeSend: function (){
+                  $("#modalCarga").modal();
+                },
+                success : function(json){
+                   //Codigo en caso de que la visita haya sido correcta
+                   swal("", "Información almacenada correctamente", "success");
                 },
                 error : function(xhr, status) {
                   $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
