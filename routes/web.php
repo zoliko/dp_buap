@@ -91,11 +91,12 @@ Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependenci
 Route::get('/ayuda' , 'GestionUsuariosController@redirigeAyuda');
 
 //PDF
-Route::get('pdf',function(){
+/*Route::get('/pdf',function(){
   $pdf = PDF::loadView('pdf.descripcion');
   return $pdf->download('login.pdf');
-});
-
-Route::get('pdf/visualizar', function(){
+});//*/
+Route::get('/descripciones/pdf/{id_descripcion}','DescripcionesPuestosController@crearPdf');
+Route::get('visualizar','DescripcionesPuestosController@visualizaPdf');
+/*Route::get('visualizar', function(){
   return view('pdf.descripcion');
-});
+});//*/
