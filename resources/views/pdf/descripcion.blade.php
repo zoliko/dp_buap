@@ -1,6 +1,6 @@
 <?php 
 	//$descripcion = json_encode($descripcion);
-	//dd($descripcion['DATOS']->NOM_DESC);
+	//dd($descripcion["DATOS"]->NOM_DESC);
 	//dd($descripcion);
 ?>
 <!DOCTYPE html>
@@ -36,7 +36,7 @@
 				vertical-align: middle;
 			}
 		</style>
-		<title>{{$descripcion['DATOS']->NOM_DESC}}</title>
+		<title>{{$descripcion["DATOS"]->NOM_DESC}}</title>
 	</head>
 	<body>
 		<div id="1_cabecera">
@@ -52,27 +52,27 @@
 			    </tr>
 			    <tr>
 			      <th scope="row" class="fondo">Puesto:</th>
-			      <td >{{$descripcion['DATOS']->NOM_DESC}}</td>
+			      <td >{{$descripcion["DATOS"]->NOM_DESC}}</td>
 			      <th scope="row" class="fondo">Clave del Puesto:</th>
-			      <td>{{$descripcion['DATOS']->CLAVE_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->CLAVE_DESC}}</td>
 			    </tr>
 			    <tr>
 			      <th scope="row" class="fondo">Reporta a:</th>
-			      <td>{{$descripcion['DATOS']->REPORTA_A_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->REPORTA_A_DESC}}</td>
 			      <th scope="row" class="fondo">Fecha de creación:</th>
-			      <td>{{$descripcion['DATOS']->CREACION_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->CREACION_DESC}}</td>
 			    </tr>
 			    <tr>
 			      <th scope="row" class="fondo">Área:</th>
-			      <td>{{$descripcion['DATOS']->AREA_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->AREA_DESC}}</td>
 			      <th scope="row" class="fondo">Fecha de revisión:</th>
-			      <td>{{(($descripcion['DATOS']->REVISION_DESC)?$descripcion['DATOS']->REVISION_DESC:"")}}</td>
+			      <td>{{(($descripcion["DATOS"]->REVISION_DESC)?$descripcion["DATOS"]->REVISION_DESC:"")}}</td>
 			    </tr>
 			    <tr>
 			      <th scope="row" class="fondo">Dirección:</th>
-			      <td>{{$descripcion['DATOS']->DIRECCION_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->DIRECCION_DESC}}</td>
 			      <th scope="row" class="fondo">No. de revisión:</th>
-			      <td>{{$descripcion['DATOS']->N_REVISION_DESC}}</td>
+			      <td>{{$descripcion["DATOS"]->N_REVISION_DESC}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -114,7 +114,7 @@
 			    </tr>
 			    <tr>
 			      <th scope="row" class="bloque fondo"></th>
-			      <th scope="row" class="bloque fondo">Principales actividades gerenciales</th>
+			      <th scope="row" class="bloque fondo">Principales Actividades Generales</th>
 			      <th scope="row" class="bloque fondo">Indicadores de Desempeño</th>
 			    </tr>
 			  </thead>
@@ -463,7 +463,7 @@
 			    	</tr>
 			    	<tr>
 			      		<th class="bloque fondo" colspan="2" style="vertical-align: middle; width: 33%;">INSTITUCIONALES</th>
-			      		<th class="bloque fondo" colspan="2" style="vertical-align: middle; width: 34%;">GERENCIAS</th>
+			      		<th class="bloque fondo" colspan="2" style="vertical-align: middle; width: 34%;">GENERALES</th>
 			      		<th class="bloque fondo" colspan="2" style="vertical-align: middle; width: 33%;">TÉCNICAS</th>
 			    	</tr>
 			    	<tr>

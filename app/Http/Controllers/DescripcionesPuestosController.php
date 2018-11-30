@@ -18,7 +18,8 @@
         public function crearPdf($id_descripcion){
             $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
             $pdf = \PDF::loadView('pdf.descripcion',['descripcion'=>$descripcion]);
-            return $pdf->download('login.pdf');
+            return $pdf->download($descripcion['DATOS']->NOM_DESC.'.pdf');
+            //return $pdf->stream();
         }
 
         /*public function visualizaPdf($id_descripcion){
@@ -332,23 +333,24 @@
             return view('formulario') ->with ("descripcion",$descripcion);
         }
 
-         public function ontenerDescripcion($ID_descripcion){
+        //Se obtiene la descripcion de puesto con todos sus datos <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>
+        public function ontenerDescripcion($ID_descripcion){
             $descripcion = array();
             $proposito_gral = null;
 
             //Obtenemos los datos principales de la descripcion
             $descrip = DB::table('DP_DESCRIPCIONES')
                 ->select([
-                            'DESCRIPCIONES_ID as ID_DESCRIPCION',
-                            'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
-                            'DESCRIPCIONES_REPORTA_A as REPORTA_A_DESC',
-                            'DESCRIPCIONES_AREA as AREA_DESC',
-                            'DESCRIPCIONES_DIRECCION as DIRECCION_DESC',
-                            'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
-                            'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
-                            'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
-                            'DESCRIPCIONES_N_REVISION as N_REVISION_DESC'
-                        ])
+                    'DESCRIPCIONES_ID as ID_DESCRIPCION',
+                    'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                    'DESCRIPCIONES_REPORTA_A as REPORTA_A_DESC',
+                    'DESCRIPCIONES_AREA as AREA_DESC',
+                    'DESCRIPCIONES_DIRECCION as DIRECCION_DESC',
+                    'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                    'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
+                    'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
+                    'DESCRIPCIONES_N_REVISION as N_REVISION_DESC'
+                ])
                 ->where('DESCRIPCIONES_ID',$ID_descripcion)
                 ->get();
             $descripcion['DATOS'] = $descrip[0];
@@ -373,6 +375,50 @@
                 $proposito_gral = $proposito[0];    
             }
             $descripcion['PROPOSITO_GENERAL'] = $proposito_gral;
+
+            //aqui obtenemos la relacion de actividades generales
+            $rel_actgral = DB::table('REL_ACT_GRAL_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_ACTIVIDAD_GENERAL'])
+                ->get();
+            $actividades_grles = array();
+            foreach ($rel_actgral as $actividad) {
+                $rel_act = DB::table('DP_ACTIVIDADES_GENERALES')
+                    ->where('ACTIVIDADES_GENERALES_ID',$actividad->FK_ACTIVIDAD_GENERAL)
+                    ->select([
+                            'ACTIVIDADES_GENERALES_ID as ID_DESCRIPCION',
+                            'ACTIVIDADES_GENERALES_ACTIVIDAD as NOMBRE_ACTIVIDAD',
+                            'ACTIVIDADES_GENERALES_INDICADOR as INDICADOR_ACTIVIDAD',
+                            'ACTIVIDADES_GENERALES_INDICADOR as ESTATUS_ACTIVIDAD',
+                            'ACTIVIDADES_GENERALES_MENSAJE as MENSAJE_ACTIVIDAD',
+                            ])
+                    ->get();
+                $actividades_grles[] = $rel_act[0];
+            }
+            $descripcion['ACTIVIDADES_GRLES'] = $actividades_grles;
+
+            //aqui obtenemos la relacion de actividades especificas
+            $rel_actesp = DB::table('REL_ACT_ESP_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_ACTIVIDAD_ESPECIFICA'])
+                ->get();
+            $actividades_esp = array();
+            foreach ($rel_actesp as $actividad) {
+                $rel_act = DB::table('DP_ACTIVIDADES_ESPECIFICAS')
+                    ->where('ACTIVIDADES_ESPECIFICAS_ID',$actividad->FK_ACTIVIDAD_ESPECIFICA)
+                    ->select([
+                            'ACTIVIDADES_ESPECIFICAS_ID as ID_DESCRIPCION',
+                            'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD as NOMBRE_ACTIVIDAD',
+                            'ACTIVIDADES_ESPECIFICAS_ESTATUS as ESTATUS_ACTIVIDAD',
+                            'ACTIVIDADES_ESPECIFICAS_MENSAJE as MENSAJE_ACTIVIDAD',
+                            ])
+                    ->get();
+                $actividades_esp[] = $rel_act[0];
+            }
+            $descripcion['ACTIVIDADES_ESPECIFICAS'] = $actividades_esp;
+
+
+            //dd($descripcion);
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
         }
@@ -399,7 +445,7 @@
                     ->update(
                         [
                             'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'],
-                            'updated_at' => date('Y-m-d')
+                            'updated_at' => date('Y-m-d H:i:s')
                         ]);
             }else{
                 //dd("Insertar");
@@ -408,7 +454,7 @@
                     [
                         'PROPOSITO_GENERAL_DESCRIPCION' => $request['Proposito'], 
                         'PROPOSITO_GENERAL_ESTATUS' => 0,
-                        'created_at' => date('Y-m-d')
+                        'created_at' => date('Y-m-d H:i:s')
                     ]
                 );
 
@@ -445,64 +491,55 @@
         }
 
         public function guardarActividad(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $exito=false;
             //dd($request['Proposito']);
             $insertar=DB::table('DP_ACTIVIDADES_GENERALES')->insertGetId(
                 [
                     'ACTIVIDADES_GENERALES_ACTIVIDAD' => $request['Actividad'], 
-                    'ACTIVIDADES_GENERALES_INDICADOR' => "indicador",
-                    'ACTIVIDADES_GENERALES_ESTATUS'=> 0
+                    'ACTIVIDADES_GENERALES_INDICADOR' => $request['indicador'],
+                    'ACTIVIDADES_GENERALES_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]
             );
-
-        if($insertar){
-            DB::table('REL_ACT_GRAL_DESCRIPCION')->insert(
+            if($insertar){
+                DB::table('REL_ACT_GRAL_DESCRIPCION')->insert(
                     [
                         'FK_ACTIVIDAD_GENERAL' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
-
                     ]
-                        );
-            $exito=true;
-         }
-         $data = array(
+                );
+                $exito=true;
+            }
+            $data = array(
                 "exito" => $exito
-              );
-
+            );
             echo json_encode($data);
-
-
         }
 
         public function guardar_ActividadesEspecifica(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $exito=false;
             //dd($request['Proposito']);
             $insertar=DB::table('DP_ACTIVIDADES_ESPECIFICAS')->insertGetId(
                 [
-                    'ACTIVIDADES_ESPECIFICAS_ACTIVIDA' => $request['ActividadE'], 
-                    'ACTIVIDADES_GENERALES_ESTATUS'=> 0
-
+                    'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD' => $request['ActividadE'], 
+                    'ACTIVIDADES_ESPECIFICAS_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]
             );
-
-        if($insertar){
-            DB::table('REL_ACT_ESP_DESCRIPCION')->insert(
+            if($insertar){
+                DB::table('REL_ACT_ESP_DESCRIPCION')->insert(
                     [
                         'FK_ACTIVIDAD_ESPECIFICA' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
-
                     ]
-                        );
-            $exito=true;
-         }
-         $data = array(
+                );
+                $exito=true;
+            }
+            $data = array(
                 "exito" => $exito
-              );
-
+            );
             echo json_encode($data);
-
-
         }
-
-
     }

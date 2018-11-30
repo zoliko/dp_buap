@@ -164,6 +164,7 @@
                                     Principales Actividades Especificas (No Obligatorias)
                                     <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a.">
                                   </th>
+                                  <th>Acciones</th>
                                 </tr>
                               </thead>
                               <tbody id="cuerpoTablaespecificas"></tbody>
@@ -415,9 +416,13 @@ $(document).ready(function(){
     llenado();
      //alert(id_des);
   });
+ 
+  var cont_actG=1;
+  var con_CG=1;
+  var con_CT=1;
+  var cont_AE=1;
 
   function llenado(){
-
     //parte principal
     $("#nombre_descripcion").text(json_descripcion['DATOS']['NOM_DESC']);
     $("#infg_nombre_puesto").val(json_descripcion['DATOS']['NOM_DESC']);
@@ -435,13 +440,33 @@ $(document).ready(function(){
         $("#Proposito").prop('disabled', true);
       }
     }
+    for(var i = 0; i < json_descripcion['ACTIVIDADES_GRLES'].length; i++){
+      $("#cuerpoTablaprincipales").append(
+          '<tr>'+
+            '<td>'+(parseInt(i)+1)+'</td>'+
+            '<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+'</td>'+
+            '<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
+            '<td>'+"ACCIONES"+'</td>'+
+          '</tr>'
+        );
+      cont_actG++;
+      console.log(cont_actG);
+      //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
+    }
+    for(var i = 0; i < json_descripcion['ACTIVIDADES_ESPECIFICAS'].length; i++){
+      $("#cuerpoTablaespecificas").append(
+          '<tr>'+
+            '<td>'+(parseInt(i)+1)+'</td>'+
+            '<td>'+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['NOMBRE_ACTIVIDAD']+'</td>'+
+            '<td>'+"ACCIONES"+'</td>'+
+          '</tr>'
+        );
+      cont_AE++;
+      console.log(cont_AE);
+      //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
+    }
     //swal("", "Información almacenada correctamente", "success");
   }
- 
-  var cont_actG=1;
-  var con_CG=1;
-  var con_CT=1;
-  var cont_AE=1;
 
   //ejecutar popover al cargar la página
   $('[data-toggle="popover"]').popover({
@@ -529,8 +554,6 @@ $(document).ready(function(){
   }
 
   function AgregaRelacion(){
-
-    
      $("#cuerporelaciones").append(
 
                   "<tr>"+
@@ -612,46 +635,49 @@ $(document).ready(function(){
 
 
 function guardar_Actividades(tmp_cont_actG){
-  alert(tmp_cont_actG);
+  //alert(tmp_cont_actG);
   //console.log("entre a la funcion guardar actividades");
     var Actividad = $("#actividadPrin"+tmp_cont_actG).val();
+    var indicador = $("#indicador"+tmp_cont_actG).val();
     console.log(Actividad);
     console.log(id_des);
+    console.log(indicador);
     var dataForm = new FormData();
         dataForm.append('Actividad',Actividad);
+        dataForm.append('indicador',indicador);
         dataForm.append('id_des',id_des);
 
         if (Actividad!="") {
-      $.ajax({
-                url :'/descripcion/guardar_Actividades',
-                data : dataForm,
-                contentType:false,
-                processData:false,
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+                  url :'/descripcion/guardar_Actividades',
+                  data : dataForm,
+                  contentType:false,
+                  processData:false,
+                  headers:{
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                  type: 'POST',
+                  dataType : 'json',
+                  beforeSend: function (){
+                    $("#modalCarga").modal();
                   },
-                type: 'POST',
-                dataType : 'json',
-                beforeSend: function (){
-                  $("#modalCarga").modal();
-                },
-                success : function(json){
-                   //Codigo en caso de que la visita haya sido correcta
-                   swal("", "Información almacenada correctamente", "success");
-                },
-                error : function(xhr, status) {
-                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                  $("#modalMensaje").modal();
-                  $('#btnCancelar').prop('disabled', false);
-                },
-                complete : function(xhr, status){
-                   $("#modalCarga").modal('hide');
-                }
-              });
+                  success : function(json){
+                     //Codigo en caso de que la visita haya sido correcta
+                     swal("", "Información almacenada correctamente", "success");
+                  },
+                  error : function(xhr, status) {
+                    $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                    $("#modalMensaje").modal();
+                    $('#btnCancelar').prop('disabled', false);
+                  },
+                  complete : function(xhr, status){
+                     $("#modalCarga").modal('hide');
+                  }
+                });//*/
 
-      }else {
-        alert("no tiene actividad");
-      }  
+        }else {
+          alert("no tiene actividad");
+        }  
     }
 
 
@@ -666,32 +692,32 @@ function guardar_ActividadesE(tmp_cont_actE){
         dataForm.append('id_des',id_des);
 
         if (ActividadE!="") {
-      $.ajax({
-                url :'/descripcion/guardar_ActividadesEspecifica',
-                data : dataForm,
-                contentType:false,
-                processData:false,
-                headers:{
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+                  url :'/descripcion/guardar_ActividadesEspecifica',
+                  data : dataForm,
+                  contentType:false,
+                  processData:false,
+                  headers:{
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                  type: 'POST',
+                  dataType : 'json',
+                  beforeSend: function (){
+                    $("#modalCarga").modal();
                   },
-                type: 'POST',
-                dataType : 'json',
-                beforeSend: function (){
-                  $("#modalCarga").modal();
-                },
-                success : function(json){
-                   //Codigo en caso de que la visita haya sido correcta
-                   swal("", "Información almacenada correctamente", "success");
-                },
-                error : function(xhr, status) {
-                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                  $("#modalMensaje").modal();
-                  $('#btnCancelar').prop('disabled', false);
-                },
-                complete : function(xhr, status){
-                   $("#modalCarga").modal('hide');
-                }
-              });
+                  success : function(json){
+                     //Codigo en caso de que la visita haya sido correcta
+                     swal("", "Información almacenada correctamente", "success");
+                  },
+                  error : function(xhr, status) {
+                    $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                    $("#modalMensaje").modal();
+                    $('#btnCancelar').prop('disabled', false);
+                  },
+                  complete : function(xhr, status){
+                     $("#modalCarga").modal('hide');
+                  }
+                });//*/
 
       }else {
         alert("no tiene actividad");
