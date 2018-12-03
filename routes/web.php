@@ -57,6 +57,8 @@ Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@gua
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesE', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
 
+Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
+
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
 

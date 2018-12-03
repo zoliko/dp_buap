@@ -504,5 +504,37 @@
 
         }
 
+         public function guardarelacion(Request $request){
+            $exito=false;
+            //dd($request['Proposito']);
+            $insertar=DB::table('DP_PUESTOS_PROVEEDORES')->insertGetId(
+                [
+                    'PUESTOS_PROVEEDORES_DESCRIPCION' => $request['relacion'], 
+                    'PUESTOS_PROVEEDORES_INSUMO'=> $request['insumo'],
+                    'PUESTOS_PROVEEDORES_FRECUENCIA'=>  $request['indicador'],
+                    'PUESTOS_PROVEEDORES_ESTATUS'=> 0
+
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_ACT_ESP_DESCRIPCION')->insert(
+                    [
+                        'FK_PUESTO_PROVEEDOR' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
 
     }
