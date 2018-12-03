@@ -444,13 +444,19 @@ $(document).ready(function(){
       $("#cuerpoTablaprincipales").append(
           '<tr>'+
             '<td>'+(parseInt(i)+1)+'</td>'+
-            '<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+'</td>'+
-            '<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
-            '<td>'+"ACCIONES"+'</td>'+
+            '<td>'+
+              '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'">'+
+                json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+
+              '</textarea>'+
+            '</td>'+
+            //'<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
+            '<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'">'+'</td>'+
+            "<td>"+'<button class="btn btn-primary" type="button" onclick="actualizar_Actividades('+json_descripcion['ACTIVIDADES_GRLES'][i]['ID_DESCRIPCION']+')">Guardar</button>'+"</td>"+
           '</tr>'
         );
+      $("#indicador"+cont_actG).val(json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']);00
       cont_actG++;
-      console.log(cont_actG);
+      //console.log(cont_actG);
       //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
     }
     for(var i = 0; i < json_descripcion['ACTIVIDADES_ESPECIFICAS'].length; i++){
@@ -458,11 +464,14 @@ $(document).ready(function(){
           '<tr>'+
             '<td>'+(parseInt(i)+1)+'</td>'+
             '<td>'+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['NOMBRE_ACTIVIDAD']+'</td>'+
+            //'<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'" >epa</input>'+'</td>'+
             '<td>'+"ACCIONES"+'</td>'+
           '</tr>'
         );
+
+      //'<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'"></textarea>'+
       cont_AE++;
-      console.log(cont_AE);
+      //console.log(cont_AE);
       //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
     }
     //swal("", "Información almacenada correctamente", "success");
@@ -486,6 +495,10 @@ $(document).ready(function(){
           $('[data-toggle="popover"]').popover('hide');
       }
   });
+
+  function actualizar_Actividades(id_des){
+    
+  }
 
 
   function AgregaActividad(){
