@@ -55,7 +55,7 @@ Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abr
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
 
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
-Route::post('/descripcion/guardar_ActividadesE', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
+Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
 
 Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
 
@@ -97,6 +97,7 @@ Route::get('/ayuda' , 'GestionUsuariosController@redirigeAyuda');
   $pdf = PDF::loadView('pdf.descripcion');
   return $pdf->download('login.pdf');
 });//*/
+Route::get('/descripciones/pdf2/{id_descripcion}','DescripcionesPuestosController@crearPdf2');
 Route::get('/descripciones/pdf/{id_descripcion}','DescripcionesPuestosController@crearPdf');
 Route::get('visualizar','DescripcionesPuestosController@visualizaPdf');
 /*Route::get('visualizar', function(){
