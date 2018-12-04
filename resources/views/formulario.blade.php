@@ -483,6 +483,7 @@ $(document).ready(function(){
   var con_CT=1;
   var cont_AE=1;
   var cont_r=1;
+  var cont_rd=1;
 
 
   //ejecutar popover al cargar la página
@@ -555,7 +556,7 @@ $(document).ready(function(){
                     '<option value="III">III</option>'+
                     '<option value="IV">IV</option>'+
                  "</select>"+"</td>"+
-          "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasG('+cont_AE+')">Guardar</button>'+"</td>"+
+          "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasG('+con_CG+')">Guardar</button>'+"</td>"+
           "</tr>");
     con_CG++;//*/
   }
@@ -573,6 +574,7 @@ $(document).ready(function(){
                  "</select>"+"</td>"+
            "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+cont_AE+')">Guardar</button>'+"</td>"+
           "</tr>");//*/
+   con_CT++;
   }
   
 
@@ -603,7 +605,7 @@ $(document).ready(function(){
                     "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion('+cont_r+')">Guardar</button>'+"</td>"+
                     
                   "</tr>");//*/
-
+    cont_r++;
   }
 
 
@@ -612,14 +614,14 @@ $(document).ready(function(){
      $("#cuerporelaciones2").append(
 
                   "<tr>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<input type="text" class="form-control" id="cliente'+cont_rd+'">'+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="insumo'+cont_rd+'"></textarea>'+
                             '</div>'+
                     "</td>"+
                    "<td>"+
-                      '<select name="fg1" id="indicador">'+
+                      '<select name="fg1" id="indicador'+cont_rd+'">'+
                         '<option value="VARIABLE">VARIABLE</option>'+
                         '<option value="DIARIO">DIARIO</option>'+
                         '<option value="SEMANAL">SEMANAL</option>'+
@@ -631,10 +633,61 @@ $(document).ready(function(){
                        "</select>"+
                     "</td>"+
 
-                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion('+cont_r+')">Guardar</button>'+"</td>"+
+                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion2('+cont_rd+')">Guardar</button>'+"</td>"+
                     
                   "</tr>");//*/
+     cont_rd++;
   }
+
+
+function guardar_CompetenciasG(tmp_cont_cg){
+    //alert("Entre");
+     //console.log("entre a la funcion guardar actividades");
+   //  console.log(tmp_cont_rel);
+
+        var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+        var indicador = $("#indicador"+tmp_cont_cg).val(); 
+       console.log(competenciag);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('competenciag',competenciag);;
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+            if (competenciag!="") {
+          $.ajax({
+                    url :'/descripcion/guardar_CompetenciasG',
+                    data : dataForm,
+                    contentType:false,
+                    processData:false,
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                    type: 'POST',
+                    dataType : 'json',
+                    beforeSend: function (){
+                      $("#modalCarga").modal();
+                    },
+                    success : function(json){
+                       //Codigo en caso de que la visita haya sido correcta
+                       swal("", "Información almacenada correctamente", "success");
+                    },
+                    error : function(xhr, status) {
+                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                      $("#modalMensaje").modal();
+                      $('#btnCancelar').prop('disabled', false);
+                    },
+                    complete : function(xhr, status){
+                       $("#modalCarga").modal('hide');
+                    }
+                  });
+
+          }else {
+            alert("no tiene actividad");
+          }//*/
+}
+
 
 
 function guardar_relacion(tmp_cont_rel){
@@ -687,9 +740,62 @@ function guardar_relacion(tmp_cont_rel){
             alert("no tiene actividad");
           }//*/
 }
-  
 
 
+function guardar_relacion2(tmp_cont_reld){
+        var relacion = $("#cliente"+tmp_cont_reld).val(); 
+        var insumo = $("#insumo"+tmp_cont_reld).val();
+        var indicador = $("#indicador"+tmp_cont_reld).val(); 
+       console.log(relacion);
+        console.log(insumo);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('relacion',relacion);
+            dataForm.append('insumo', insumo);
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+  if (relacion!="") {
+        $.ajax({
+                  url :'/descripcion/guardar_relacion2',
+                  data : dataForm,
+                  contentType:false,
+                  processData:false,
+                  headers:{
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                  type: 'POST',
+                  dataType : 'json',
+                  beforeSend: function (){
+                    $("#modalCarga").modal();
+                  },
+
+                type: 'POST',
+                dataType : 'json',
+                beforeSend: function (){
+                  $("#modalCarga").modal();
+                },
+                success : function(json){
+                   //Codigo en caso de que la visita haya sido correcta
+                   swal("", "Información almacenada correctamente", "success");
+                },
+                error : function(xhr, status) {
+                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                  $("#modalMensaje").modal();
+                  $('#btnCancelar').prop('disabled', false);
+                },
+                complete : function(xhr, status){
+                   $("#modalCarga").modal('hide');
+                }
+              });
+
+      }else {
+        alert("no tiene actividad");
+      } 
+
+
+}
 
 
 function guardar_Actividades(tmp_cont_actG){
@@ -742,24 +848,8 @@ function guardar_Actividades(tmp_cont_actG){
 
       }else {
         alert("no tiene actividad");
-      } 
+      } }
 
-                  success : function(json){
-                     //Codigo en caso de que la visita haya sido correcta
-                     swal("", "Información almacenada correctamente", "success");
-                  },
-                  error : function(xhr, status) {
-                    $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                    $("#modalMensaje").modal();
-                    $('#btnCancelar').prop('disabled', false);
-                  },
-                  complete : function(xhr, status){
-                     $("#modalCarga").modal('hide');
-                  };//*/
-
-        }else {
-          alert("no tiene actividad");
-        }  
 
     
 

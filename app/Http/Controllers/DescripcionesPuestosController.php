@@ -542,7 +542,7 @@
             );
             echo json_encode($data);
         }
-<<<<<<< HEAD
+
 
          public function guardarelacion(Request $request){
             $exito=false;
@@ -558,7 +558,7 @@
             );
 
         if($insertar){
-            DB::table('REL_ACT_ESP_DESCRIPCION')->insert(
+            DB::table('REL_PUESTOS_PROV_DESCRIPCION')->insert(
                     [
                         'FK_PUESTO_PROVEEDOR' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
@@ -576,7 +576,68 @@
 
         }
 
+        public function guardarelacion2(Request $request){
+            $exito=false;
+            //dd($request['Proposito']);
+            $insertar=DB::table('DP_PUESTOS_CLIENTES')->insertGetId(
+                [
+                    'PUESTOS_CLIENTES_DESCRIPCION' => $request['relacion'], 
+                    'PUESTOS_CLIENTES_PRODUCTO'=> $request['insumo'],
+                    'PUESTOS_CLIENTES_FRECUENCIA'=>  $request['indicador'],
+                    'PUESTOS_CLIENTES_ESTATUS'=> 0
 
-=======
->>>>>>> 3ea08cd44797ad4c4970ff2f654385b339b0ffc2
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_PUESTOS_CLIENTES_DESCRIPCION')->insert(
+                    [
+                        'FK_PUESTO_CLIENTE' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
+        public function guardarcompetenciaG(Request $request){
+            //$exito=false;
+           // dd($request['competenciag']);
+            $insertar=DB::table('DP_COMPETENCIAS_GENERICAS')->insertGetId(
+                [
+                    'COMPETENCIAS_GENERICAS_DESCRIPCION' => $request['competenciag'], 
+                    'COMPETENCIAS_GENERICAS_GRADO'=> $request['indicador'],
+                    'PUESTOS_CLIENTES_ESTATUS'=> 0
+
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_COMPET_GENERICA_DESCRIPCION')->insert(
+                    [
+                        'FK_COMPET_GENERICA' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
+
     }
