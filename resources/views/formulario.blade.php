@@ -572,7 +572,7 @@ $(document).ready(function(){
                     '<option value="Avanzado">Avanzado</option>'+
                     
                  "</select>"+"</td>"+
-           "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+cont_AE+')">Guardar</button>'+"</td>"+
+           "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+cont_CT+')">Guardar</button>'+"</td>"+
           "</tr>");//*/
    con_CT++;
   }
@@ -638,9 +638,61 @@ $(document).ready(function(){
                   "</tr>");//*/
      cont_rd++;
   }
+function
 
 
-function guardar_CompetenciasG(tmp_cont_cg){
+/*
+
+function guardar_CompetenciasT(tmp_cont_cT){
+    //alert("Entre");
+     //console.log("entre a la funcion guardar actividades");
+   //  console.log(tmp_cont_rel);
+
+        var competenciat = $("#CompetenciaT"+tmp_cont_cT).val();
+        var indicador = $("#indicador"+tmp_cont_cT).val(); 
+       console.log(competenciaT);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('competenciaT',competenciaT);;
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+            if (competenciag!="") {
+          $.ajax({
+                    url :'/descripcion/guardar_CompetenciasT',
+                    data : dataForm,
+                    contentType:false,
+                    processData:false,
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                    type: 'POST',
+                    dataType : 'json',
+                    beforeSend: function (){
+                      $("#modalCarga").modal();
+                    },
+                    success : function(json){
+                       //Codigo en caso de que la visita haya sido correcta
+                       swal("", "Información almacenada correctamente", "success");
+                    },
+                    error : function(xhr, status) {
+                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                      $("#modalMensaje").modal();
+                      $('#btnCancelar').prop('disabled', false);
+                    },
+                    complete : function(xhr, status){
+                       $("#modalCarga").modal('hide');
+                    }
+                  });
+
+          }else {
+            alert("no tiene actividad");
+          }
+}
+//*/
+
+/*function guardar_CompetenciasG(tmp_cont_cg){
     //alert("Entre");
      //console.log("entre a la funcion guardar actividades");
    //  console.log(tmp_cont_rel);
@@ -685,8 +737,8 @@ function guardar_CompetenciasG(tmp_cont_cg){
 
           }else {
             alert("no tiene actividad");
-          }//*/
-}
+          }
+}//*/
 
 
 

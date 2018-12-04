@@ -639,5 +639,36 @@
 
         }
 
+        public function guardarcompetenciaT(Request $request){
+            //$exito=false;
+           // dd($request['competenciag']);
+            $insertar=DB::table('DP_COMPETENCIAS_TECNICAS')->insertGetId(
+                [
+                    'COMPETENCIAS_TECNICAS_DESCRIPCION' => $request['competenciat'], 
+                    'COMPETENCIAS_TECNICAS_GRADO_DOMINIO'=> $request['indicador'],
+                    'COMPETENCIAS_TECNICAS_ESTATUS'=> 0
+
+                ]
+            );
+
+        if($insertar){
+            DB::table('REL_COMPET_TECNICA_DESCRIPCION')->insert(
+                    [
+                        'FK_COMPET_TECNICA' => $insertar, 
+                        'FK_DESCRIPCION' =>  $request['id_des']
+
+                    ]
+                        );
+            $exito=true;
+         }
+         $data = array(
+                "exito" => $exito
+              );
+
+            echo json_encode($data);
+
+
+        }
+
 
     }

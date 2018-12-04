@@ -60,6 +60,7 @@ Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosC
 Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
 Route::post('/descripcion/guardar_relacion2', 'DescripcionesPuestosController@guardarelacion2');
 Route::post('/descripcion/guardar_CompetenciasG', 'DescripcionesPuestosController@guardarcompetenciaG');
+Route::post('/descripcion/guardar_CompetenciasT', 'DescripcionesPuestosController@guardarcompetenciaT');
 
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
