@@ -446,20 +446,20 @@ $(document).ready(function(){
       
       var disabled = ((json_descripcion['ACTIVIDADES_GRLES'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'');
       $("#cuerpoTablaprincipales").append(
-          '<tr disabled="true">'+
-            '<td>'+(parseInt(i)+1)+'</td>'+
-            '<td>'+
-              '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'" '+disabled+'>'+
-                json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+
-              '</textarea>'+
-            '</td>'+
-            //'<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
-            '<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'"'+disabled+'>'+'</td>'+
-            "<td>"+
-              '<button class="btn btn-primary" type="button" onclick="actualizar_ActividadGral('+json_descripcion['ACTIVIDADES_GRLES'][i]['ID_ACT_GRAL']+","+cont_actG+')"'+disabled+'>Actualizar</button>'+
-            "</td>"+
-          '</tr>'
-        );
+        '<tr disabled="true">'+
+          '<td>'+(parseInt(i)+1)+'</td>'+
+          '<td>'+
+            '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'" '+disabled+'>'+
+              json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+
+            '</textarea>'+
+          '</td>'+
+          //'<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
+          '<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'"'+disabled+'>'+'</td>'+
+          "<td>"+
+            '<button class="btn btn-primary" type="button" onclick="actualizar_ActividadGral('+json_descripcion['ACTIVIDADES_GRLES'][i]['ID_ACT_GRAL']+","+cont_actG+')"'+disabled+'>Actualizar</button>'+
+          "</td>"+
+        '</tr>'
+      );
       $("#indicador"+cont_actG).val(json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']);
       cont_actG++;
     }
@@ -678,9 +678,9 @@ function guardar_Actividades(tmp_cont_actG,elemento){
   //console.log("entre a la funcion guardar actividades");
   var Actividad = $("#actividadPrin"+tmp_cont_actG).val();
   var indicador = $("#indicador"+tmp_cont_actG).val();
-  console.log(Actividad);
-  console.log(id_des);
-  console.log(indicador);
+  //console.log(Actividad);
+  //console.log(id_des);
+  //console.log(indicador);
   var dataForm = new FormData();
   dataForm.append('Actividad',Actividad);
   dataForm.append('indicador',indicador);
@@ -725,10 +725,10 @@ function guardar_Actividades(tmp_cont_actG,elemento){
 
   function guardar_ActividadesE(tmp_cont_actE,elemento){
     //alert(tmp_cont_actE);
-    console.log("entre a la funcion guardar actividades específica");
+    //console.log("entre a la funcion guardar actividades específica");
     var ActividadE = $("#ActividadEspecifica"+tmp_cont_actE).val();
-    console.log(ActividadE);
-    console.log(id_des);
+    //console.log(ActividadE);
+    //console.log(id_des);
     var dataForm = new FormData();
     dataForm.append('ActividadE',ActividadE);
     dataForm.append('id_des',id_des);
@@ -776,8 +776,8 @@ function guardar_Actividades(tmp_cont_actG,elemento){
     var dataForm = new FormData();
     dataForm.append('Actividad',Actividad);
     dataForm.append('id_act_esp',id_act_esp);
-    console.log(Actividad);
-    console.log(id_act_esp);
+    //console.log(Actividad);
+    //console.log(id_act_esp);
     metodoAjax(url,dataForm,function(success){
       if(success['update']==1){
         swal("", "Actualizado correctamente", "success");
