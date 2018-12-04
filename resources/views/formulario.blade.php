@@ -482,6 +482,15 @@ $(document).ready(function(){
     //swal("", "Información almacenada correctamente", "success");
   }
 
+ 
+  var cont_actG=1;
+  var con_CG=1;
+  var con_CT=1;
+  var cont_AE=1;
+  var cont_r=1;
+  var cont_rd=1;
+
+
   //ejecutar popover al cargar la página
   $('[data-toggle="popover"]').popover({
     container: 'body'
@@ -543,11 +552,27 @@ $(document).ready(function(){
       "</tr>"
       );//*/
       cont_actG++;//*/
-  }//*/
+    }
+
+  function ActividadEspecifica(){
+   // alert("Entre");
+   $("#cuerpoTablaespecificas").append(
+    "<tr>"+
+      "<td id='nombre_"+cont_AE+"'>"+cont_AE+"</td>"+
+        "<td>"+
+          '<div class="form-group">'+
+            '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
+             "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_ActividadesE('+cont_AE+')">Guardar</button>'+"</td>"+
+          '</div>'+
+        "</td>"+
+      "</td>"+        
+    "</tr>");
+    cont_AE++;//*/
+  }
 
 
   function AgregarCompetenciaGenericas(){
-  //alert("Competencia Generica");
+ // alert("Competencia Generica");
     $("#tablacompetenciasG").append(
        " <tr>"+
           "<td>"+'<input type="text" class="Estilo5" id="CompetenciaG'+con_CG+'">'+"</td>"+
@@ -557,14 +582,14 @@ $(document).ready(function(){
                     '<option value="III">III</option>'+
                     '<option value="IV">IV</option>'+
                  "</select>"+"</td>"+
-          "</tr>"
-      );
-    con_CG++;
+          "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasG('+con_CG+')">Guardar</button>'+"</td>"+
+          "</tr>");
+    con_CG++;//*/
   }
 
   function AgregarCompetenciaTecnicas(){
   //alert("Competencia Técnicas");
-    $("#tablacompetenciasT").append(
+   $("#tablacompetenciasT").append(
        " <tr>"+
           "<td>"+'<input name="cog1" type="text" class="Estilo5"  id="CompetenciaT'+con_CT+'">'+"</td>"+
             "<td>"+ '<select name="fg1" id="indicador'+con_CT+'">'+
@@ -573,8 +598,10 @@ $(document).ready(function(){
                     '<option value="Avanzado">Avanzado</option>'+
                     
                  "</select>"+"</td>"+
+           "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+cont_AE+')">Guardar</button>'+"</td>"+
           "</tr>"
-      );
+          );//*/
+   con_CT++;
   }
 
   function ActividadEspecifica(){
@@ -591,19 +618,22 @@ $(document).ready(function(){
     "</tr>");
     cont_AE++;
   }
+  
 
   function AgregaRelacion(){
+
+
      $("#cuerporelaciones").append(
 
                   "<tr>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<input type="text" id="Proveedor'+cont_r+'" >'+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="insumo'+cont_r+'"></textarea>'+
                             '</div>'+
                     "</td>"+
-                    "<td>"+
-                      '<select name="fg1"id="indicador'+con_CG+'">'+
+                   "<td>"+
+                      '<select name="fg1" id="indicador'+cont_r+'">'+
                         '<option value="VARIABLE">VARIABLE</option>'+
                         '<option value="DIARIO">DIARIO</option>'+
                         '<option value="SEMANAL">SEMANAL</option>'+
@@ -614,63 +644,201 @@ $(document).ready(function(){
                         '<option value="ANUAL">ANUAL</option>'+
                        "</select>"+
                     "</td>"+
+                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion('+cont_r+')">Guardar</button>'+"</td>"+
                     
-                  "</tr>");
-
-
+                  "</tr>");//*/
+    cont_r++;
   }
+
+
   function AgregaRelacion2(){
+    //alert("Entre");
      $("#cuerporelaciones2").append(
 
                   "<tr>"+
-                    "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                    "<td>"+'<input type="text" class="form-control" id="cliente'+cont_rd+'">'+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="comment"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="insumo'+cont_rd+'"></textarea>'+
                             '</div>'+
                     "</td>"+
-                   "<td>"+'<input type="text" class="form-control" >'+"</td>"+
+                   "<td>"+
+                      '<select name="fg1" id="indicador'+cont_rd+'">'+
+                        '<option value="VARIABLE">VARIABLE</option>'+
+                        '<option value="DIARIO">DIARIO</option>'+
+                        '<option value="SEMANAL">SEMANAL</option>'+
+                        '<option value="QUINCENAL">QUINCENAL</option>'+
+                        '<option value="MENSUAL">MENSUAL</option>'+
+                        '<option value="TRIMESTRAL">TRIMESTRAL</option>'+
+                        '<option value="SEMESTRAL">SEMESTRAL</option>'+
+                        '<option value="ANUAL">ANUAL</option>'+
+                       "</select>"+
+                    "</td>"+
+
+                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion2('+cont_rd+')">Guardar</button>'+"</td>"+
                     
-                  "</tr>");
+                  "</tr>");//*/
+     cont_rd++;
   }
 
-  function guardar_proposito(){
-    var Proposito = $("#Proposito").val();
-    //console.log(Proposito);
-    //console.log(id_des);
-    var dataForm = new FormData();
-    dataForm.append('Proposito',Proposito);
-    dataForm.append('id_des',id_des);
-    if (Proposito!="") {
-      $.ajax({
-        url :'/descripcion/guarda_proposito',
-        data : dataForm,
-        contentType:false,
-        processData:false,
-        headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-        type: 'POST',
-        dataType : 'json',
-        beforeSend: function (){
-          $("#modalCarga").modal();
-        },
-        success : function(json){
-           //Codigo en caso de que la visita haya sido correcta
-          swal("", "Información almacenada correctamente", "success");
-        },
-        error : function(xhr, status) {
-          swal("¡Error!", "Existió un problema con el servidor!", "error");
-          $('#btnCancelar').prop('disabled', false);
-        },
-        complete : function(xhr, status){
-           $("#modalCarga").modal('hide');
-        }
-      });//*/
-    }else {
-      swal("¡Atención!", "El campo Próposito General está vacío", "warning");
-    }  
-  }
+
+function guardar_CompetenciasG(tmp_cont_cg){
+    //alert("Entre");
+     //console.log("entre a la funcion guardar actividades");
+   //  console.log(tmp_cont_rel);
+
+        var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+        var indicador = $("#indicador"+tmp_cont_cg).val(); 
+       console.log(competenciag);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('competenciag',competenciag);;
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+            if (competenciag!="") {
+          $.ajax({
+                    url :'/descripcion/guardar_CompetenciasG',
+                    data : dataForm,
+                    contentType:false,
+                    processData:false,
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                    type: 'POST',
+                    dataType : 'json',
+                    beforeSend: function (){
+                      $("#modalCarga").modal();
+                    },
+                    success : function(json){
+                       //Codigo en caso de que la visita haya sido correcta
+                       swal("", "Información almacenada correctamente", "success");
+                    },
+                    error : function(xhr, status) {
+                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                      $("#modalMensaje").modal();
+                      $('#btnCancelar').prop('disabled', false);
+                    },
+                    complete : function(xhr, status){
+                       $("#modalCarga").modal('hide');
+                    }
+                  });
+
+          }else {
+            alert("no tiene actividad");
+          }//*/
+}
+
+
+
+function guardar_relacion(tmp_cont_rel){
+    //alert("Entre");
+     //console.log("entre a la funcion guardar actividades");
+   //  console.log(tmp_cont_rel);
+
+        var relacion = $("#Proveedor"+tmp_cont_rel).val(); 
+        var insumo = $("#insumo"+tmp_cont_rel).val();
+        var indicador = $("#indicador"+tmp_cont_rel).val(); 
+       console.log(relacion);
+        console.log(insumo);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('relacion',relacion);
+            dataForm.append('insumo', insumo);
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+            if (relacion!="") {
+          $.ajax({
+                    url :'/descripcion/guardar_relacion',
+                    data : dataForm,
+                    contentType:false,
+                    processData:false,
+                    headers:{
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                      },
+                    type: 'POST',
+                    dataType : 'json',
+                    beforeSend: function (){
+                      $("#modalCarga").modal();
+                    },
+                    success : function(json){
+                       //Codigo en caso de que la visita haya sido correcta
+                       swal("", "Información almacenada correctamente", "success");
+                    },
+                    error : function(xhr, status) {
+                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                      $("#modalMensaje").modal();
+                      $('#btnCancelar').prop('disabled', false);
+                    },
+                    complete : function(xhr, status){
+                       $("#modalCarga").modal('hide');
+                    }
+                  });
+
+          }else {
+            alert("no tiene actividad");
+          }//*/
+}
+
+
+function guardar_relacion2(tmp_cont_reld){
+        var relacion = $("#cliente"+tmp_cont_reld).val(); 
+        var insumo = $("#insumo"+tmp_cont_reld).val();
+        var indicador = $("#indicador"+tmp_cont_reld).val(); 
+       console.log(relacion);
+        console.log(insumo);
+        console.log(indicador);
+        console.log(id_des);
+        var dataForm = new FormData();
+            dataForm.append('relacion',relacion);
+            dataForm.append('insumo', insumo);
+            dataForm.append('indicador',indicador);
+            dataForm.append('id_des',id_des);
+
+  if (relacion!="") {
+        $.ajax({
+                  url :'/descripcion/guardar_relacion2',
+                  data : dataForm,
+                  contentType:false,
+                  processData:false,
+                  headers:{
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                  type: 'POST',
+                  dataType : 'json',
+                  beforeSend: function (){
+                    $("#modalCarga").modal();
+                  },
+
+                type: 'POST',
+                dataType : 'json',
+                beforeSend: function (){
+                  $("#modalCarga").modal();
+                },
+                success : function(json){
+                   //Codigo en caso de que la visita haya sido correcta
+                   swal("", "Información almacenada correctamente", "success");
+                },
+                error : function(xhr, status) {
+                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+                  $("#modalMensaje").modal();
+                  $('#btnCancelar').prop('disabled', false);
+                },
+                complete : function(xhr, status){
+                   $("#modalCarga").modal('hide');
+                }
+              });
+
+      }else {
+        alert("no tiene actividad");
+      } 
+
+
+}
+
 
 
 function guardar_Actividades(tmp_cont_actG,elemento){
@@ -720,16 +888,16 @@ function guardar_Actividades(tmp_cont_actG,elemento){
   }else {
     alert("no tiene actividad");
   }  
-}
+} 
 
-
-  function guardar_ActividadesE(tmp_cont_actE,elemento){
-    //alert(tmp_cont_actE);
-    //console.log("entre a la funcion guardar actividades específica");
+function guardar_ActividadesE(tmp_cont_actE,elemento){
+ //alert("Entre");
+  console.log("entre a la funcion guardar actividades específica");
     var ActividadE = $("#ActividadEspecifica"+tmp_cont_actE).val();
     //console.log(ActividadE);
     //console.log(id_des);
     var dataForm = new FormData();
+//<<<<<<< HEAD
     dataForm.append('ActividadE',ActividadE);
     dataForm.append('id_des',id_des);
 
@@ -789,7 +957,48 @@ function guardar_Actividades(tmp_cont_actG,elemento){
 
   }
 
+    function guardar_proposito(){
+      //alert("Entre");
+    var Proposito = $("#Proposito").val();
+    //console.log(Proposito);
+    //console.log(id_des);
+    var dataForm = new FormData();
+    dataForm.append('Proposito',Proposito);
+    dataForm.append('id_des',id_des);
+    if (Proposito!="") {
+      $.ajax({
+        url :'/descripcion/guarda_proposito',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+           //Codigo en caso de que la visita haya sido correcta
+          swal("", "Información almacenada correctamente", "success");
+        },
+        error : function(xhr, status) {
+          swal("¡Error!", "Existió un problema con el servidor!", "error");
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });
+    }else {
+      swal("¡Atención!", "El campo Próposito General está vacío", "warning");
+    }  //*/
+  }
+
     function algo(){
+      alert("Entre");
+      
       var success;
       var url = "/archivos/subir"
       var dataForm = new FormData();

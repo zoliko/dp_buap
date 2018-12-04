@@ -59,6 +59,11 @@ Route::post('/descripcion/actualiza_actesp', 'DescripcionesPuestosController@act
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
 
+Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
+Route::post('/descripcion/guardar_relacion2', 'DescripcionesPuestosController@guardarelacion2');
+Route::post('/descripcion/guardar_CompetenciasG', 'DescripcionesPuestosController@guardarcompetenciaG');
+
+
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
 
