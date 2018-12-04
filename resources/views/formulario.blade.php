@@ -444,7 +444,7 @@ $(document).ready(function(){
     //actividades generales
     for(var i = 0; i < json_descripcion['ACTIVIDADES_GRLES'].length; i++){
       
-      var disabled = ((json_descripcion['ACTIVIDADES_GRLES'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'')
+      var disabled = ((json_descripcion['ACTIVIDADES_GRLES'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'');
       $("#cuerpoTablaprincipales").append(
           '<tr disabled="true">'+
             '<td>'+(parseInt(i)+1)+'</td>'+
@@ -462,31 +462,22 @@ $(document).ready(function(){
         );
       $("#indicador"+cont_actG).val(json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']);
       cont_actG++;
-
-      /*if(json_descripcion['ACTIVIDADES_GRLES'][i]['ESTATUS_ACTIVIDAD'] == 0){
-        $("#actividadPrin"+cont_actG).prop('disabled', true);
-        console.log($("#actividadPrin"+cont_actG).val());
-        //console.log("Entra");
-      }//*/
-      //console.log(cont_actG);
-      //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
     }
 
     //Actividades especificas
     for(var i = 0; i < json_descripcion['ACTIVIDADES_ESPECIFICAS'].length; i++){
+      var disabled = ((json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'');
       $("#cuerpoTablaespecificas").append(
           '<tr>'+
             '<td>'+cont_AE+'</td>'+
-            '<td>'+'<textarea class="form-control" rows="5" id="actividadEspec'+cont_AE+'" '+disabled+'>'+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['NOMBRE_ACTIVIDAD']+'</textarea>'+'</td>'+
+            '<td>'+'<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'" '+disabled+'>'+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['NOMBRE_ACTIVIDAD']+'</textarea>'+'</td>'+
             //'<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'" >epa</input>'+'</td>'+
-            '<td>'+"ACCIONES"+'</td>'+
+            '<td>'+
+              '<button class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp('+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['ID_ACT_ESP']+","+cont_AE+')"'+disabled+'>Actualizar</button>'+
+            '</td>'+
           '</tr>'
         );
-
-      //'<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'"></textarea>'+
       cont_AE++;
-      //console.log(cont_AE);
-      //console.log(json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']);
     }
     //swal("", "Información almacenada correctamente", "success");
   }
@@ -521,12 +512,14 @@ $(document).ready(function(){
     dataForm.append('Actividad',Actividad);
     dataForm.append('indicador',indicador);
     dataForm.append('id_act_gral',id_act_gral);
-    console.log(Actividad);
+    /*console.log(Actividad);
     console.log(indicador);
-    console.log(id_act_gral);
+    console.log(id_act_gral);//*/
     metodoAjax(url,dataForm,function(success){
       if(success['update']==1){
         swal("", "Actualizado correctamente", "success");
+      }else{
+        swal("", "Actualizado correctamente", "error");
       }
 
     });//*/
@@ -591,7 +584,7 @@ $(document).ready(function(){
         "<td>"+
           '<div class="form-group">'+
             '<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'"></textarea>'+
-             "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_ActividadesE('+cont_AE+')">Guardar</button>'+"</td>"+
+             "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_ActividadesE('+cont_AE+',this)">Guardar</button>'+"</td>"+
           '</div>'+
         "</td>"+
       "</td>"+        
@@ -730,48 +723,71 @@ function guardar_Actividades(tmp_cont_actG,elemento){
 }
 
 
-function guardar_ActividadesE(tmp_cont_actE){
-  alert(tmp_cont_actE);
-  console.log("entre a la funcion guardar actividades específica");
+  function guardar_ActividadesE(tmp_cont_actE,elemento){
+    //alert(tmp_cont_actE);
+    console.log("entre a la funcion guardar actividades específica");
     var ActividadE = $("#ActividadEspecifica"+tmp_cont_actE).val();
     console.log(ActividadE);
     console.log(id_des);
     var dataForm = new FormData();
-        dataForm.append('ActividadE',ActividadE);
-        dataForm.append('id_des',id_des);
+    dataForm.append('ActividadE',ActividadE);
+    dataForm.append('id_des',id_des);
 
-        if (ActividadE!="") {
-        $.ajax({
-                  url :'/descripcion/guardar_ActividadesEspecifica',
-                  data : dataForm,
-                  contentType:false,
-                  processData:false,
-                  headers:{
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                  type: 'POST',
-                  dataType : 'json',
-                  beforeSend: function (){
-                    $("#modalCarga").modal();
-                  },
-                  success : function(json){
-                     //Codigo en caso de que la visita haya sido correcta
-                     swal("", "Información almacenada correctamente", "success");
-                  },
-                  error : function(xhr, status) {
-                    $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                    $("#modalMensaje").modal();
-                    $('#btnCancelar').prop('disabled', false);
-                  },
-                  complete : function(xhr, status){
-                     $("#modalCarga").modal('hide');
-                  }
-                });//*/
+    if (ActividadE!="") {
+    $.ajax({
+      url :'/descripcion/guardar_ActividadesEspecifica',
+      data : dataForm,
+      contentType:false,
+      processData:false,
+      headers:{
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'POST',
+      dataType : 'json',
+      beforeSend: function (){
+        $("#modalCarga").modal();
+      },
+      success : function(json){
+        //Codigo en caso de que la visita haya sido correcta
+        $(elemento).attr('onclick','actualizar_ActividadEsp('+json['id_act_esp']+','+tmp_cont_actE+')');
+        $(elemento).text('Actualizar');//*/
+        swal("", "Información almacenada correctamente", "success");
+      },
+      error : function(xhr, status) {
+        $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+        $("#modalMensaje").modal();
+        $('#btnCancelar').prop('disabled', false);
+      },
+      complete : function(xhr, status){
+         $("#modalCarga").modal('hide');
+      }
+    });//*/
+    }else {
+      alert("no tiene actividad");
+    }  
+  }
 
-      }else {
-        alert("no tiene actividad");
-      }  
-    }
+  function actualizar_ActividadEsp(id_act_esp,tmp_cont_actE){
+    //alert(tmp_cont_actE);
+    //console.log("entre a la funcion guardar actividades");
+    var success;
+    var url = "/descripcion/actualiza_actesp"
+    var Actividad = $("#ActividadEspecifica"+tmp_cont_actE).val();
+    var dataForm = new FormData();
+    dataForm.append('Actividad',Actividad);
+    dataForm.append('id_act_esp',id_act_esp);
+    console.log(Actividad);
+    console.log(id_act_esp);
+    metodoAjax(url,dataForm,function(success){
+      if(success['update']==1){
+        swal("", "Actualizado correctamente", "success");
+      }else{
+        swal("", "Actualización incorrecta", "error");
+      }
+
+    });//*/
+
+  }
 
     function algo(){
       var success;

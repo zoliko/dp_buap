@@ -407,7 +407,7 @@
                 $rel_act = DB::table('DP_ACTIVIDADES_ESPECIFICAS')
                     ->where('ACTIVIDADES_ESPECIFICAS_ID',$actividad->FK_ACTIVIDAD_ESPECIFICA)
                     ->select([
-                            'ACTIVIDADES_ESPECIFICAS_ID as ID_DESCRIPCION',
+                            'ACTIVIDADES_ESPECIFICAS_ID as ID_ACT_ESP',
                             'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD as NOMBRE_ACTIVIDAD',
                             'ACTIVIDADES_ESPECIFICAS_ESTATUS as ESTATUS_ACTIVIDAD',
                             'ACTIVIDADES_ESPECIFICAS_MENSAJE as MENSAJE_ACTIVIDAD',
@@ -563,8 +563,31 @@
                 $exito=true;
             }
             $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_act_esp" => $insertar
             );
             echo json_encode($data);
+        }
+
+        public function actualizar_actividad_esp(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //$exito = false;
+            $id_act_esp = $request['id_act_esp'];
+            $act_esp = $request['Actividad'];
+            //dd($id_act_esp);
+            $update = DB::table('DP_ACTIVIDADES_ESPECIFICAS')
+                ->where('ACTIVIDADES_ESPECIFICAS_ID', $id_act_esp)
+                ->update(
+                    [
+                        'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD' => $act_esp,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            $data = array(
+                //"exito" => $exito,
+                "update" => $update
+            );
+            echo json_encode($data);
+
         }
     }

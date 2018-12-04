@@ -54,6 +54,7 @@ Route::post('/descripciones/trae_descripcion' , 'DescripcionesPuestosController@
 Route::get('/descripcion/{ID_descripcion}' , 'DescripcionesPuestosController@abrirdescripcion');
 Route::post('/descripcion/guarda_proposito', 'DescripcionesPuestosController@guardaproposito');
 Route::post('/descripcion/actualiza_actgral', 'DescripcionesPuestosController@actualizar_actividad_gral');
+Route::post('/descripcion/actualiza_actesp', 'DescripcionesPuestosController@actualizar_actividad_esp');
 
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
