@@ -386,10 +386,10 @@
                 $rel_act = DB::table('DP_ACTIVIDADES_GENERALES')
                     ->where('ACTIVIDADES_GENERALES_ID',$actividad->FK_ACTIVIDAD_GENERAL)
                     ->select([
-                            'ACTIVIDADES_GENERALES_ID as ID_DESCRIPCION',
+                            'ACTIVIDADES_GENERALES_ID as ID_ACT_GRAL',
                             'ACTIVIDADES_GENERALES_ACTIVIDAD as NOMBRE_ACTIVIDAD',
                             'ACTIVIDADES_GENERALES_INDICADOR as INDICADOR_ACTIVIDAD',
-                            'ACTIVIDADES_GENERALES_INDICADOR as ESTATUS_ACTIVIDAD',
+                            'ACTIVIDADES_GENERALES_ESTATUS as ESTATUS_ACTIVIDAD',
                             'ACTIVIDADES_GENERALES_MENSAJE as MENSAJE_ACTIVIDAD',
                             ])
                     ->get();
@@ -407,7 +407,7 @@
                 $rel_act = DB::table('DP_ACTIVIDADES_ESPECIFICAS')
                     ->where('ACTIVIDADES_ESPECIFICAS_ID',$actividad->FK_ACTIVIDAD_ESPECIFICA)
                     ->select([
-                            'ACTIVIDADES_ESPECIFICAS_ID as ID_DESCRIPCION',
+                            'ACTIVIDADES_ESPECIFICAS_ID as ID_ACT_ESP',
                             'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD as NOMBRE_ACTIVIDAD',
                             'ACTIVIDADES_ESPECIFICAS_ESTATUS as ESTATUS_ACTIVIDAD',
                             'ACTIVIDADES_ESPECIFICAS_MENSAJE as MENSAJE_ACTIVIDAD',
@@ -490,6 +490,7 @@
             echo json_encode($data);
         }
 
+        //guardar actividad general
         public function guardarActividad(Request $request){
             date_default_timezone_set('America/Mexico_City');
             $exito=false;
@@ -512,7 +513,31 @@
                 $exito=true;
             }
             $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_act_gral" => $insertar
+            );
+            echo json_encode($data);
+        }
+
+        public function actualizar_actividad_gral(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //$exito = false;
+            $id_act_gral = $request['id_act_gral'];
+            $act_gral = $request['Actividad'];
+            $indicador = $request['indicador'];
+            //dd($id_act_gral);
+            $update = DB::table('DP_ACTIVIDADES_GENERALES')
+                ->where('ACTIVIDADES_GENERALES_ID', $id_act_gral)
+                ->update(
+                    [
+                        'ACTIVIDADES_GENERALES_ACTIVIDAD' => $act_gral,
+                        'ACTIVIDADES_GENERALES_INDICADOR' => $indicador,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            $data = array(
+                //"exito" => $exito,
+                "update" => $update
             );
             echo json_encode($data);
         }
@@ -538,12 +563,33 @@
                 $exito=true;
             }
             $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_act_esp" => $insertar
             );
             echo json_encode($data);
         }
 
+        public function actualizar_actividad_esp(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //$exito = false;
+            $id_act_esp = $request['id_act_esp'];
+            $act_esp = $request['Actividad'];
+            //dd($id_act_esp);
+            $update = DB::table('DP_ACTIVIDADES_ESPECIFICAS')
+                ->where('ACTIVIDADES_ESPECIFICAS_ID', $id_act_esp)
+                ->update(
+                    [
+                        'ACTIVIDADES_ESPECIFICAS_ACTIVIDAD' => $act_esp,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            $data = array(
+                //"exito" => $exito,
+                "update" => $update
+            );
+            echo json_encode($data);
 
+        }
          public function guardarelacion(Request $request){
             $exito=false;
             //dd($request['Proposito']);
@@ -669,6 +715,4 @@
 
 
         }
-
-
     }
