@@ -1,3 +1,7 @@
+<?php
+  //dd($descripcion['DATOS']->NOM_DESC);
+  //dd($descripcion);
+?>
 @extends('plantillas.menu')
 @section('title','Formulario')
 @section('tittle_page','Descripción de Puestos')
@@ -5,103 +9,101 @@
 @section('content')
 
 	<div class="row">
-                <div class="x_panel">
+    <div class="x_panel">
                   
-                  <div class="x_content">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-<!--Agregar el formulario -->
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2 id="nombre_descripcion"> CARGANDO... </h2>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
+      <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+        <!--Agregar el formulario -->
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+              <div class="x_title">
+                <h2 id="nombre_descripcion"> CARGANDO... </h2>
+                <div class="clearfix"></div>
+              </div>
+              <div class="x_content">
+                <div class="col-xs-3">
+                  <!-- required for floating -->
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs tabs-left">
+                    <li class="active" ><a href="#InfoGe" data-toggle="tab">Información General</a>
+                    </li>
+                    <li><a href="#Actividad" data-toggle="tab">Actividades</a>
+                    </li>
+                    <li><a href="#Relacion" data-toggle="tab">Relaciones Críticas</a>
+                    </li>
+                    <li><a href="#Perfil" data-toggle="tab">Perfil del Puesto</a>
+                    </li>
+                    <li><a href="#Competencia" data-toggle="tab">Competencias</a>
+                    </li>
+                    <li><a href="#Distribucion" data-toggle="tab">Lista de Distribución</a>
+                    </li>
+                  </ul>
+                </div>
 
-                    <div class="col-xs-3">
-                      <!-- required for floating -->
-                      <!-- Nav tabs -->
-                      <ul class="nav nav-tabs tabs-left">
-                        <li class="active" ><a href="#InfoGe" data-toggle="tab">Información General</a>
-                        </li>
-                        <li><a href="#Actividad" data-toggle="tab">Actividades</a>
-                        </li>
-                        <li><a href="#Relacion" data-toggle="tab">Relaciones Críticas</a>
-                        </li>
-                        <li><a href="#Perfil" data-toggle="tab">Perfil del Puesto</a>
-                        </li>
-                        <li><a href="#Competencia" data-toggle="tab">Competencias</a>
-                        </li>
-                        <li><a href="#Distribucion" data-toggle="tab">Lista de Distribución</a>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="col-xs-9">
-                      <!-- Tab panes -->
-                      <div class="tab-content">
-                        <div class="tab-pane active" id="InfoGe">
-                          <p class="lead">Información General y Propósito General del Puesto 
-                            <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i>
-                          </p>
-                          <div class="x_panel">
-                            <div class="x_content">
-                            <br />
+                <div class="col-xs-9">
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="InfoGe">
+                      <p class="lead">Información General y Propósito General del Puesto 
+                        <i class="fa fa-question-circle" data-toggle="popover" title="Proposito General" data-content="Aqui encontraran la información de ayuda"></i>
+                      </p>
+                      <div class="x_panel">
+                        <div class="x_content">
+                          <br/>
                           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                            
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_nombre_puesto" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_nombre_puesto" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->NOM_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Reporta a: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_reporta_a" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_reporta_a" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->REPORTA_A_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_area_desc" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_area_desc" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->AREA_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Dirección:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_direccion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_direccion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->DIRECCION_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Clave de Puesto:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_clave" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_clave" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->CLAVE_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de crecaión:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_creacion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_creacion" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->CREACION_DESC}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Fecha de revisión:</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_frevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_frevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{(($descripcion['DATOS']->REVISION_DESC)?$descripcion['DATOS']->REVISION_DESC:'')}}">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">N°. de Revisión: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" id="infg_nrevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled">
+                                <input type="text" id="infg_nrevision" required="required" class="form-control col-md-7 col-xs-12" disabled="disabled" value="{{$descripcion['DATOS']->N_REVISION_DESC}}">
                               </div>
                             </div>
 
@@ -114,171 +116,264 @@
                                 </i>
                               </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
+                                @if($descripcion['PROPOSITO_GENERAL']->ESTATUS_PROPOSITO_GENERAL==0)
+                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}
+                                @else
+                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito"  disabled="disabled">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}
+                                @endif
+                                </textarea>
                               </div>
                             </div>
 
-                              <button class="btn btn-primary pull-right" type="button" onclick="guardar_proposito()">Guardar</button>
-
-                        </form>
-                    </div>
-                  </div>
-                          <!--Fin del Formulario de información General-->
-                </div>
-                  <!--Inicio del modulo de actividades -->
-                        <div class="tab-pane" id="Actividad">
-                          <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Actividades Principales y Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a."></i></p>
-          
-
-                            <table id="tablaprincipales" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>N°</th>
-                                  <th>
-                                    Principales actividades generales 
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales actividades generales" data-content="Enlistar cada una de las funciones que corresponden al puesto de forma obligatoria, constante y correcta, necesarias para cumplir con su objetivo; enunciarlas preferentemente con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Es obligatorio para todas las descripciones de puesto, incluir en las actividades generales la siguiente: mantener la confidencialidad de la información de la Unidad Académica o Dependencia Administrativa. (Consultar Anexo III, donde se indica propuesta de verbos para enunciar las actividades generales).">
-                                    </i>
-
-                                  </th>
-                                  <th>
-                                    Indicadores de desempeño
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Indicadores de desempeño" data-content="Incluir la información que nos permiten identificar cualitativa o cuantitativamente lo esperado de las actividades y funciones que desempeña el puesto, deben ser medibles, y comprobables, por lo que son opcionales de indicarse (no obligatorios).">
-                                    </i>
-                                  </th>
-                                  <th>
-                                    Acciones
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody id="cuerpoTablaprincipales"></tbody>
-                            </table>
-
-                            <button onclick="AgregaActividad()">Agregar</button>
-                          <!--  <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>-->
-
-                            <table id="tablaespecificas" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>N°</th>
-                                  <th >
-                                    Principales Actividades Especificas (No Obligatorias)
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a.">
-                                  </th>
-                                  <th>Acciones</th>
-                                </tr>
-                              </thead>
-                              <tbody id="cuerpoTablaespecificas"></tbody>
-                            </table>
-                            <button onclick="ActividadEspecifica()">Agregar Actividad </button>
-
-                          <div class="ln_solid"></div>
-                          <div class="form-group">
-                            
-                          </div>
-
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_proposito()">Guardar</button>
+                          </form>
                         </div>
-                  <!--Fin del modulo de Relaciones -->
-                        <div class="tab-pane" id="Relacion"> 
-                          <p class="lead">Relaciones Criticas del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Relaciones Criticas del Puesto" data-content="El propósito de este apartado es que el ocupante del puesto conozca con qué puestos se relaciona y tenga claridad de los productos o servicios que proporciona o que o recibe; es decir, se describe la relación cliente/proveedor, proveedor/cliente. "></i></p>
-          
-
-                            <table id="tablarelaciones" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>
-                                    Puestos que son sus proveedores
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus proveedores" data-content="Enlistar las diferentes áreas o puestos, de las que recibe los productos, servicios o entregables para realizar su labor, con el fin de que, el ocupante del puesto conozca qué debe recibir y de qué puesto/s o áreas, es decir, se describe su relación como cliente/proveedor.">
-                                    </i>
-                                  </th>
-                                  <th>
-                                    Insumos que obtiene
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Insumos que obtiene" data-content="Mencionar las productos, servicios o entregables que recibe de los puestos o áreas que son sus proveedores.">
-                                    </i>
-                                  </th>
-                                  <th>
-                                    Frecuencia
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se reciben productos, servicios o entregables por parte del proveedor; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                                    </i>
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody id="cuerporelaciones"></tbody>
-                            </table>
-
-                            <button onclick="AgregaRelacion()">Agregar Relacion </button>
-
-                            <div class="tab-pane" id="Relacion"> 
-                            <p class="lead">Relaciones Criticas del Puesto </p>
-                            <table id="tablarelaciones2" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>
-                                    Puestos que son sus clientes
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus clientes" data-content="Enlistar las diferentes áreas o puestos a los cuales ofrece productos, servicios o entregables, tras realizar la labor respectiva del puesto, es decir, se describe su relación como proveedor/cliente.">
-                                    </i>
-                                  </th>
-                                  <th>
-                                    Productos que ofrece
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Productos que ofrece" data-content="Mencionar los productos, servicios o entregables que se generan y entregan del puesto a los clientes.">
-                                    </i>
-                                  </th>
-                                  </th>
-                                  <th>
-                                    Frecuencia
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                                    </i>
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody id="cuerporelaciones2"></tbody>
-                            </table><button onclick="AgregaRelacion2()">Agregar Relacion </button>
-               
-                        </div>
-
-                          <div class="ln_solid"></div>
-                          <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                              <button class="btn btn-primary" type="button">Cancel</button>
-                              <button class="btn btn-primary" type="reset">Reset</button>
-                              <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                          </div>
-
-                        </div>
-                        <div class="tab-pane" id="Perfil">
-                          <p class="lead">Formación Profesional y Experiencia <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i></p>
-                          <i class="fas fa-comment-lines"></i>
-                           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                          
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                              Formación Profesional:
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
-                            </div>
-                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                                </i>
-                          </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
-                            </div>
-                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
-                              </i>
-                          </div>
-
-                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
-                            </div>
-                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
-                              </i>
-                          </div>
-                        </form>
                       </div>
+                          <!--Fin del Formulario de información General-->
+                    </div>
+                  <!--Inicio del modulo de actividades -->
+
+                    <div class="tab-pane" id="Actividad">
+                      <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Actividades Principales y Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a."></i>
+                      </p>
+          
+
+                      <table id="tablaprincipales" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>
+                              Principales actividades generales 
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales actividades generales" data-content="Enlistar cada una de las funciones que corresponden al puesto de forma obligatoria, constante y correcta, necesarias para cumplir con su objetivo; enunciarlas preferentemente con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Es obligatorio para todas las descripciones de puesto, incluir en las actividades generales la siguiente: mantener la confidencialidad de la información de la Unidad Académica o Dependencia Administrativa. (Consultar Anexo III, donde se indica propuesta de verbos para enunciar las actividades generales).">
+                              </i>
+
+                            </th>
+                            <th>
+                              Indicadores de desempeño
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Indicadores de desempeño" data-content="Incluir la información que nos permiten identificar cualitativa o cuantitativamente lo esperado de las actividades y funciones que desempeña el puesto, deben ser medibles, y comprobables, por lo que son opcionales de indicarse (no obligatorios).">
+                              </i>
+                            </th>
+                            <th>
+                              Acciones
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaprincipales">
+                          <!--{{$i=1}}-->
+                          @foreach($descripcion['ACTIVIDADES_GRLES'] as $actividad)
+                          <!-- {{$disabled = ((strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)?'':'disabled')}} -->
+                            <tr>
+                              <td>{{$i}}</td>
+                              <td>
+                                <textarea class="form-control" rows="5" id="actividadPrin{{$i}}" {{$disabled}}>{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
+                              </td>
+                              <td>
+                                <textarea class="form-control" rows="5" id="indicador{{$i}}" {{$disabled}}>{{$actividad->INDICADOR_ACTIVIDAD}}</textarea>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="actualizar_ActividadGral({{$actividad->ID_ACT_GRAL}},{{$i}})" {{$disabled}}>Actualizar</button>
+                              </td>
+                            </tr>
+                            <!--{{$i++}}-->
+                          @endforeach
+                        </tbody>
+                      </table>
+                      <button onclick="AgregaActividad()">Agregar</button>
+                        <!--  <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>-->
+                      <table id="tablaespecificas" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>N°</th>
+                            <th>
+                              Principales Actividades Especificas (No Obligatorias)
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a.">
+                            </th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaespecificas">
+                          <!--{{$i=1}}-->
+                          @foreach($descripcion['ACTIVIDADES_ESPECIFICAS'] as $actividad)
+                            <!--{{$disabled = ((strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)?'':'disabled')}}-->
+                            <tr>
+                              <td>
+                                {{$i}}
+                              </td>
+                              <td>
+                                <div class="form-group">
+                                  <textarea class="form-control" rows="5" id="ActividadEspecifica{{$i}}">{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
+                                </div>
+                              </td>
+                              <td>
+                                <button  class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp({{$actividad->ID_ACT_ESP}},{{$i}})">Actualizar</button>
+                              </td>
+                            </tr>
+                            <!--{{$i++}}-->
+                          @endforeach
+                        </tbody>
+                      </table>
+                        <button onclick="ActividadEspecifica()">Agregar Actividad</button>
+                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                      </div>
+                    </div>
+                    <!--Fin del modulo de Relaciones -->
+                    <div class="tab-pane" id="Relacion"> 
+                      <p class="lead">Relaciones Criticas del Puesto <i class="fa fa-question-circle" data-toggle="popover" title="Relaciones Criticas del Puesto" data-content="El propósito de este apartado es que el ocupante del puesto conozca con qué puestos se relaciona y tenga claridad de los productos o servicios que proporciona o que o recibe; es decir, se describe la relación cliente/proveedor, proveedor/cliente. "></i></p>
+                      <table id="tablarelaciones" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>
+                              Puestos que son sus proveedores
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus proveedores" data-content="Enlistar las diferentes áreas o puestos, de las que recibe los productos, servicios o entregables para realizar su labor, con el fin de que, el ocupante del puesto conozca qué debe recibir y de qué puesto/s o áreas, es decir, se describe su relación como cliente/proveedor.">
+                              </i>
+                            </th>
+                            <th>
+                              Insumos que obtiene
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Insumos que obtiene" data-content="Mencionar las productos, servicios o entregables que recibe de los puestos o áreas que son sus proveedores.">
+                              </i>
+                            </th>
+                            <th>
+                              Frecuencia
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se reciben productos, servicios o entregables por parte del proveedor; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                              </i>
+                            </th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cuerporelaciones">
+                          <!-- {{$i=1}} -->
+                          @foreach($descripcion['PUESTOS_PROVEEDORES'] as $puesto)
+                            <!-- {{$disabled = ((strcmp($puesto->ESTATUS_PROVEEDOR,'0')==0)?'':'disabled')}} -->
+                            <tr>
+                              <td><input type="text" id="Proveedor{{$i}}" value="{{$puesto->DESCRIPCION_PROVEEDOR}}"></td>
+                              <td>
+                                  <textarea class="form-control" id="insumo{{$i}}">{{$puesto->INSUMO_PROVEEDOR}}</textarea>
+                              </td>
+                              <td>
+                                <select id="frecuenciaPP{{$i}}">
+                                  <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
+                                  <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
+                                  <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
+                                  <option value="QUINCENAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'QUINCENAL')==0)?'SELECTED':'')}}>QUINCENAL</option>
+                                  <option value="MENSUAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'MENSUAL')==0)?'SELECTED':'')}}>MENSUAL</option>
+                                  <option value="TRIMESTRAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'TRIMESTRAL')==0)?'SELECTED':'')}}>TRIMESTRAL</option>
+                                  <option value="SEMESTRAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'SEMESTRAL')==0)?'SELECTED':'')}}>SEMESTRAL</option>
+                                  <option value="ANUAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'ANUAL')==0)?'SELECTED':'')}}>ANUAL</option>
+                                </select>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="actualizar_pp({{$puesto->ID_PUESTO_PROVEEDOR}},{{$i}})">Actualizar</button>
+                              </td>
+                            </tr>
+                            <!-- {{$i++}} -->
+                          @endforeach
+                        </tbody>
+                      </table>
+
+                      <button onclick="AgregaRelacion()">Agregar Relacion </button>
+
+                      <div class="tab-pane" id="Relacion"> 
+                        <p class="lead">Relaciones Criticas del Puesto </p>
+                        <table id="tablarelaciones2" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>
+                                Puestos que son sus clientes
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus clientes" data-content="Enlistar las diferentes áreas o puestos a los cuales ofrece productos, servicios o entregables, tras realizar la labor respectiva del puesto, es decir, se describe su relación como proveedor/cliente.">
+                                </i>
+                              </th>
+                              <th>
+                                Productos que ofrece
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Productos que ofrece" data-content="Mencionar los productos, servicios o entregables que se generan y entregan del puesto a los clientes.">
+                                </i>
+                              </th>
+                              </th>
+                              <th>
+                                Frecuencia
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                                </i>
+                              </th>
+                              <th>Acciones</th>
+                            </tr>
+                          </thead>
+                          <tbody id="cuerporelaciones2">
+                            <!-- {{$i=1}} -->
+                            @foreach($descripcion['PUESTOS_CLIENTES'] as $puesto)
+                              <!-- {{$disabled = ((strcmp($puesto->ESTATUS_CLIENTE,'0')==0)?'':'disabled')}} -->
+                              <tr>
+                                <td><input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}"></td>
+                                <td>
+                                    <textarea class="form-control" id="productoCliente{{$i}}">{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                                </td>
+                                <td>
+                                  <select id="frecuenciaPC{{$i}}">
+                                    <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
+                                    <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
+                                    <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
+                                    <option value="QUINCENAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'QUINCENAL')==0)?'SELECTED':'')}}>QUINCENAL</option>
+                                    <option value="MENSUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'MENSUAL')==0)?'SELECTED':'')}}>MENSUAL</option>
+                                    <option value="TRIMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'TRIMESTRAL')==0)?'SELECTED':'')}}>TRIMESTRAL</option>
+                                    <option value="SEMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMESTRAL')==0)?'SELECTED':'')}}>SEMESTRAL</option>
+                                    <option value="ANUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'ANUAL')==0)?'SELECTED':'')}}>ANUAL</option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})">Actualizar</button>
+                                </td>
+                              </tr>
+                              <!-- {{$i++}} -->
+
+                            @endforeach
+
+                          </tbody>
+                        </table>
+                        <button onclick="AgregaRelacion2()">Agregar Relacion </button>
+                      </div>
+
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="button">Cancel</button>
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane" id="Perfil">
+                      <p class="lead">Formación Profesional y Experiencia <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i></p>
+                      <i class="fas fa-comment-lines"></i>
+                      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                          
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                Formación Profesional:
+                          </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+                          </div>
+                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                          </i>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+                          </div>
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
+                            </i>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+                          </div>
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
+                            </i>
+                        </div>
+                      </form>
+                    </div>
 
                         <div class="tab-pane" id="Competencia">
                           <p class="lead">Competencias 
@@ -417,78 +512,34 @@ $(document).ready(function(){
      //alert(id_des);
   });
  
-  var cont_actG=1;
-  var con_CG=1;
-  var con_CT=1;
-  var cont_AE=1;
+  //var cont_actG=1;
+  //var con_CG=1;
+  //var con_CT=1;
+  //var cont_AE=1;
 
-  function llenado(){
-    //parte principal
-    $("#nombre_descripcion").text(json_descripcion['DATOS']['NOM_DESC']);
-    $("#infg_nombre_puesto").val(json_descripcion['DATOS']['NOM_DESC']);
-    $("#infg_reporta_a").val(json_descripcion['DATOS']['REPORTA_A_DESC']);
-    $("#infg_area_desc").val(json_descripcion['DATOS']['AREA_DESC']);
-    $("#infg_direccion").val(json_descripcion['DATOS']['DIRECCION_DESC']);
-    $("#infg_clave").val(json_descripcion['DATOS']['CLAVE_DESC']);
-    $("#infg_creacion").val(json_descripcion['DATOS']['CREACION_DESC']);
-    $("#infg_frevision").val(((json_descripcion['DATOS']['NOM_DESC'])?json_descripcion['DATOS']['NOM_DESC']:""));
-    $("#infg_nrevision").val(json_descripcion['DATOS']['N_REVISION_DESC']);
-
-    if(json_descripcion['PROPOSITO_GENERAL']){
-      $("#Proposito").val(json_descripcion['PROPOSITO_GENERAL']['PROPOSITO_GENERAL']);
-      if(json_descripcion['PROPOSITO_GENERAL']['ESTATUS_PROPOSITO_GENERAL']==1){
-        $("#Proposito").prop('disabled', true);
-      }
-    }
-
-    //actividades generales
-    for(var i = 0; i < json_descripcion['ACTIVIDADES_GRLES'].length; i++){
-      
-      var disabled = ((json_descripcion['ACTIVIDADES_GRLES'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'');
-      $("#cuerpoTablaprincipales").append(
-        '<tr disabled="true">'+
-          '<td>'+(parseInt(i)+1)+'</td>'+
-          '<td>'+
-            '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'" '+disabled+'>'+
-              json_descripcion['ACTIVIDADES_GRLES'][i]['NOMBRE_ACTIVIDAD']+
-            '</textarea>'+
-          '</td>'+
-          //'<td>'+json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']+'</td>'+
-          '<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'"'+disabled+'>'+'</td>'+
-          "<td>"+
-            '<button class="btn btn-primary" type="button" onclick="actualizar_ActividadGral('+json_descripcion['ACTIVIDADES_GRLES'][i]['ID_ACT_GRAL']+","+cont_actG+')"'+disabled+'>Actualizar</button>'+
-          "</td>"+
-        '</tr>'
-      );
-      $("#indicador"+cont_actG).val(json_descripcion['ACTIVIDADES_GRLES'][i]['INDICADOR_ACTIVIDAD']);
-      cont_actG++;
-    }
-
-    //Actividades especificas
-    for(var i = 0; i < json_descripcion['ACTIVIDADES_ESPECIFICAS'].length; i++){
-      var disabled = ((json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['ESTATUS_ACTIVIDAD']==1)?'disabled':'');
-      $("#cuerpoTablaespecificas").append(
-          '<tr>'+
-            '<td>'+cont_AE+'</td>'+
-            '<td>'+'<textarea class="form-control" rows="5" id="ActividadEspecifica'+cont_AE+'" '+disabled+'>'+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['NOMBRE_ACTIVIDAD']+'</textarea>'+'</td>'+
-            //'<td>'+'<input type="text" class="form-control" id="indicador'+cont_actG+'" >epa</input>'+'</td>'+
-            '<td>'+
-              '<button class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp('+json_descripcion['ACTIVIDADES_ESPECIFICAS'][i]['ID_ACT_ESP']+","+cont_AE+')"'+disabled+'>Actualizar</button>'+
-            '</td>'+
-          '</tr>'
-        );
-      cont_AE++;
-    }
-    //swal("", "Información almacenada correctamente", "success");
-  }
-
- 
   var cont_actG=1;
   var con_CG=1;
   var con_CT=1;
   var cont_AE=1;
   var cont_r=1;
   var cont_rd=1;
+  function llenado(){
+    //parte principal
+    $("#nombre_descripcion").text(json_descripcion['DATOS']['NOM_DESC']);
+    cont_actG = ($("#cuerpoTablaprincipales tr").length)+1;
+    //alert("Total de act. principales: "+cont_actG);
+    cont_AE = ($("#cuerpoTablaespecificas tr").length)+1;
+    cont_r = ($("#cuerporelaciones tr").length)+1;
+    cont_rd = ($("#cuerporelaciones2 tr").length)+1;
+    //alert("Total de act. especificas: "+cont_AE);
+    console.log("Total de act. principales: "+(cont_actG-1))
+    console.log("Total de act. especificas: "+(cont_AE-1))
+    console.log("Total de puestos proov.: "+(cont_r-1))
+    console.log("Total de puestos clientes.: "+(cont_rd-1))
+  }
+
+ 
+
 
 
   //ejecutar popover al cargar la página
@@ -620,36 +671,33 @@ $(document).ready(function(){
     cont_AE++;
   }
   
-
+  //Puestos que son proveedores, llenado dinamico
   function AgregaRelacion(){
+    $("#cuerporelaciones").append(
 
-
-     $("#cuerporelaciones").append(
-
-                  "<tr>"+
-                    "<td>"+'<input type="text" id="Proveedor'+cont_r+'" >'+"</td>"+
-                    "<td>"+'<div class="form-group">'+
-                          //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="insumo'+cont_r+'"></textarea>'+
-                            '</div>'+
-                    "</td>"+
-                   "<td>"+
-                      '<select name="fg1" id="indicador'+cont_r+'">'+
-                        '<option value="VARIABLE">VARIABLE</option>'+
-                        '<option value="DIARIO">DIARIO</option>'+
-                        '<option value="SEMANAL">SEMANAL</option>'+
-                        '<option value="QUINCENAL">QUINCENAL</option>'+
-                        '<option value="MENSUAL">MENSUAL</option>'+
-                        '<option value="TRIMESTRAL">TRIMESTRAL</option>'+
-                        '<option value="SEMESTRAL">SEMESTRAL</option>'+
-                        '<option value="ANUAL">ANUAL</option>'+
-                       "</select>"+
-                    "</td>"+
-                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion('+cont_r+')">Guardar</button>'+"</td>"+
-                    
-                  "</tr>");//*/
-    cont_r++;
-  }
+      "<tr>"+
+        "<td>"+'<input type="text" id="Proveedor'+cont_r+'" >'+"</td>"+
+        "<td>"+
+          '<div class="form-group">'+
+            '<textarea class="form-control" rows="5" id="insumo'+cont_r+'"></textarea>'+
+          '</div>'+
+        "</td>"+
+        "<td>"+
+          '<select name="fg1" id="frecuenciaPP'+cont_r+'">'+
+            '<option value="VARIABLE">VARIABLE</option>'+
+            '<option value="DIARIO">DIARIO</option>'+
+            '<option value="SEMANAL">SEMANAL</option>'+
+            '<option value="QUINCENAL">QUINCENAL</option>'+
+            '<option value="MENSUAL">MENSUAL</option>'+
+            '<option value="TRIMESTRAL">TRIMESTRAL</option>'+
+            '<option value="SEMESTRAL">SEMESTRAL</option>'+
+            '<option value="ANUAL">ANUAL</option>'+
+          "</select>"+
+        "</td>"+
+        "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion('+cont_r+',this)">Guardar</button>'+"</td>"+
+      "</tr>");//*/
+      cont_r++;
+    }
 
 
   function AgregaRelacion2(){
@@ -660,11 +708,11 @@ $(document).ready(function(){
                     "<td>"+'<input type="text" class="form-control" id="cliente'+cont_rd+'">'+"</td>"+
                     "<td>"+'<div class="form-group">'+
                           //'<label for="comment"></label>'+
-                            '<textarea class="form-control" rows="5" id="insumo'+cont_rd+'"></textarea>'+
+                            '<textarea class="form-control" rows="5" id="productoCliente'+cont_rd+'"></textarea>'+
                             '</div>'+
                     "</td>"+
                    "<td>"+
-                      '<select name="fg1" id="indicador'+cont_rd+'">'+
+                      '<select name="fg1" id="frecuenciaPC'+cont_rd+'">'+
                         '<option value="VARIABLE">VARIABLE</option>'+
                         '<option value="DIARIO">DIARIO</option>'+
                         '<option value="SEMANAL">SEMANAL</option>'+
@@ -676,7 +724,7 @@ $(document).ready(function(){
                        "</select>"+
                     "</td>"+
 
-                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion2('+cont_rd+')">Guardar</button>'+"</td>"+
+                    "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_relacion2('+cont_rd+',this)">Guardar</button>'+"</td>"+
                     
                   "</tr>");//*/
      cont_rd++;
@@ -784,113 +832,164 @@ function guardar_CompetenciasT(tmp_cont_cT){
           }
 }//*/
 
-
-function guardar_relacion(tmp_cont_rel){
+//almacenar los puestos que son proveedores
+function guardar_relacion(tmp_cont_rel,elemento){
     //alert("Entre");
      //console.log("entre a la funcion guardar actividades");
    //  console.log(tmp_cont_rel);
 
-        var relacion = $("#Proveedor"+tmp_cont_rel).val(); 
-        var insumo = $("#insumo"+tmp_cont_rel).val();
-        var indicador = $("#indicador"+tmp_cont_rel).val(); 
-       console.log(relacion);
-        console.log(insumo);
-        console.log(indicador);
-        console.log(id_des);
-        var dataForm = new FormData();
-            dataForm.append('relacion',relacion);
-            dataForm.append('insumo', insumo);
-            dataForm.append('indicador',indicador);
-            dataForm.append('id_des',id_des);
-
-            if (relacion!="") {
-          $.ajax({
-                    url :'/descripcion/guardar_relacion',
-                    data : dataForm,
-                    contentType:false,
-                    processData:false,
-                    headers:{
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
-                    type: 'POST',
-                    dataType : 'json',
-                    beforeSend: function (){
-                      $("#modalCarga").modal();
-                    },
-                    success : function(json){
-                       //Codigo en caso de que la visita haya sido correcta
-                       swal("", "Información almacenada correctamente", "success");
-                    },
-                    error : function(xhr, status) {
-                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                      $("#modalMensaje").modal();
-                      $('#btnCancelar').prop('disabled', false);
-                    },
-                    complete : function(xhr, status){
-                       $("#modalCarga").modal('hide');
-                    }
-                  });
-
-          }else {
-            alert("no tiene actividad");
-          }//*/
-}
-
-
-function guardar_relacion2(tmp_cont_reld){
-        var relacion = $("#cliente"+tmp_cont_reld).val(); 
-        var insumo = $("#insumo"+tmp_cont_reld).val();
-        var indicador = $("#indicador"+tmp_cont_reld).val(); 
-       console.log(relacion);
-        console.log(insumo);
-        console.log(indicador);
-        console.log(id_des);
-        var dataForm = new FormData();
-            dataForm.append('relacion',relacion);
-            dataForm.append('insumo', insumo);
-            dataForm.append('indicador',indicador);
-            dataForm.append('id_des',id_des);
-
+  var relacion = $("#Proveedor"+tmp_cont_rel).val(); 
+  var insumo = $("#insumo"+tmp_cont_rel).val();
+  var frecuencia = $("#frecuenciaPP"+tmp_cont_rel).val(); 
+  console.log(relacion);
+  console.log(insumo);
+  console.log(frecuencia);
+  //console.log(id_des);
+  var dataForm = new FormData();
+  dataForm.append('Proveedor',relacion);
+  dataForm.append('insumo', insumo);
+  dataForm.append('frecuencia',frecuencia);
+  dataForm.append('id_des',id_des);
   if (relacion!="") {
-        $.ajax({
-                  url :'/descripcion/guardar_relacion2',
-                  data : dataForm,
-                  contentType:false,
-                  processData:false,
-                  headers:{
-                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                  type: 'POST',
-                  dataType : 'json',
-                  beforeSend: function (){
-                    $("#modalCarga").modal();
-                  },
-
-                type: 'POST',
-                dataType : 'json',
-                beforeSend: function (){
-                  $("#modalCarga").modal();
-                },
-                success : function(json){
-                   //Codigo en caso de que la visita haya sido correcta
-                   swal("", "Información almacenada correctamente", "success");
-                },
-                error : function(xhr, status) {
-                  $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                  $("#modalMensaje").modal();
-                  $('#btnCancelar').prop('disabled', false);
-                },
-                complete : function(xhr, status){
-                   $("#modalCarga").modal('hide');
-                }
-              });
-
-      }else {
-        alert("no tiene actividad");
-      } 
-
-
+    $.ajax({
+      url :'/descripcion/guardar_relacion',
+      data : dataForm,
+      contentType:false,
+      processData:false,
+      headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+      type: 'POST',
+      dataType : 'json',
+      beforeSend: function (){
+        $("#modalCarga").modal();
+      },
+      success : function(json){
+         //Codigo en caso de que la visita haya sido correcta
+        $(elemento).attr('onclick','actualizar_pp('+json['id_puesto']+','+tmp_cont_rel+')');
+        $(elemento).text('Actualizar');
+         swal("", "Información almacenada correctamente", "success");
+      },
+      error : function(xhr, status) {
+        $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+        $("#modalMensaje").modal();
+        $('#btnCancelar').prop('disabled', false);
+      },
+      complete : function(xhr, status){
+         $("#modalCarga").modal('hide');
+      }
+    });//*/
+  }else {
+    alert("no tiene actividad");
+  }//*/
 }
+
+  //actualizar puestos que son proveedores
+  function actualizar_pp(id_puesto_proov,i){
+    var puesto = $("#Proveedor"+i).val();
+    var insumo = $("#insumo"+i).val();
+    var frecuencia = $("#frecuenciaPP"+i).val();
+    console.log("ID_PUESTO: "+id_puesto_proov);
+    console.log("RENGLON: "+i);
+    console.log(puesto);
+    console.log(insumo);
+    console.log(frecuencia);
+    //alert("Entre");
+    
+    var success;
+    var url = "/descripcion/actualiza_prov"
+    var dataForm = new FormData();
+    dataForm.append('id_puesto_prov',id_puesto_proov);
+    dataForm.append('puesto',puesto);
+    dataForm.append('insumo',insumo);
+    dataForm.append('frecuencia',frecuencia);
+    metodoAjax(url,dataForm,function(success){
+      if(success['update']==1){
+        swal("", "Actualizado correctamente", "success");
+      }else{
+        swal("", "Actualización incorrecta", "error");
+      }
+
+    });//*/ 
+
+  }
+
+
+  function guardar_relacion2(tmp_cont_reld,elemento){
+    var puesto = $("#cliente"+tmp_cont_reld).val();
+    var producto = $("#productoCliente"+tmp_cont_reld).val();
+    var frecuencia = $("#frecuenciaPC"+tmp_cont_reld).val();
+    console.log("Puesto"+puesto);
+    console.log("Producto"+producto);
+    console.log("Frecuencia"+frecuencia);
+    console.log("Descripcion"+id_des);
+    var dataForm = new FormData();
+    dataForm.append('puesto',puesto);
+    dataForm.append('producto', producto);
+    dataForm.append('frecuencia',frecuencia);
+    dataForm.append('id_des',id_des);
+
+    if (puesto!="") {
+      $.ajax({
+        url :'/descripcion/guardar_relacion2',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+           //Codigo en caso de que la visita haya sido correcta
+        $(elemento).attr('onclick','actualizar_pc('+json['id_puesto']+','+tmp_cont_reld+')');
+        $(elemento).text('Actualizar');
+           swal("", "Información almacenada correctamente", "success");
+        },
+        error : function(xhr, status) {
+          $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+          $("#modalMensaje").modal();
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });//*/
+    }else {
+      alert("no tiene actividad");
+    }
+  }
+
+  function actualizar_pc(id_puesto_cliente,i){
+    var puesto = $("#cliente"+i).val();
+    var producto = $("#productoCliente"+i).val();
+    var frecuencia = $("#frecuenciaPC"+i).val();
+    var success;
+    var url = "/descripcion/actualiza_cliente";
+    var dataForm = new FormData();
+    dataForm.append('puesto',puesto);
+    dataForm.append('producto',producto);
+    dataForm.append('frecuencia',frecuencia);
+    dataForm.append('id_puesto_cliente',id_puesto_cliente);
+    metodoAjax(url,dataForm,function(success){
+      if(success['update']==1){
+        swal("", "Actualizado correctamente", "success");
+      }else{
+        swal("", "Actualización incorrecta", "error");
+      }
+
+
+    });//*/
+  }
 
 
 
@@ -943,14 +1042,14 @@ function guardar_Actividades(tmp_cont_actG,elemento){
   }  
 } 
 
-function guardar_ActividadesE(tmp_cont_actE,elemento){
- //alert("Entre");
-  console.log("entre a la funcion guardar actividades específica");
+  function guardar_ActividadesE(tmp_cont_actE,elemento){
+    //alert("Entre");
+    console.log("entre a la funcion guardar actividades específica");
     var ActividadE = $("#ActividadEspecifica"+tmp_cont_actE).val();
     //console.log(ActividadE);
     //console.log(id_des);
     var dataForm = new FormData();
-//<<<<<<< HEAD
+    //<<<<<<< HEAD
     dataForm.append('ActividadE',ActividadE);
     dataForm.append('id_des',id_des);
 
@@ -1010,8 +1109,8 @@ function guardar_ActividadesE(tmp_cont_actE,elemento){
 
   }
 
-    function guardar_proposito(){
-      //alert("Entre");
+  function guardar_proposito(){
+    //alert("Entre");
     var Proposito = $("#Proposito").val();
     //console.log(Proposito);
     //console.log(id_des);
@@ -1058,7 +1157,6 @@ function guardar_ActividadesE(tmp_cont_actE,elemento){
       dataForm.append('archivo',"p1");
       dataForm.append('archivo',"p2");
       metodoAjax(url,dataForm,function(success){
-
 
       });//*/
     }

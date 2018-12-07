@@ -417,6 +417,51 @@
             }
             $descripcion['ACTIVIDADES_ESPECIFICAS'] = $actividades_esp;
 
+            //obteniendo Puestos proveedores
+            $rel_pp = DB::table('REL_PUESTOS_PROV_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_PUESTO_PROVEEDOR'])
+                ->get();
+            $puestos_proveedores = array();
+            //dd($rel_pp);
+            foreach ($rel_pp as $puesto) {
+                $rel_prov = DB::table('DP_PUESTOS_PROVEEDORES')
+                    ->where('PUESTOS_PROVEEDORES_ID',$puesto->FK_PUESTO_PROVEEDOR)
+                    ->select([
+                            'PUESTOS_PROVEEDORES_ID as ID_PUESTO_PROVEEDOR',
+                            'PUESTOS_PROVEEDORES_DESCRIPCION as DESCRIPCION_PROVEEDOR',
+                            'PUESTOS_PROVEEDORES_INSUMO as INSUMO_PROVEEDOR',
+                            'PUESTOS_PROVEEDORES_FRECUENCIA as FRECUENCIA_PROVEEDOR',
+                            'PUESTOS_PROVEEDORES_ESTATUS as ESTATUS_PROVEEDOR',
+                            'PUESTOS_PROVEEDORES_MENSAJE as MENSAJE_PROVEEDOR',
+                            ])//*/
+                    ->get();
+                $puestos_proveedores[] = $rel_prov[0];
+            }
+            $descripcion['PUESTOS_PROVEEDORES'] = $puestos_proveedores;
+
+            //obtenemos los puestos que son clientes
+            $rel_pc = DB::table('REL_PUESTOS_CLIENTES_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_PUESTO_CLIENTE'])
+                ->get();
+            $puestos_clientes = array();
+            //dd($rel_pp);
+            foreach ($rel_pc as $puesto) {
+                $rel_clientes = DB::table('DP_PUESTOS_CLIENTES')
+                    ->where('PUESTOS_CLIENTES_ID',$puesto->FK_PUESTO_CLIENTE)
+                    ->select([
+                            'PUESTOS_CLIENTES_ID as ID_PUESTO_CLIENTE',
+                            'PUESTOS_CLIENTES_DESCRIPCION as DESCRIPCION_CLIENTE',
+                            'PUESTOS_CLIENTES_PRODUCTO as PRODUCTO_CLIENTE',
+                            'PUESTOS_CLIENTES_FRECUENCIA as FRECUENCIA_CLIENTE',
+                            'PUESTOS_CLIENTES_ESTATUS as ESTATUS_CLIENTE',
+                            'PUESTOS_CLIENTES_MENSAJE as MENSAJE_CLIENTE',
+                            ])//*/
+                    ->get();
+                $puestos_clientes[] = $rel_clientes[0];
+            }
+            $descripcion['PUESTOS_CLIENTES'] = $puestos_clientes;
 
             //dd($descripcion);
             //return view('formulario') ->with ("descripcion",$descripcion);
@@ -591,14 +636,16 @@
 
         }
          public function guardarelacion(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $exito=false;
-            //dd($request['Proposito']);
+            //dd($request['frecuencia']);
             $insertar=DB::table('DP_PUESTOS_PROVEEDORES')->insertGetId(
                 [
-                    'PUESTOS_PROVEEDORES_DESCRIPCION' => $request['relacion'], 
+                    'PUESTOS_PROVEEDORES_DESCRIPCION' => $request['Proveedor'], 
                     'PUESTOS_PROVEEDORES_INSUMO'=> $request['insumo'],
-                    'PUESTOS_PROVEEDORES_FRECUENCIA'=>  $request['indicador'],
-                    'PUESTOS_PROVEEDORES_ESTATUS'=> 0
+                    'PUESTOS_PROVEEDORES_FRECUENCIA'=>  $request['frecuencia'],
+                    'PUESTOS_PROVEEDORES_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
 
                 ]
             );
@@ -614,7 +661,8 @@
             $exito=true;
          }
          $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_puesto" => $insertar
               );
 
             echo json_encode($data);
@@ -623,35 +671,31 @@
         }
 
         public function guardarelacion2(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             $exito=false;
-            //dd($request['Proposito']);
+            //dd($request['frecuencia']);
             $insertar=DB::table('DP_PUESTOS_CLIENTES')->insertGetId(
                 [
-                    'PUESTOS_CLIENTES_DESCRIPCION' => $request['relacion'], 
-                    'PUESTOS_CLIENTES_PRODUCTO'=> $request['insumo'],
-                    'PUESTOS_CLIENTES_FRECUENCIA'=>  $request['indicador'],
-                    'PUESTOS_CLIENTES_ESTATUS'=> 0
-
+                    'PUESTOS_CLIENTES_DESCRIPCION' => $request['puesto'], 
+                    'PUESTOS_CLIENTES_PRODUCTO'=> $request['producto'],
+                    'PUESTOS_CLIENTES_FRECUENCIA'=>  $request['frecuencia'],
+                    'PUESTOS_CLIENTES_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]
             );
-
-        if($insertar){
-            DB::table('REL_PUESTOS_CLIENTES_DESCRIPCION')->insert(
+            if($insertar){
+                DB::table('REL_PUESTOS_CLIENTES_DESCRIPCION')->insert(
                     [
                         'FK_PUESTO_CLIENTE' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
-
                     ]
-                        );
-            $exito=true;
-         }
-         $data = array(
-                "exito" => $exito
-              );
-
+                );
+                $exito=true;
+            }
+            $data = array(
+                "id_puesto" => $insertar
+            );
             echo json_encode($data);
-
-
         }
 
         public function guardarcompetenciaG(Request $request){
@@ -715,4 +759,41 @@
 
 
         }
-    }
+
+        public function ActualizarPuestoProveedor(Request $request){
+            $id_puesto_prov = $request['id_puesto_prov'];
+            $puesto = $request['puesto'];
+            $insumo = $request['insumo'];
+            $frecuencia = $request['frecuencia'];
+            $update = DB::table('DP_PUESTOS_PROVEEDORES')
+                ->where('PUESTOS_PROVEEDORES_ID', $id_puesto_prov)
+                ->update([
+                            'PUESTOS_PROVEEDORES_DESCRIPCION' => $puesto,
+                            'PUESTOS_PROVEEDORES_INSUMO' => $insumo,
+                            'PUESTOS_PROVEEDORES_FRECUENCIA' => $frecuencia,
+                        ]);
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+        public function ActualizarPuestoCliente(Request $request){
+            $id_puesto_cliente = $request['id_puesto_cliente'];
+            $puesto = $request['puesto'];
+            $producto = $request['producto'];
+            $frecuencia = $request['frecuencia'];
+            $update = DB::table('DP_PUESTOS_CLIENTES')
+                ->where('PUESTOS_CLIENTES_ID', $id_puesto_cliente)
+                ->update([
+                            'PUESTOS_CLIENTES_DESCRIPCION' => $puesto,
+                            'PUESTOS_CLIENTES_PRODUCTO' => $producto,
+                            'PUESTOS_CLIENTES_FRECUENCIA' => $frecuencia,
+                        ]);
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+    }//fin clase
