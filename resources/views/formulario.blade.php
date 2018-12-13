@@ -130,8 +130,7 @@
                       </div>
                           <!--Fin del Formulario de información General-->
                     </div>
-                  <!--Inicio del modulo de actividades -->
-
+                    <!--Inicio del modulo de actividades -->
                     <div class="tab-pane" id="Actividad">
                       <p class="lead">Actividades Principales y Especificas  <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Actividades Principales y Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a."></i>
                       </p>
@@ -179,13 +178,14 @@
                       </table>
                       <button onclick="AgregaActividad()">Agregar</button>
                         <!--  <button class="btn btn-primary" type="button" onclick="guardar_Actividades()">Guardar</button>-->
+                      <hr>
                       <table id="tablaespecificas" class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th>N°</th>
                             <th>
                               Principales Actividades Especificas (No Obligatorias)
-                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a.">
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Principales Actividades Especificas" data-content="Enunciar las actividades secundarias (no obligatorias) que existan para el puesto y que no influyen en el logro de su objetivo; de incluirlas, enunciarlas con verbos en infinitivo (ejemplo: proporcionar, elaborar, mantener, gestionar, etc.). Incluir en las actividades generales la siguiente: realizar las funciones específicas del puesto que se requieran en la Unidad Académica o Dependencia Administrativa asignadas por el/a jefe/a inmediato/a."></i>
                             </th>
                             <th>Acciones</th>
                           </tr>
@@ -269,221 +269,190 @@
                           @endforeach
                         </tbody>
                       </table>
-
                       <button onclick="AgregaRelacion()">Agregar Relacion </button>
-
-                      <div class="tab-pane" id="Relacion"> 
-                        <p class="lead">Relaciones Criticas del Puesto </p>
-                        <table id="tablarelaciones2" class="table table-striped table-bordered">
-                          <thead>
+                      <hr>
+                      <table id="tablarelaciones2" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th>
+                              Puestos que son sus clientes
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus clientes" data-content="Enlistar las diferentes áreas o puestos a los cuales ofrece productos, servicios o entregables, tras realizar la labor respectiva del puesto, es decir, se describe su relación como proveedor/cliente.">
+                              </i>
+                            </th>
+                            <th>
+                              Productos que ofrece
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Productos que ofrece" data-content="Mencionar los productos, servicios o entregables que se generan y entregan del puesto a los clientes.">
+                              </i>
+                            </th>
+                            <th>
+                              Frecuencia
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                              </i>
+                            </th>
+                            <th>Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody id="cuerporelaciones2">
+                          <!-- {{$i=1}} -->
+                          @foreach($descripcion['PUESTOS_CLIENTES'] as $puesto)
+                            <!-- {{$disabled = ((strcmp($puesto->ESTATUS_CLIENTE,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <th>
-                                Puestos que son sus clientes
-                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Puestos que son sus clientes" data-content="Enlistar las diferentes áreas o puestos a los cuales ofrece productos, servicios o entregables, tras realizar la labor respectiva del puesto, es decir, se describe su relación como proveedor/cliente.">
-                                </i>
-                              </th>
-                              <th>
-                                Productos que ofrece
-                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Productos que ofrece" data-content="Mencionar los productos, servicios o entregables que se generan y entregan del puesto a los clientes.">
-                                </i>
-                              </th>
-                              </th>
-                              <th>
-                                Frecuencia
-                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Frecuencia" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                                </i>
-                              </th>
-                              <th>Acciones</th>
+                              <td><input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}"></td>
+                              <td>
+                                  <textarea class="form-control" id="productoCliente{{$i}}">{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                              </td>
+                              <td>
+                                <select id="frecuenciaPC{{$i}}">
+                                  <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
+                                  <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
+                                  <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
+                                  <option value="QUINCENAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'QUINCENAL')==0)?'SELECTED':'')}}>QUINCENAL</option>
+                                  <option value="MENSUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'MENSUAL')==0)?'SELECTED':'')}}>MENSUAL</option>
+                                  <option value="TRIMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'TRIMESTRAL')==0)?'SELECTED':'')}}>TRIMESTRAL</option>
+                                  <option value="SEMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMESTRAL')==0)?'SELECTED':'')}}>SEMESTRAL</option>
+                                  <option value="ANUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'ANUAL')==0)?'SELECTED':'')}}>ANUAL</option>
+                                </select>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})">Actualizar</button>
+                              </td>
                             </tr>
-                          </thead>
-                          <tbody id="cuerporelaciones2">
-                            <!-- {{$i=1}} -->
-                            @foreach($descripcion['PUESTOS_CLIENTES'] as $puesto)
-                              <!-- {{$disabled = ((strcmp($puesto->ESTATUS_CLIENTE,'0')==0)?'':'disabled')}} -->
-                              <tr>
-                                <td><input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}"></td>
-                                <td>
-                                    <textarea class="form-control" id="productoCliente{{$i}}">{{$puesto->PRODUCTO_CLIENTE}}</textarea>
-                                </td>
-                                <td>
-                                  <select id="frecuenciaPC{{$i}}">
-                                    <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
-                                    <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
-                                    <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
-                                    <option value="QUINCENAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'QUINCENAL')==0)?'SELECTED':'')}}>QUINCENAL</option>
-                                    <option value="MENSUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'MENSUAL')==0)?'SELECTED':'')}}>MENSUAL</option>
-                                    <option value="TRIMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'TRIMESTRAL')==0)?'SELECTED':'')}}>TRIMESTRAL</option>
-                                    <option value="SEMESTRAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMESTRAL')==0)?'SELECTED':'')}}>SEMESTRAL</option>
-                                    <option value="ANUAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'ANUAL')==0)?'SELECTED':'')}}>ANUAL</option>
-                                  </select>
-                                </td>
-                                <td>
-                                  <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})">Actualizar</button>
-                                </td>
-                              </tr>
-                              <!-- {{$i++}} -->
+                            <!-- {{$i++}} -->
 
-                            @endforeach
-
-                          </tbody>
-                        </table>
-                        <button onclick="AgregaRelacion2()">Agregar Relacion </button>
-                      </div>
-
-                      <div class="ln_solid"></div>
-                      <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button class="btn btn-primary" type="button">Cancel</button>
-                          <button class="btn btn-primary" type="reset">Reset</button>
-                          <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                      </div>
+                          @endforeach
+                        </tbody>
+                      </table>
+                      <button onclick="AgregaRelacion2()">Agregar Relacion </button>
                     </div>
                     <div class="tab-pane" id="Perfil">
                       <p class="lead">Formación Profesional y Experiencia <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i></p>
                       <i class="fas fa-comment-lines"></i>
                       <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                          
-
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                               Formación Profesional:
-                            </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="formacion">
-                            </div>
-                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                                </i>
+                          </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="formacion">
                           </div>
-                          <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="area">
-                            </div>
-                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
-                              </i>
+                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable."></i>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="area">
+                          </div>
+                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
+                          <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="años_ex">
+                          </div>
+                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años)."></i>
+                        </div>
+                        <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
+                      </form>
+                    </div>
+                    <div class="tab-pane" id="Competencia">
+                      <p class="lead">Competencias 
+                        <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="En  este apartado se definen el tipo y grado de dominio de las habilidades, destrezas, actitudes y conocimientos que requiere tener y/o desarrollar el ocupante del puesto."></i>
 
-                          </div>
-                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
-                            </i>
+                      </p>
+                      <!--Comptencias inicio -->
+
+                      <table id="tablaprincipales" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th colspan="2" align="center"><strong>Genéricas</strong>  
+                              <i class="fa fa-question-circle" data-placement="auto" data-toggle="popover" title="Competencias Genéricas" data-content="Son las características específicas requeridas para el puesto. Para facilitar la definición de estas competencias ver “Diccionario de Competencias” en la página Web de la DRH apartado Formatos. Para indicar el grado de dominio, elegir nivel: V, III, II o I según el grado de responsabilidad y la necesidad del puesto."></i>
+                            </th>
+                          </tr>
+                          <tr>
+                          <th>
+                            Competencias
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
+                          </th>
+                          <th>
+                            Grado de Dominio
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Se elije entre Avanzado, Medio o Básico."></i>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody id="tablacompetenciasG"></tbody>
+                      </table>
+                      <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
+                      <hr>
+
+                      <table id="tablaprincipales" class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th colspan="2" align="center">
+                              <strong>Técnicas</strong>
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Competencias Técnicas" data-content="Se indican los conocimientos técnicos, prácticos o especializados que requiere el puesto, cada Unidad Académica o Dependencia Administrativa deberá elaborar su propio diccionario de competencias técnicas con sus diferentes niveles. Los grados establecidos para las competencias técnicas utilizables en la Institución son:
+                              Avanzado: trabajo día a día desempeñando conocimiento, creación, planeación, establecimiento, ejecución, supervisión, solución, actualización y modificación de la competencia.
+                              Medio: trabajo día a día en desempeño del conocimiento, ejecución y reporte con supervisión de la competencia.
+                              Básico: trabajo día a día en la aplicación del conocimiento bajo supervisión."></i>
+                            </th>
+                          </tr>
+                          <tr>
+                          <th>
+                            Competencias
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
+                          </th>
+                          <th>
+                            Grado de Dominio
+                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Para indicar el grado de dominio, elegir nivel: Avanzado, Medio o Básico."></i>
+                          </th>
+                        </tr>
+                        </thead>
+                        <tbody id="tablacompetenciasT"></tbody>
+                      </table>
+                      <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
+                      <hr>
+                      <form>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                            Idioma:
+                        </label>
+                        <div class="col-md-8 col-sm-8 col-xs-10">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idioma">
                         </div>
 
-
-                           <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
-                            <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="años_ex">
-                            </div>
-                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
-                              </i>
-                          </div>
-                             <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
-                        </form>
-                     
-                      </div>
-
-
-                        <div class="tab-pane" id="Competencia">
-                          <p class="lead">Competencias 
-                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="En  este apartado se definen el tipo y grado de dominio de las habilidades, destrezas, actitudes y conocimientos que requiere tener y/o desarrollar el ocupante del puesto."></i>
-
-                          </p>
-                          <!--Comptencias inicio -->
-
-                         <table id="tablaprincipales" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th colspan="2" align="center"><strong>Genéricas</strong>  
-                                    <i class="fa fa-question-circle" data-placement="auto" data-toggle="popover" title="Competencias Genéricas" data-content="Son las características específicas requeridas para el puesto. Para facilitar la definición de estas competencias ver “Diccionario de Competencias” en la página Web de la DRH apartado Formatos. Para indicar el grado de dominio, elegir nivel: V, III, II o I según el grado de responsabilidad y la necesidad del puesto."></i>
-                                  </th>
-                                </tr>
-                                <tr>
-                                <th>
-                                  Competencias
-                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
-                                </th>
-                                <th>
-                                  Grado de Dominio
-                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Se elije entre Avanzado, Medio o Básico."></i>
-                                </th>
-                              </tr>
-                              </thead>
-                              <tbody id="tablacompetenciasG"></tbody>
-                            </table>
-                          <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
-
-                           <table id="tablaprincipales" class="table table-striped table-bordered">
-
-                           
-                              <thead>
-                                <tr>
-                                  <th colspan="2" align="center">
-                                    <strong>Técnicas</strong>
-                                    <i class="fa fa-question-circle" data-toggle="popover" data-placement="right" title="Competencias Técnicas" data-content="Se indican los conocimientos técnicos, prácticos o especializados que requiere el puesto, cada Unidad Académica o Dependencia Administrativa deberá elaborar su propio diccionario de competencias técnicas con sus diferentes niveles. Los grados establecidos para las competencias técnicas utilizables en la Institución son:
-                                    Avanzado: trabajo día a día desempeñando conocimiento, creación, planeación, establecimiento, ejecución, supervisión, solución, actualización y modificación de la competencia.
-                                    Medio: trabajo día a día en desempeño del conocimiento, ejecución y reporte con supervisión de la competencia.
-                                    Básico: trabajo día a día en la aplicación del conocimiento bajo supervisión."></i>
-                                  </th>
-                                </tr>
-                                <tr>
-                                <th>
-                                  Competencias
-                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Competencias" data-content="Escribe dentro del recuadro la competencia."></i>
-                                </th>
-                                <th>
-                                  Grado de Dominio
-                                  <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Grado de Dominio" data-content="Para indicar el grado de dominio, elegir nivel: Avanzado, Medio o Básico."></i>
-                                </th>
-                              </tr>
-                              </thead>
-                              <tbody id="tablacompetenciasT"></tbody>
-                            </table>
-                          <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
-
-                            <form>
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                  Idioma:
-                              </label>
-                                <div class="col-md-8 col-sm-8 col-xs-10">
-                                    <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idioma">
-                                </div>
-
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                             Computacion:
-                            </label>
-                                <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacion">
-                            </div>
-
-                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
-                           <!--Comptencias Fin-->
-
-                           </form>
-                         </div>
-                        <div class="tab-pane" id="Distribucion">
-
-                           <table id="tabladistribucion" class="table table-striped table-bordered">
-                              <thead>
-                                <tr>
-                                  <th>N°</th>
-                                  <th>
-                                    Lista de Distribución
-                                   <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Lista de Distribución" data-content="Mencionar el/os puestos a los que compete visualizar la descripción, con el fin de que el SIGI realice el alta y distribución correspondiente y pueda ser consultado por los puestos a que se asigne."></i>
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody id="cuerpoTablaespecificas"></tbody>
-                            </table>
-                            <button onclick="agregardistibucion()">Agregar</button>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                       Computacion:
+                        </label>
+                        <div class="col-md-8 col-sm-8 col-xs-10">
+                          <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacion">
                         </div>
-                  </div>
-                </div>
-              </div>
 
+                        <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
+                        <!--Comptencias Fin-->
+                     </form>
+                    </div>
+                    <div class="tab-pane" id="Distribucion">
+                       <table id="tabladistribucion" class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                              <th>N°</th>
+                              <th>
+                                Lista de Distribución
+                               <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Lista de Distribución" data-content="Mencionar el/os puestos a los que compete visualizar la descripción, con el fin de que el SIGI realice el alta y distribución correspondiente y pueda ser consultado por los puestos a que se asigne."></i>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody id="cuerpoTablaespecificas"></tbody>
+                        </table>
+                        <button onclick="agregardistibucion()">Agregar</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
