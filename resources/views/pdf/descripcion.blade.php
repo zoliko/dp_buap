@@ -81,11 +81,11 @@
 			  <tbody>
 			    <tr>
 			      <th scope="row" class="fondo">Total de personas que le reportan:</th>
-			      <td>37</td>
+			      <td>{{$descripcion["DATOS"]->N_DIRECTOS_DESC + $descripcion["DATOS"]->N_INDIRECTOS_DESC}}</td>
 			      <th scope="row" class="fondo">Directos:</th>
-			      <td>37</td>
+			      <td>{{$descripcion["DATOS"]->N_DIRECTOS_DESC}}</td>
 			      <th scope="row" class="fondo">Indirector:</th>
-			      <td>0</td>
+			      <td>{{$descripcion["DATOS"]->N_INDIRECTOS_DESC}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -100,7 +100,7 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+			      <td align="justify">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -119,11 +119,19 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>1</td>
-			      <td align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</td>
-			      <td align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</td>
-			    </tr>
+              <!--{{$i=1}}-->
+              @foreach($descripcion['ACTIVIDADES_GRLES'] as $actividad)
+                <tr>
+                  <td>{{$i}}</td>
+                  <td>
+                    {{$actividad->NOMBRE_ACTIVIDAD}}
+                  </td>
+                  <td>
+                    {{$actividad->INDICADOR_ACTIVIDAD}}
+                  </td>
+                </tr>
+                <!--{{$i++}}-->
+              @endforeach
 			  </tbody>
 			</table>
 			<table class="table table-bordered">
@@ -134,10 +142,21 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>1</td>
-			      <td align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</td>
-			    </tr>
+              <!--{{$i=1}}-->
+              @foreach($descripcion['ACTIVIDADES_ESPECIFICAS'] as $actividad)
+                <!--{{$disabled = ((strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)?'':'disabled')}}-->
+                <tr>
+                  <td>
+                    {{$i}}
+                  </td>
+                  <td>
+                    <div>
+                      {{$actividad->NOMBRE_ACTIVIDAD}}
+                    </div>
+                  </td>
+                </tr>
+                <!--{{$i++}}-->
+              @endforeach
 			  </tbody>
 			</table>
 		</div>
@@ -149,26 +168,36 @@
 			      <th scope="row" colspan="3" class="bloque">Relaciones Críticas del Puesto</th>
 			    </tr>
 			    <tr>
-			      <th scope="row" class="bloque fondo">Puestos que son sus proveedores</th>
-			      <th scope="row" class="bloque fondo">Insumos que obtiene</th>
-			      <th scope="row" class="bloque fondo">Frecuencia</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 40%;">Puestos que son sus proveedores</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 40%;">Insumos que obtiene</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 20%;">Frecuencia</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>Dirección General de Bibliotecas</td>
-			      <td align="justify">Lineamientos estratégicos para la realización del proceso de Gestión de Recursos y Servicios de Información</td>
-			      <td align="justify">Variable</td>
-			    </tr>
+              <!-- {{$i=1}} -->
+              @foreach($descripcion['PUESTOS_PROVEEDORES'] as $puesto)
+                <tr>
+                  <td>
+                  	{{$puesto->DESCRIPCION_PROVEEDOR}}
+                  </td>
+                  <td>
+                      {{$puesto->INSUMO_PROVEEDOR}}
+                  </td>
+                  <td>
+                  	{{$puesto->FRECUENCIA_PROVEEDOR}}
+                  </td>
+                </tr>
+                <!-- {{$i++}} -->
+              @endforeach
 			  </tbody>
 			</table>
 
 			<table class="table table-bordered">
 			  <thead>
 			    <tr>
-			      <th scope="row" class="bloque fondo">Puestos que son sus clientes</th>
-			      <th scope="row" class="bloque fondo">Productos que ofrece</th>
-			      <th scope="row" class="bloque fondo">Frecuencia</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 40%;">Puestos que son sus clientes</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 40%;">Productos que ofrece</th>
+			      <th scope="row" class="bloque fondo" style="vertical-align: middle; width: 20%;">Frecuencia</th>
 			    </tr>
 			  </thead>
 			  <tbody>

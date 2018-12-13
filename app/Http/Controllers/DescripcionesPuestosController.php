@@ -29,7 +29,7 @@
         }//*/
 
         public function visualizaPdf(){
-            $id_descripcion = 7;
+            $id_descripcion = 1;
             $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
             //dd($descripcion);
             return view('pdf.descripcion')->with("descripcion",$descripcion);
@@ -349,7 +349,9 @@
                     'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
                     'DESCRIPCIONES_FECHA_CREACION as CREACION_DESC',
                     'DESCRIPCIONES_FECHA_REVISION as REVISION_DESC',
-                    'DESCRIPCIONES_N_REVISION as N_REVISION_DESC'
+                    'DESCRIPCIONES_N_REVISION as N_REVISION_DESC',
+                    'DESCRIPCIONES_REPORTAN_DIRECTOS as N_DIRECTOS_DESC',
+                    'DESCRIPCIONES_REPORTAN_INDIRECTOS as N_INDIRECTOS_DESC'
                 ])
                 ->where('DESCRIPCIONES_ID',$ID_descripcion)
                 ->get();

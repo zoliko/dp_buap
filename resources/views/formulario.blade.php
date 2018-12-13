@@ -117,11 +117,10 @@
                               </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
                                 @if($descripcion['PROPOSITO_GENERAL']->ESTATUS_PROPOSITO_GENERAL==0)
-                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}
+                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}</textarea>
                                 @else
-                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito"  disabled="disabled">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}
+                                  <textarea class="form-control" rows="3" placeholder="" id="Proposito"  disabled="disabled">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}</textarea>
                                 @endif
-                                </textarea>
                               </div>
                             </div>
 
