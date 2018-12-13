@@ -344,35 +344,44 @@
                       <i class="fas fa-comment-lines"></i>
                       <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                           
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                Formación Profesional:
-                          </label>
-                          <div class="col-md-8 col-sm-8 col-xs-10">
-                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                              Formación Profesional:
+                            </label>
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="formacion">
+                            </div>
+                                <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
+                                </i>
                           </div>
-                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable.">
-                          </i>
-                        </div>
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
-                          <div class="col-md-8 col-sm-8 col-xs-10">
-                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="area">
+                            </div>
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
+                              </i>
+
                           </div>
                             <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia.">
                             </i>
                         </div>
 
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
-                          <div class="col-md-8 col-sm-8 col-xs-10">
-                            <input type="text" id="first-name" required="required" class="form-control col-md-3 col-xs-12">
+
+                           <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
+                            <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="años_ex">
+                            </div>
+                              <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
+                              </i>
                           </div>
-                            <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años).">
-                            </i>
-                        </div>
-                      </form>
-                    </div>
+                             <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
+                        </form>
+                     
+                      </div>
+
 
                         <div class="tab-pane" id="Competencia">
                           <p class="lead">Competencias 
@@ -404,6 +413,8 @@
                           <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
 
                            <table id="tablaprincipales" class="table table-striped table-bordered">
+
+                           
                               <thead>
                                 <tr>
                                   <th colspan="2" align="center">
@@ -429,61 +440,42 @@
                             </table>
                           <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
 
-                       <!--   <table  class="table table-striped table-bordered">
-                            <tr>
-                              <td colspan="2"><div align="center"><strong>GENERICAS</strong></div></td>
-                              <td colspan="2"><div align="center"><strong>TÉCNICAS</strong></div></td>
-                            </tr>
-                              <tr>
-                                <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
-                                <td width="107"><div align="center" class="Estilo5">Grado de Dominio </div></td>
-                                <td width="300"><div align="center"><strong>COMPETENCIAS</strong></div></td>
-                                <td width="106" class="Estilo5">Grado de Dominio </td>
-                              </tr>
-                              <tr>
-                                <td><input name="cog1" type="text" class="Estilo5" ></td>
-                                <td> <select name="fg1">
-                                    <option value="I">I</option>
-                                    <option value="II">II</option>
-                                    <option value="III">III</option>
-                                    <option value="IV">IV</option>
-                                </select></td>
-                               
-                              </table>-->
+                            <form>
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                  Idioma:
+                              </label>
+                                <div class="col-md-8 col-sm-8 col-xs-10">
+                                    <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idioma">
+                                </div>
 
-                               <p class="lead">Idiomas </p>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                             Computacion:
+                            </label>
+                                <div class="col-md-8 col-sm-8 col-xs-10">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacion">
+                            </div>
 
-                               <p class="lead">Computación</p>
-
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
                            <!--Comptencias Fin-->
+
+                           </form>
                          </div>
                         <div class="tab-pane" id="Distribucion">
-                          
 
-                          <table class="table table-striped table-bordered">
-                            <tr>
-                              <td colspan="2" align="center">Lista de Distribución <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Lista de Distribución" data-content="Mencionar el/os puestos a los que compete visualizar la descripción, con el fin de que el SIGI realice el alta y distribución correspondiente y pueda ser consultado por los puestos a que se asigne."></i></td>
-                            </tr>
-            
-                            <tr>
-                              <td><input name="ld1" type="text" class="Estilo5"></td>
-                              <td><input name="ld2" type="text" class="Estilo5"></td>
-                            </tr>
-                            <tr>
-                              <td><input name="ld3" type="text" class="Estilo5"></td>
-                              <td><input name="ld4" type="text" class="Estilo5"></td>
-                            </tr>
-                            <tr>
-                              <td><input name="ld5" type="text" class="Estilo5"></td>
-                              <td><input name="ld6" type="text" class="Estilo5"></td>
-                            </tr>
+                           <table id="tabladistribucion" class="table table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th>N°</th>
+                                  <th>
+                                    Lista de Distribución
+                                   <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Lista de Distribución" data-content="Mencionar el/os puestos a los que compete visualizar la descripción, con el fin de que el SIGI realice el alta y distribución correspondiente y pueda ser consultado por los puestos a que se asigne."></i>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody id="cuerpoTablaespecificas"></tbody>
                             </table>
+                            <button onclick="agregardistibucion()">Agregar</button>
                         </div>
-                      </div>
-              </div>
-
-                    <div class="clearfix"></div>
-
                   </div>
                 </div>
               </div>
@@ -536,8 +528,6 @@ $(document).ready(function(){
     console.log("Total de puestos proov.: "+(cont_r-1))
     console.log("Total de puestos clientes.: "+(cont_rd-1))
   }
-
- 
 
 
 
@@ -604,6 +594,23 @@ $(document).ready(function(){
       cont_actG++;//*/
     }
 
+function agregardistibucion(){
+ $("#tabladistribucion").append(
+    "<tr>"+
+      "<td id='nombre_"+con_D+"'>"+con_D+"</td>"+
+        "<td>"+
+          '<div class="form-group">'+
+            '<textarea class="form-control" rows="5" id="distribucion'+con_D+'"></textarea>'+
+             "<td>"+'<button class="btn btn-primary" type="button" onclick="guarda_distribucion('+con_D+')">Guardar</button>'+"</td>"+
+          '</div>'+
+        "</td>"+
+      "</td>"+        
+    "</tr>");
+   con_D++;
+
+}
+
+
   function ActividadEspecifica(){
    // alert("Entre");
    $("#cuerpoTablaespecificas").append(
@@ -649,7 +656,7 @@ $(document).ready(function(){
                     
                  "</select>"+"</td>"+
 
-           "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+cont_CT+')">Guardar</button>'+"</td>"+
+           "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+')">Guardar</button>'+"</td>"+
           "</tr>");//*/
 
    con_CT++;
@@ -1146,6 +1153,56 @@ function guardar_Actividades(tmp_cont_actG,elemento){
       swal("¡Atención!", "El campo Próposito General está vacío", "warning");
     }  //*/
   }
+
+
+ function guardar_formacion(){
+      //alert("Entre");
+   // var Proposito = $("#Proposito").val();
+   var formacion = $("#formacion").val();
+   var area = $("#area").val();
+   var años_ex= $("#años_ex").val();
+  /*console.log(formacion);
+   console.log(area);
+   console.log(años_ex);
+   console.log(id_des);*/
+   /*'var dataForm = new FormData();
+    dataForm.append('Proposito',Proposito);
+    dataForm.append('formacion',formacion);
+    dataForm.append('area',area);
+    dataForm.append('años_ex',años_ex);
+    dataForm.append('id_des',id_des);
+    if (formacion!="") {
+      $.ajax({
+        url :'/descripcion/guardar_formacion',
+        data : dataForm,
+        contentType:false,
+        processData:false,
+        headers:{
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+        type: 'POST',
+        dataType : 'json',
+        beforeSend: function (){
+          $("#modalCarga").modal();
+        },
+        success : function(json){
+           //Codigo en caso de que la visita haya sido correcta
+          swal("", "Información almacenada correctamente", "success");
+        },
+        error : function(xhr, status) {
+          swal("¡Error!", "Existió un problema con el servidor!", "error");
+          $('#btnCancelar').prop('disabled', false);
+        },
+        complete : function(xhr, status){
+           $("#modalCarga").modal('hide');
+        }
+      });
+    }else {
+      swal("¡Atención!", "El campo Próposito General está vacío", "warning");
+    }  //*/
+  }
+
+
 
     function algo(){
       alert("Entre");

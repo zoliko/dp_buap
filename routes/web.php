@@ -66,6 +66,8 @@ Route::post('/descripcion/guardar_relacion2', 'DescripcionesPuestosController@gu
 Route::post('/descripcion/guardar_CompetenciasG', 'DescripcionesPuestosController@guardarcompetenciaG');
 Route::post('/descripcion/guardar_CompetenciasT', 'DescripcionesPuestosController@guardarcompetenciaT');
 
+Route::post('/descripcion/guardar_formacion', 'DescripcionesPuestosController@guardaformacion');
+
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
