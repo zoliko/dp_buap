@@ -422,10 +422,18 @@
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
         }
-
-
-        public function guardaproposito(Request $request){
+ 
+     /*  public function guardaformacion(request $request){
             date_default_timezone_set('America/Mexico_City');
+            $exito=false;
+            $accion="";
+            $existe_formacion= DB:table('')
+
+        }
+
+        */
+        public function guardaproposito(Request $request){
+            date_default_timezone_set('America/Mexico_City'); 
             $exito=false;
             $accion = "";
             //dd($request['Proposito']);
