@@ -465,6 +465,41 @@
             }
             $descripcion['PUESTOS_CLIENTES'] = $puestos_clientes;
 
+            //obtenemos las areas y las profesiones
+            $areas = DB::table('DP_CAT_AREAS')
+                        ->select('CAT_AREAS_ID', 'CAT_AREAS_AREA')
+                        ->get();
+
+            //dd($areas);
+            $cat_profesiones = array();
+            foreach ($areas as $area) {
+                $rel_profesion = DB::table('REL_PROFESION_AREA')
+                        ->where('FK_AREA',$area->CAT_AREAS_ID)
+                        ->select('FK_PROFESION')
+                        ->get();
+                //dd($rel_profesion);
+                $prof = array();
+                foreach ($rel_profesion as $profesion) {
+                    $profesion = DB::table('DP_CAT_PROFESIONES')
+                        ->where('CAT_PROFESIONES_ID',$profesion->FK_PROFESION)
+                        ->select(   
+                                'CAT_PROFESIONES_ID as ID_PROFESION',
+                                'CAT_PROFESIONES_PROFESION as PROFESION')
+                        ->get();
+                    $prof[]=$profesion[0];
+                }
+                $cat_profesiones[$area->CAT_AREAS_ID]=$prof;
+                //dd($cat_profesiones);
+            }
+            $descripcion['CAT_AREAS'] = $areas->toArray();
+            $descripcion['CAT_PROFESIONES'] = $cat_profesiones;
+
+            //obtenemos la formacion profesional de la descripcion
+
+
+            //dd($descripcion);
+
+
             //dd($descripcion);
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
