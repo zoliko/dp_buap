@@ -380,7 +380,7 @@
                       </p>
                       <!--Comptencias inicio -->
 
-                      <table id="tablaprincipales" class="table table-striped table-bordered">
+                      <table id="tablaCompGenericas" class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th colspan="3" align="center"><strong>Genéricas</strong>  
@@ -404,7 +404,7 @@
                       <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
                       <hr>
 
-                      <table id="tablaprincipales" class="table table-striped table-bordered">
+                      <table id="tablaCompTecnicas" class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th colspan="3" align="center">
@@ -551,17 +551,21 @@ $(document).ready(function(){
 
   function llenaProfesiones(){
     var area = $("#selectArea").val();
-    console.log(area);
+    //console.log(area);
     if(area == 'otro' && area != 'false'){
       console.log("OTRO");
       $("#divOpcionProfesiones").html(
 
-          'INPUT AQUI'
+        '<input type="text" class="form-control" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN">'
 
         );
 
     }else if(area == 'false'){
-      console.log("SELECCIONAR")
+      $("#divOpcionProfesiones").html(
+        '<select id="SetelctProfesiones" class="form-control">'+
+          '<option value="false">--SELECCIONAR--</option>'+
+        '</select>'
+      );
     }else{
       //console.log("AREA");
 
@@ -677,7 +681,7 @@ $(document).ready(function(){
             '<input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG'+con_CG+'">'+
           "</td>"+
           "<td>"+
-            '<select class="form-control" id="indicador'+con_CG+'">'+
+            '<select class="form-control" id="GradoDominioG'+con_CG+'">'+
               '<option value="I">I</option>'+
               '<option value="II">II</option>'+
               '<option value="III">III</option>'+
@@ -697,7 +701,7 @@ $(document).ready(function(){
           '<input name="cog1" type="text" class="form-control col-md-3 col-xs-12" id="CompetenciaT'+con_CT+'">'+
         "</td>"+
         "<td>"+ 
-          '<select class="form-control" id="indicador'+con_CT+'">'+
+          '<select class="form-control" id="GradoDominioT'+con_CT+'">'+
             '<option value="Básico">Basico</option>'+
             '<option value="Medio">Medio </option>'+
             '<option value="Avanzado">Avanzado</option>'+
@@ -835,54 +839,53 @@ function guardar_CompetenciasT(tmp_cont_cT){
 }
 //*/
 
-/*function guardar_CompetenciasG(tmp_cont_cg){
+function guardar_CompetenciasG(tmp_cont_cg){
     //alert("Entre");
      //console.log("entre a la funcion guardar actividades");
    //  console.log(tmp_cont_rel);
 
-        var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
-        var indicador = $("#indicador"+tmp_cont_cg).val(); 
-       console.log(competenciag);
-        console.log(indicador);
-        console.log(id_des);
-        var dataForm = new FormData();
-            dataForm.append('competenciag',competenciag);;
-            dataForm.append('indicador',indicador);
-            dataForm.append('id_des',id_des);
+  var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+  var gradoDominio = $("#GradoDominioG"+tmp_cont_cg).val();
+  //var indicador = $("#indicador"+tmp_cont_cg).val(); 
+  console.log(competenciag);
+  console.log(gradoDominio);
+  console.log(id_des);
+  var dataForm = new FormData();
+  dataForm.append('competenciag',competenciag);;
+  dataForm.append('gradoDominio',gradoDominio);
+  dataForm.append('id_des',id_des);
 
-            if (competenciag!="") {
-          $.ajax({
+  if (competenciag!="") {
+    /*$.ajax({
+      url :'/descripcion/guardar_CompetenciasG',
+      data : dataForm,
+      contentType:false,
+      processData:false,
+      headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+      type: 'POST',
+      dataType : 'json',
+      beforeSend: function (){
+        $("#modalCarga").modal();
+      },
+      success : function(json){
+         //Codigo en caso de que la visita haya sido correcta
+         swal("", "Información almacenada correctamente", "success");
+      },
+      error : function(xhr, status) {
+        $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
+        $("#modalMensaje").modal();
+        $('#btnCancelar').prop('disabled', false);
+      },
+      complete : function(xhr, status){
+         $("#modalCarga").modal('hide');
+      }
+    });//*/
 
-            
-                    url :'/descripcion/guardar_CompetenciasG',
-                    data : dataForm,
-                    contentType:false,
-                    processData:false,
-                    headers:{
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
-                    type: 'POST',
-                    dataType : 'json',
-                    beforeSend: function (){
-                      $("#modalCarga").modal();
-                    },
-                    success : function(json){
-                       //Codigo en caso de que la visita haya sido correcta
-                       swal("", "Información almacenada correctamente", "success");
-                    },
-                    error : function(xhr, status) {
-                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                      $("#modalMensaje").modal();
-                      $('#btnCancelar').prop('disabled', false);
-                    },
-                    complete : function(xhr, status){
-                       $("#modalCarga").modal('hide');
-                    }
-                  });
-
-          }else {
-            alert("no tiene actividad");
-          }
+  }else{
+    alert("no tiene actividad");
+  }
 }//*/
 
 //almacenar los puestos que son proveedores
@@ -1205,26 +1208,35 @@ function guardar_Actividades(tmp_cont_actG,elemento){
   function guardar_formacion(){
     //alert("Entre");
     // var Proposito = $("#Proposito").val();
-    var formacion = $("#formacion").val();
-    var area = $("#area").val();
-    var años_ex= $("#años_ex").val();
-    console.log(formacion);
+    var area = $("#selectArea").val();
+    var anios_exp = $("#anios_experiencia").val();
     console.log(area);
-    console.log(años_ex);
+    console.log(anios_exp);
+    if(area == "otro"){
+      var nuevaProfesion = $("#InputNuevaProfesion").val();
+      console.log(nuevaProfesion);
+    }else{
+      var formacion= $("#SetelctProfesiones").val();
+      console.log(formacion);
+    }
+
+
         
-    /*var success;
+    var success;
     var url = "/descripcion/guarda_formacion"
     var dataForm = new FormData();
-    dataForm.append('archivo',"p1");
-    dataForm.append('archivo',"p2");
+    dataForm.append('area',area);
+    dataForm.append('anios_exp',anios_exp);
+    dataForm.append('nuevaProfesion',nuevaProfesion);
+    dataForm.append('formacion',formacion);
+    dataForm.append('descripcion',id_des);
     metodoAjax(url,dataForm,function(success){
-
+      //console.log(success);
+      swal("", success['mensaje'], "success");
     });//*/
 
 
   }
-
-
 
     function algo(){
       alert("Entre");

@@ -57,6 +57,7 @@ Route::post('/descripcion/actualiza_actgral', 'DescripcionesPuestosController@ac
 Route::post('/descripcion/actualiza_actesp', 'DescripcionesPuestosController@actualizar_actividad_esp');
 Route::post('/descripcion/actualiza_prov', 'DescripcionesPuestosController@ActualizarPuestoProveedor');
 Route::post('/descripcion/actualiza_cliente', 'DescripcionesPuestosController@ActualizarPuestoCliente');
+Route::post('/descripcion/guarda_formacion', 'DescripcionesPuestosController@GuardarFormacionProfesional');
 
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');

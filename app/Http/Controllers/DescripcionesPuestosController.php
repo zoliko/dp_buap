@@ -496,11 +496,30 @@
 
             //obtenemos la formacion profesional de la descripcion
 
+            $FormacionProfesional = DB::table('REL_PROFESION_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(
+                            'FK_PROFESION as ID_PROFESION',
+                            'REL_PROFESION_DESCRIPCION_OTROS as OTRA_PROFESION',
+                            'REL_PROFESION_DESCRIPCION_ESTATUS as STATUS_PROFESION',
+                            'REL_PROFESION_DESCRIPCION_MENSAJE as MENSAJE_PROFESION'
+                        )
+                ->get();
+            //actualizamos los años de experiencia
+            $getIdAnios = DB::table('REL_AREA_ANIOS_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select('FK_AREAS_ANIOS')
+                ->get();
+            $aniosExperiencia = DB::table('DP_AREAS_ANIOS_EXPERIENCIA')
+                ->where('AREAS_ANIOS_EXPERIENCIA_ID',$getIdAnios[0]->FK_AREAS_ANIOS)
+                ->get();
+
+            $FormacionProfesional[0]->ANIOS_EXPERIENCIA_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_DESCRIPCION;
+            //dd($FormacionProfesional[0]);
+            $descripcion['FORMACION_PROFESIONAL'] = $FormacionProfesional[0];
 
             //dd($descripcion);
 
-
-            //dd($descripcion);
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
         }
@@ -744,65 +763,62 @@
         }
 
         public function guardarcompetenciaG(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             //$exito=false;
-           // dd($request['competenciag']);
+            //dd($request['competenciag']);
             $insertar=DB::table('DP_COMPETENCIAS_GENERICAS')->insertGetId(
                 [
                     'COMPETENCIAS_GENERICAS_DESCRIPCION' => $request['competenciag'], 
                     'COMPETENCIAS_GENERICAS_GRADO'=> $request['indicador'],
-                    'PUESTOS_CLIENTES_ESTATUS'=> 0
-
+                    'COMPETENCIAS_GENERICAS_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
                 ]
             );
 
-        if($insertar){
-            DB::table('REL_COMPET_GENERICA_DESCRIPCION')->insert(
-                    [
-                        'FK_COMPET_GENERICA' => $insertar, 
-                        'FK_DESCRIPCION' =>  $request['id_des']
+            if($insertar){
+                DB::table('REL_COMPET_GENERICA_DESCRIPCION')->insert(
+                        [
+                            'FK_COMPET_GENERICA' => $insertar, 
+                            'FK_DESCRIPCION' =>  $request['id_des']
 
-                    ]
-                        );
-            $exito=true;
-         }
-         $data = array(
+                        ]
+                );
+                $exito=true;
+            }
+            $data = array(
                 "exito" => $exito
-              );
-
+            );
             echo json_encode($data);
-
-
         }
 
         public function guardarcompetenciaT(Request $request){
+            date_default_timezone_set('America/Mexico_City');
             //$exito=false;
            // dd($request['competenciag']);
             $insertar=DB::table('DP_COMPETENCIAS_TECNICAS')->insertGetId(
                 [
                     'COMPETENCIAS_TECNICAS_DESCRIPCION' => $request['competenciat'], 
                     'COMPETENCIAS_TECNICAS_GRADO_DOMINIO'=> $request['indicador'],
-                    'COMPETENCIAS_TECNICAS_ESTATUS'=> 0
+                    'COMPETENCIAS_TECNICAS_ESTATUS'=> 0,
+                    'created_at' => date('Y-m-d H:i:s')
 
                 ]
             );
 
-        if($insertar){
-            DB::table('REL_COMPET_TECNICA_DESCRIPCION')->insert(
+            if($insertar){
+                DB::table('REL_COMPET_TECNICA_DESCRIPCION')->insert(
                     [
                         'FK_COMPET_TECNICA' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
 
                     ]
-                        );
-            $exito=true;
-         }
-         $data = array(
+                );
+                    $exito=true;
+            }
+            $data = array(
                 "exito" => $exito
-              );
-
+            );
             echo json_encode($data);
-
-
         }
 
         public function ActualizarPuestoProveedor(Request $request){
@@ -837,6 +853,94 @@
                         ]);
             $data = array(
                 "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+        public function GuardarFormacionProfesional(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $area = $request['area'];
+            $anios_exp = $request['anios_exp'];
+            $nuevaProfesion = $request['nuevaProfesion'];
+            $formacion = $request['formacion'];
+            $id_descripcion = $request['descripcion'];
+            $mensaje = "";
+
+            //dd($id_descripcion);
+            //dd($nuevaProfesion);
+            $existeFormacion = DB::table('REL_PROFESION_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$id_descripcion)
+                ->get();
+            //dd(count($existeFormacion));
+            if(count($existeFormacion)==0){
+                //insertamos un nuevo registro en las tablas necesarias
+                //dd('nuevo registro');
+                $mensaje = "Informacion almacenada correctamente";
+                if(strcmp($area, 'otro')==0){
+                    DB::table('REL_PROFESION_DESCRIPCION')->insert(
+                        [
+                            'FK_DESCRIPCION' => $id_descripcion,
+                            'REL_PROFESION_DESCRIPCION_OTROS' => $nuevaProfesion,
+                            'REL_PROFESION_DESCRIPCION_ESTATUS'=> 0
+                        ]
+                    );
+                }else{
+                    DB::table('REL_PROFESION_DESCRIPCION')->insert(
+                        [
+                            'FK_PROFESION' => $formacion,
+                            'FK_DESCRIPCION' => $id_descripcion,
+                            'REL_PROFESION_DESCRIPCION_ESTATUS'=> 0
+                        ]
+                    );
+                }
+                $id_anios = DB::table('DP_AREAS_ANIOS_EXPERIENCIA')->insertGetId(
+                    [
+                        'AREAS_ANIOS_DESCRIPCION' => $anios_exp,
+                        'AREAS_ANIOS_ESTATUS'=> 0,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+                DB::table('REL_AREA_ANIOS_DESCRIPCION')->insert(
+                    [
+                        'FK_AREAS_ANIOS' => $id_anios,
+                        'FK_DESCRIPCION' => $id_descripcion
+                    ]
+                );
+            }else{
+                //solo actualizamos los datos
+                //dd('actualizacion de registro');
+                $mensaje = "Informacion actualizada correctamente";
+                if(strcmp($area, 'otro')==0){
+                    //dd("otros");
+                    DB::table('REL_PROFESION_DESCRIPCION')
+                        ->where('FK_DESCRIPCION', $id_descripcion)
+                        ->update(['FK_PROFESION'=> null]);
+
+                    DB::table('REL_PROFESION_DESCRIPCION')
+                        ->where('FK_DESCRIPCION', $id_descripcion)
+                        ->update(['REL_PROFESION_DESCRIPCION_OTROS'=> $nuevaProfesion]);
+                }else{
+                    //dd('existente');
+                    DB::table('REL_PROFESION_DESCRIPCION')
+                        ->where('FK_DESCRIPCION', $id_descripcion)
+                        ->update(['FK_PROFESION'=> $formacion]);
+                    DB::table('REL_PROFESION_DESCRIPCION')
+                        ->where('FK_DESCRIPCION', $id_descripcion)
+                        ->update(['REL_PROFESION_DESCRIPCION_OTROS'=> null]);
+                }
+
+                //actualizamos los años de experiencia
+                $getIdAnios = DB::table('REL_AREA_ANIOS_DESCRIPCION')
+                    ->where('FK_DESCRIPCION',$id_descripcion)
+                    ->select('FK_AREAS_ANIOS')
+                    ->get();
+                //dd($getIdAnios[0]->FK_AREAS_ANIOS);
+                DB::table('DP_AREAS_ANIOS_EXPERIENCIA')
+                    ->where('AREAS_ANIOS_EXPERIENCIA_ID', $getIdAnios[0]->FK_AREAS_ANIOS)
+                    ->update(['AREAS_ANIOS_DESCRIPCION'=> $anios_exp]);
+            }
+            $data = array(
+                "mensaje" => $mensaje
               );
             echo json_encode($data);
         }
