@@ -505,20 +505,22 @@
                             'REL_PROFESION_DESCRIPCION_MENSAJE as MENSAJE_PROFESION'
                         )
                 ->get();
-            //actualizamos los años de experiencia
-            $getIdAnios = DB::table('REL_AREA_ANIOS_DESCRIPCION')
-                ->where('FK_DESCRIPCION',$ID_descripcion)
-                ->select('FK_AREAS_ANIOS')
-                ->get();
-            $aniosExperiencia = DB::table('DP_AREAS_ANIOS_EXPERIENCIA')
-                ->where('AREAS_ANIOS_EXPERIENCIA_ID',$getIdAnios[0]->FK_AREAS_ANIOS)
-                ->get();
+            //dd(count($FormacionProfesional));
+            if(count($FormacionProfesional) != 0){
+                //actualizamos los años de experiencia
+                $getIdAnios = DB::table('REL_AREA_ANIOS_DESCRIPCION')
+                    ->where('FK_DESCRIPCION',$ID_descripcion)
+                    ->select('FK_AREAS_ANIOS')
+                    ->get();
+                $aniosExperiencia = DB::table('DP_AREAS_ANIOS_EXPERIENCIA')
+                    ->where('AREAS_ANIOS_EXPERIENCIA_ID',$getIdAnios[0]->FK_AREAS_ANIOS)
+                    ->get();
 
-            $FormacionProfesional[0]->ANIOS_EXPERIENCIA_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_DESCRIPCION;
+                $FormacionProfesional[0]->ANIOS_EXPERIENCIA_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_DESCRIPCION;
+                $descripcion['FORMACION_PROFESIONAL'] = $FormacionProfesional[0];
+            }
             //dd($FormacionProfesional[0]);
-            $descripcion['FORMACION_PROFESIONAL'] = $FormacionProfesional[0];
 
-            //dd($descripcion);
 
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
