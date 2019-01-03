@@ -766,12 +766,13 @@
 
         public function guardarcompetenciaG(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            //dd("Epale");
             //$exito=false;
             //dd($request['competenciag']);
             $insertar=DB::table('DP_COMPETENCIAS_GENERICAS')->insertGetId(
                 [
                     'COMPETENCIAS_GENERICAS_DESCRIPCION' => $request['competenciag'], 
-                    'COMPETENCIAS_GENERICAS_GRADO'=> $request['indicador'],
+                    'COMPETENCIAS_GENERICAS_GRADO'=> $request['gradoDominio'],
                     'COMPETENCIAS_GENERICAS_ESTATUS'=> 0,
                     'created_at' => date('Y-m-d H:i:s')
                 ]
@@ -788,7 +789,8 @@
                 $exito=true;
             }
             $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_CG" => $insertar
             );
             echo json_encode($data);
         }

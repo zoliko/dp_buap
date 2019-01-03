@@ -854,8 +854,16 @@ function guardar_CompetenciasG(tmp_cont_cg){
   dataForm.append('competenciag',competenciag);;
   dataForm.append('gradoDominio',gradoDominio);
   dataForm.append('id_des',id_des);
+  url = '/descripcion/guardar_CompetenciasG';
+
+  
 
   if (competenciag!="") {
+    metodoAjax(url,dataForm,function(success){
+      //console.log(success);
+      swal("", "Información almacenada satisfactoriamente", "success");
+    });//*/
+
     /*$.ajax({
       url :'/descripcion/guardar_CompetenciasG',
       data : dataForm,
@@ -884,7 +892,7 @@ function guardar_CompetenciasG(tmp_cont_cg){
     });//*/
 
   }else{
-    alert("no tiene actividad");
+    swal("", "Favor de no dejar campos vacíos", "warning");
   }
 }//*/
 
