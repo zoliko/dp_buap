@@ -533,10 +533,32 @@
             }
             //dd($FormacionProfesional[0]);
 
+            $relCompGen = DB::table('REL_COMPET_GENERICA_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_COMPET_GENERICA'])
+                ->get();
+            $competencias_genericas = array();
+            foreach ($relCompGen as $competencia) {
+                $relCompGen = DB::table('DP_COMPETENCIAS_GENERICAS')
+                    ->where('COMPETENCIAS_GENERICAS_ID',$competencia->FK_COMPET_GENERICA)
+                    ->select([
+                                'COMPETENCIAS_GENERICAS_ID as ID_COMPETENCIA_GENERICA',
+                                'COMPETENCIAS_GENERICAS_DESCRIPCION as DESCRIPCION_COMPETENCIA_GENERICA',
+                                'COMPETENCIAS_GENERICAS_GRADO as GRADO_COMPETENCIA_GENERICA',
+                                'COMPETENCIAS_GENERICAS_ESTATUS as ESTATUS_COMPETENCIA_GENERICA',
+                                'COMPETENCIAS_GENERICAS_MENSAJE as MENSAJE_COMPETENCIA_GENERICA',
+                            ])
+                    ->get();
+                $competencias_genericas[]=$relCompGen[0];
+            }
+            //dd($competencias_genericas);
+            $descripcion['COMPETENCIAS_GENERICAS'] = $competencias_genericas;
 
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
         }
+
+        //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
      /*  public function guardaformacion(request $request){
             date_default_timezone_set('America/Mexico_City');
@@ -813,8 +835,8 @@
            // dd($request['competenciag']);
             $insertar=DB::table('DP_COMPETENCIAS_TECNICAS')->insertGetId(
                 [
-                    'COMPETENCIAS_TECNICAS_DESCRIPCION' => $request['competenciat'], 
-                    'COMPETENCIAS_TECNICAS_GRADO_DOMINIO'=> $request['indicador'],
+                    'COMPETENCIAS_TECNICAS_DESCRIPCION' => $request['competenciaT'], 
+                    'COMPETENCIAS_TECNICAS_GRADO_DOMINIO'=> $request['gradoDominio'],
                     'COMPETENCIAS_TECNICAS_ESTATUS'=> 0,
                     'created_at' => date('Y-m-d H:i:s')
 
@@ -826,13 +848,13 @@
                     [
                         'FK_COMPET_TECNICA' => $insertar, 
                         'FK_DESCRIPCION' =>  $request['id_des']
-
                     ]
                 );
-                    $exito=true;
+                $exito=true;
             }
             $data = array(
-                "exito" => $exito
+                "exito" => $exito,
+                "id_CT" => $insertar
             );
             echo json_encode($data);
         }

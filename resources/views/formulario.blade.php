@@ -339,8 +339,10 @@
                               <option value="false">--SELECCIONAR--</option>
                               @foreach($descripcion['CAT_AREAS'] as $area)
                                 @if($descripcion['FORMACION_PROFESIONAL'])
-                                  @if(strcmp($area->CAT_AREAS_ID,$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)==0 )
+                                  @if(strcmp($area->CAT_AREAS_ID,$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)==0)
                                     <option value="{{$area->CAT_AREAS_ID}}" selected>{{$area->CAT_AREAS_AREA}}</option>
+                                  @else
+                                    <option value="{{$area->CAT_AREAS_ID}}">{{$area->CAT_AREAS_AREA}}</option>
                                   @endif
                                 @else
                                   <option value="{{$area->CAT_AREAS_ID}}">{{$area->CAT_AREAS_AREA}}</option>
@@ -580,9 +582,7 @@ $(document).ready(function(){
     if(area == 'otro' && area != 'false'){
       console.log("OTRO");
       $("#divOpcionProfesiones").html(
-
-        '<input type="text" class="form-control" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN">'
-
+        '<input type="text" class="form-control text-uppercase" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN">'
         );
 
     }else if(area == 'false'){
@@ -732,7 +732,7 @@ $(document).ready(function(){
             '<option value="Avanzado">Avanzado</option>'+
            "</select>"+"</td>"+
         "<td>"+
-          '<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+')">Guardar</button>'+
+          '<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+',this)">Guardar</button>'+
         "</td>"+
       "</tr>"
     );//*/
@@ -814,61 +814,37 @@ $(document).ready(function(){
 //function
 
 
-/*
-function guardar_CompetenciasT(tmp_cont_cT){
+
+  function guardar_CompetenciasT(tmp_cont_cT,elemento){
     //alert("Entre");
-     //console.log("entre a la funcion guardar actividades");
-   //  console.log(tmp_cont_rel);
+    //console.log("entre a la funcion guardar actividades");
+    //  console.log(tmp_cont_rel);
 
-        var competenciat = $("#CompetenciaT"+tmp_cont_cT).val();
-        var indicador = $("#indicador"+tmp_cont_cT).val(); 
-       console.log(competenciaT);
-        console.log(indicador);
-        console.log(id_des);
-        var dataForm = new FormData();
-            dataForm.append('competenciaT',competenciaT);;
-            dataForm.append('indicador',indicador);
-            dataForm.append('id_des',id_des);
+    var competenciaT = $("#CompetenciaT"+tmp_cont_cT).val();
+    var gradoDominio = $("#GradoDominioT"+tmp_cont_cT).val(); 
+    console.log(competenciaT);
+    console.log(gradoDominio);
+    console.log(id_des);
+    var dataForm = new FormData();
+    dataForm.append('competenciaT',competenciaT);;
+    dataForm.append('gradoDominio',gradoDominio);
+    dataForm.append('id_des',id_des);
+    url = '/descripcion/guardar_CompetenciasT';
 
-            if (competenciag!="") {
-          $.ajax({
-                    url :'/descripcion/guardar_CompetenciasT',
-                    data : dataForm,
-                    contentType:false,
-                    processData:false,
-                    headers:{
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                      },
-                    type: 'POST',
-                    dataType : 'json',
-                    beforeSend: function (){
-                      $("#modalCarga").modal();
-                    },
-                    success : function(json){
-                       //Codigo en caso de que la visita haya sido correcta
-                       swal("", "Información almacenada correctamente", "success");
-                    },
-                    error : function(xhr, status) {
-                      $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-                      $("#modalMensaje").modal();
-                      $('#btnCancelar').prop('disabled', false);
-                    },
-                    complete : function(xhr, status){
-                       $("#modalCarga").modal('hide');
-                    }
-                  });
-
-          }else {
-            alert("no tiene actividad");
-          }
-}
+    if (competenciaT!="") {
+      metodoAjax(url,dataForm,function(success){
+        //console.log(success);
+        $(elemento).attr('onclick','actualizarCompGen('+success['id_CT']+','+tmp_cont_cT+')');
+        $(elemento).text('Actualizar');
+        swal("", "Información almacenada satisfactoriamente", "success");
+      });//*/
+    }else {
+      swal("", "Favor de no dejar campos vacíos", "warning");
+    }
+  }
 //*/
 
 function guardar_CompetenciasG(tmp_cont_cg,elemento){
-    //alert("Entre");
-     //console.log("entre a la funcion guardar actividades");
-   //  console.log(tmp_cont_rel);
-
   var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
   var gradoDominio = $("#GradoDominioG"+tmp_cont_cg).val();
   //var indicador = $("#indicador"+tmp_cont_cg).val(); 
@@ -881,41 +857,12 @@ function guardar_CompetenciasG(tmp_cont_cg,elemento){
   dataForm.append('id_des',id_des);
   url = '/descripcion/guardar_CompetenciasG';
 
-  
-
   if (competenciag!="") {
     metodoAjax(url,dataForm,function(success){
       //console.log(success);
       $(elemento).attr('onclick','actualizarCompGen('+success['id_CG']+','+tmp_cont_cg+')');
       $(elemento).text('Actualizar');
       swal("", "Información almacenada satisfactoriamente", "success");
-    });//*/
-
-    /*$.ajax({
-      url :'/descripcion/guardar_CompetenciasG',
-      data : dataForm,
-      contentType:false,
-      processData:false,
-      headers:{
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-      type: 'POST',
-      dataType : 'json',
-      beforeSend: function (){
-        $("#modalCarga").modal();
-      },
-      success : function(json){
-         //Codigo en caso de que la visita haya sido correcta
-         swal("", "Información almacenada correctamente", "success");
-      },
-      error : function(xhr, status) {
-        $("#textoModalMensaje").text('Existió un problema al guardar la actividades');
-        $("#modalMensaje").modal();
-        $('#btnCancelar').prop('disabled', false);
-      },
-      complete : function(xhr, status){
-         $("#modalCarga").modal('hide');
-      }
     });//*/
 
   }else{
@@ -1243,32 +1190,36 @@ function guardar_Actividades(tmp_cont_actG,elemento){
   function guardar_formacion(){
     //alert("Entre");
     // var Proposito = $("#Proposito").val();
+    var formacion = '';
+    var nuevaProfesion = '';
     var area = $("#selectArea").val();
     var anios_exp = ($("#anios_experiencia").val()).toUpperCase();
     console.log(area);
     console.log(anios_exp);
     if(area == "otro"){
-      var nuevaProfesion = ($("#InputNuevaProfesion").val()).toUpperCase();
+      nuevaProfesion = ($("#InputNuevaProfesion").val()).toUpperCase();
       console.log(nuevaProfesion);
     }else{
-      var formacion= $("#SetelctProfesiones").val();
+      formacion= $("#SetelctProfesiones").val();
       console.log(formacion);
     }
-
-
-        
-    var success;
-    var url = "/descripcion/guarda_formacion"
-    var dataForm = new FormData();
-    dataForm.append('area',area);
-    dataForm.append('anios_exp',anios_exp);
-    dataForm.append('nuevaProfesion',nuevaProfesion);
-    dataForm.append('formacion',formacion);
-    dataForm.append('descripcion',id_des);
-    metodoAjax(url,dataForm,function(success){
-      //console.log(success);
-      swal("", success['mensaje'], "success");
-    });//*/
+    if((area != 'false') && (anios_exp != "") && (((area == 'otro') && (nuevaProfesion != '')) || ((area != 'otro') && (formacion != 'false')) )){
+      //alert("Enviando..");
+      var success;
+      var url = "/descripcion/guarda_formacion"
+      var dataForm = new FormData();
+      dataForm.append('area',area);
+      dataForm.append('anios_exp',anios_exp);
+      dataForm.append('nuevaProfesion',nuevaProfesion);
+      dataForm.append('formacion',formacion);
+      dataForm.append('descripcion',id_des);
+      metodoAjax(url,dataForm,function(success){
+        //console.log(success);
+        swal("", success['mensaje'], "success");
+      });//*/
+    }else{
+      swal("¡Atención!", "Existen campos vacíos", "warning");
+    }
 
 
   }
