@@ -486,6 +486,7 @@
                                 'CAT_PROFESIONES_ID as ID_PROFESION',
                                 'CAT_PROFESIONES_PROFESION as PROFESION')
                         ->get();
+                    $profesion->ID_AREA = $area->CAT_AREAS_ID;
                     $prof[]=$profesion[0];
                 }
                 $cat_profesiones[$area->CAT_AREAS_ID]=$prof;
@@ -515,9 +516,20 @@
                 $aniosExperiencia = DB::table('DP_AREAS_ANIOS_EXPERIENCIA')
                     ->where('AREAS_ANIOS_EXPERIENCIA_ID',$getIdAnios[0]->FK_AREAS_ANIOS)
                     ->get();
+                $getIdArea = DB::table('REL_PROFESION_AREA')
+                    ->where('FK_PROFESION',$FormacionProfesional[0]->ID_PROFESION)
+                    ->select('FK_AREA')
+                    ->get();
+                if(count($getIdArea)>0){
+                    $FormacionProfesional[0]->AREA_PROFESION = $getIdArea[0]->FK_AREA;                   
+                }else{
+                    $FormacionProfesional[0]->AREA_PROFESION = null;
+                }
 
                 $FormacionProfesional[0]->ANIOS_EXPERIENCIA_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_DESCRIPCION;
                 $descripcion['FORMACION_PROFESIONAL'] = $FormacionProfesional[0];
+            }else{
+                $descripcion['FORMACION_PROFESIONAL'] = null;
             }
             //dd($FormacionProfesional[0]);
 

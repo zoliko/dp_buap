@@ -338,9 +338,19 @@
                             <select id="selectArea" class="form-control" onchange="llenaProfesiones()" required>
                               <option value="false">--SELECCIONAR--</option>
                               @foreach($descripcion['CAT_AREAS'] as $area)
-                                <option value="{{$area->CAT_AREAS_ID}}">{{$area->CAT_AREAS_AREA}}</option>
+                                @if($descripcion['FORMACION_PROFESIONAL'])
+                                  @if(strcmp($area->CAT_AREAS_ID,$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)==0 )
+                                    <option value="{{$area->CAT_AREAS_ID}}" selected>{{$area->CAT_AREAS_AREA}}</option>
+                                  @endif
+                                @else
+                                  <option value="{{$area->CAT_AREAS_ID}}">{{$area->CAT_AREAS_AREA}}</option>
+                                @endif
                               @endforeach
-                              <option value="otro">OTRO</option>
+                              @if($descripcion['FORMACION_PROFESIONAL'])
+                                <option value="otro" {{(($descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)?'':'SELECTED')}}>OTRO</option>
+                              @else
+                                <option value="otro">OTRO</option>
+                              @endif
                             </select>
                             
                           </div>
@@ -351,18 +361,33 @@
                               Formación Profesional:
                           </label>
                           <div class="col-md-8 col-sm-8 col-xs-10" id="divOpcionProfesiones">
-                            <select id="SetelctProfesiones" class="form-control">
-                              <option value="false">--SELECCIONAR--</option>
-                            </select>
+                            @if($descripcion['FORMACION_PROFESIONAL'])
+                              @if($descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)
+                                <select id="SetelctProfesiones" class="form-control">
+                                  <option value="false">--SELECCIONAR--</option>
+                                    @foreach($descripcion['CAT_PROFESIONES'][$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION] as $profesion)
+                                      @if(strcmp($profesion->ID_PROFESION,$descripcion['FORMACION_PROFESIONAL']->ID_PROFESION)==0)
+                                        <option value="{{$profesion->ID_PROFESION}}" selected>{{$profesion->PROFESION}}</option>
+                                      @else
+                                        <option value="{{$profesion->ID_PROFESION}}">{{$profesion->PROFESION}}</option>
+                                      @endif
+                                    @endforeach
+                                </select>
+                              @else
+                                <input type="text" class="form-control text-uppercase" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN" value="{{$descripcion['FORMACION_PROFESIONAL']->OTRA_PROFESION}}">
+                              @endif
+                            @else
+                              <select id="SetelctProfesiones" class="form-control">
+                                  <option value="false">--SELECCIONAR--</option>
+                              </select>
+                            @endif
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Formación Profesional" data-content="Determinar  cada  cuándo se entregan productos, servicios o entregables por parte del puesto; elegir entre: diario, semanal, quincenal, mensual, trimestral, cuatrimestral, semestral, anual o si no hay un tiempo específico, colocar variable."></i>
                         </div>
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
                           <div class="col-md-8 col-sm-8 col-xs-10">
-
-                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="anios_experiencia">
-
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12 text-uppercase" id="anios_experiencia" value="{{(($descripcion['FORMACION_PROFESIONAL'])?$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION:'')}}">
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años)."></i>
                         </div>
@@ -688,7 +713,7 @@ $(document).ready(function(){
               '<option value="IV">IV</option>'+
             "</select>"+
           "</td>"+
-          "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasG('+con_CG+')">Guardar</button>'+"</td>"+
+          "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasG('+con_CG+',this)">Guardar</button>'+"</td>"+
           "</tr>");
     con_CG++;//*/
   }
@@ -839,7 +864,7 @@ function guardar_CompetenciasT(tmp_cont_cT){
 }
 //*/
 
-function guardar_CompetenciasG(tmp_cont_cg){
+function guardar_CompetenciasG(tmp_cont_cg,elemento){
     //alert("Entre");
      //console.log("entre a la funcion guardar actividades");
    //  console.log(tmp_cont_rel);
@@ -861,6 +886,8 @@ function guardar_CompetenciasG(tmp_cont_cg){
   if (competenciag!="") {
     metodoAjax(url,dataForm,function(success){
       //console.log(success);
+      $(elemento).attr('onclick','actualizarCompGen('+success['id_CG']+','+tmp_cont_cg+')');
+      $(elemento).text('Actualizar');
       swal("", "Información almacenada satisfactoriamente", "success");
     });//*/
 
@@ -1217,11 +1244,11 @@ function guardar_Actividades(tmp_cont_actG,elemento){
     //alert("Entre");
     // var Proposito = $("#Proposito").val();
     var area = $("#selectArea").val();
-    var anios_exp = $("#anios_experiencia").val();
+    var anios_exp = ($("#anios_experiencia").val()).toUpperCase();
     console.log(area);
     console.log(anios_exp);
     if(area == "otro"){
-      var nuevaProfesion = $("#InputNuevaProfesion").val();
+      var nuevaProfesion = ($("#InputNuevaProfesion").val()).toUpperCase();
       console.log(nuevaProfesion);
     }else{
       var formacion= $("#SetelctProfesiones").val();
