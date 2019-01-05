@@ -335,7 +335,8 @@
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                           <div class="col-md-8 col-sm-8 col-xs-10">
-                            <select id="selectArea" class="form-control" onchange="llenaProfesiones()" required>
+                            <!--{{$disabled = ((strcmp($descripcion['FORMACION_PROFESIONAL']->STATUS_PROFESION,'0')==0)?'':'disabled')}}-->
+                            <select id="selectArea" class="form-control" onchange="llenaProfesiones()" required {{$disabled}}>
                               <option value="false">--SELECCIONAR--</option>
                               @foreach($descripcion['CAT_AREAS'] as $area)
                                 @if($descripcion['FORMACION_PROFESIONAL'])
@@ -365,7 +366,7 @@
                           <div class="col-md-8 col-sm-8 col-xs-10" id="divOpcionProfesiones">
                             @if($descripcion['FORMACION_PROFESIONAL'])
                               @if($descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION)
-                                <select id="SetelctProfesiones" class="form-control">
+                                <select id="SetelctProfesiones" class="form-control" {{$disabled}}>
                                   <option value="false">--SELECCIONAR--</option>
                                     @foreach($descripcion['CAT_PROFESIONES'][$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION] as $profesion)
                                       @if(strcmp($profesion->ID_PROFESION,$descripcion['FORMACION_PROFESIONAL']->ID_PROFESION)==0)
@@ -376,7 +377,7 @@
                                     @endforeach
                                 </select>
                               @else
-                                <input type="text" class="form-control text-uppercase" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN" value="{{$descripcion['FORMACION_PROFESIONAL']->OTRA_PROFESION}}">
+                                <input type="text" class="form-control text-uppercase" id="InputNuevaProfesion" aria-describedby="emailHelp" placeholder="INGRESE LA PROFESIÓN" value="{{$descripcion['FORMACION_PROFESIONAL']->OTRA_PROFESION}}" {{$disabled}}>
                               @endif
                             @else
                               <select id="SetelctProfesiones" class="form-control">
@@ -389,13 +390,13 @@
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Años de experiencia Laboral: </label>
                           <div class="col-md-8 col-sm-8 col-xs-10">
-                            <input type="text" required="required" class="form-control col-md-3 col-xs-12 text-uppercase" id="anios_experiencia" value="{{(($descripcion['FORMACION_PROFESIONAL'])?$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION:'')}}">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12 text-uppercase" id="anios_experiencia" value="{{(($descripcion['FORMACION_PROFESIONAL'])?$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION:'')}}" {{$disabled}}>
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Años de experiencia Laboral" data-content="Tiempo mínimo de la misma (ejemplo: Experiencia en reclutamiento y selección de personal, 2 años)."></i>
                         </div>
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
-                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()">Guardar</button>
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()" {{$disabled}}>Guardar</button>
                           </div>
                         </div>
                       </form>
@@ -426,7 +427,29 @@
                           <th>Acciones</th>
                         </tr>
                         </thead>
-                        <tbody id="tablacompetenciasG"></tbody>
+                        <tbody id="tablacompetenciasG">
+                          <!--{{$i=1}}-->
+                          @foreach($descripcion['COMPETENCIAS_GENERICAS'] as $competencia)
+                            <!--{{$disabled = ((strcmp($competencia->ESTATUS_COMPETENCIA_GENERICA,'0')==0)?'':'disabled')}}-->
+                            <tr>
+                              <td>
+                                <input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG{{$i}}" value="{{$competencia->DESCRIPCION_COMPETENCIA_GENERICA}}" {{$disabled}}>
+                              </td>
+                              <td>
+                                <select class="form-control" id="GradoDominioG{{$i}}" {{$disabled}}>
+                                  <option value="I">I</option>
+                                  <option value="II">II</option>
+                                  <option value="III">III</option>
+                                  <option value="IV">IV</option>
+                                </select>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="actualizarCompGen({{$competencia->ID_COMPETENCIA_GENERICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
+                              </td>
+                            </tr>
+                            <!--{{$i++}}-->
+                          @endforeach                        
+                        </tbody>
                       </table>
                       <button onclick="AgregarCompetenciaGenericas()">Agregar</button>
                       <hr>
@@ -454,7 +477,45 @@
                           <th>Acciones</th>
                         </tr>
                         </thead>
-                        <tbody id="tablacompetenciasT"></tbody>
+                        <tbody id="tablacompetenciasT">
+                          <!--{{$i=1}}-->
+                          @foreach($descripcion['COMPETENCIAS_TECNICAS'] as $competencia)
+                            <!--{{$disabled = ((strcmp($competencia->ESTATUS_COMPETENCIA_TECNICA,'0')==0)?'':'disabled')}}-->
+                            <tr>
+                              <td>
+                                <input name="cog1" type="text" class="form-control col-md-3 col-xs-12" id="CompetenciaT{{$i}}" value="{{$competencia->DESCRIPCION_COMPETENCIA_TECNICA}}" {{$disabled}}>
+                              </td>
+                              <td>
+                                <select class="form-control" id="GradoDominioG{{$i}}" {{$disabled}}>
+                                  <option value="I">I</option>
+                                  <option value="II">II</option>
+                                  <option value="III">III</option>
+                                  <option value="IV">IV</option>
+                                </select>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="actualizarCompGen({{$competencia->ID_COMPETENCIA_GENERICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
+                              </td>
+                            </tr>
+                            <!--{{$i++}}-->
+                          @endforeach
+
+    $("#tablacompetenciasT").append(
+      "<tr>"+
+        "<td>"+
+          '<input name="cog1" type="text" class="form-control col-md-3 col-xs-12" id="CompetenciaT'+con_CT+'">'+
+        "</td>"+
+        "<td>"+ 
+          '<select class="form-control" id="GradoDominioT'+con_CT+'">'+
+            '<option value="Básico">Basico</option>'+
+            '<option value="Medio">Medio </option>'+
+            '<option value="Avanzado">Avanzado</option>'+
+           "</select>"+"</td>"+
+        "<td>"+
+          '<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+',this)">Guardar</button>'+
+        "</td>"+
+      "</tr>"
+                        </tbody>
                       </table>
                       <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
                       <hr>

@@ -533,13 +533,15 @@
             }
             //dd($FormacionProfesional[0]);
 
+
+            //obteniendo las competencias generales
             $relCompGen = DB::table('REL_COMPET_GENERICA_DESCRIPCION')
                 ->where('FK_DESCRIPCION',$ID_descripcion)
                 ->select(['FK_COMPET_GENERICA'])
                 ->get();
             $competencias_genericas = array();
-            foreach ($relCompGen as $competencia) {
-                $relCompGen = DB::table('DP_COMPETENCIAS_GENERICAS')
+            foreach ($relCompGen as $competencia){
+                $CompGen = DB::table('DP_COMPETENCIAS_GENERICAS')
                     ->where('COMPETENCIAS_GENERICAS_ID',$competencia->FK_COMPET_GENERICA)
                     ->select([
                                 'COMPETENCIAS_GENERICAS_ID as ID_COMPETENCIA_GENERICA',
@@ -549,10 +551,30 @@
                                 'COMPETENCIAS_GENERICAS_MENSAJE as MENSAJE_COMPETENCIA_GENERICA',
                             ])
                     ->get();
-                $competencias_genericas[]=$relCompGen[0];
+                $competencias_genericas[]=$CompGen[0];
             }
-            //dd($competencias_genericas);
             $descripcion['COMPETENCIAS_GENERICAS'] = $competencias_genericas;
+
+            //obteniendo las competencias generales
+            $relCompTec = DB::table('REL_COMPET_TECNICA_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_COMPET_TECNICA'])
+                ->get();
+            $competencias_tecnicas = array();
+            foreach ($relCompTec as $competencia){
+                $CompTec = DB::table('DP_COMPETENCIAS_TECNICAS')
+                    ->where('COMPETENCIAS_TECNICAS_ID',$competencia->FK_COMPET_TECNICA)
+                    ->select([
+                                'COMPETENCIAS_TECNICAS_ID as ID_COMPETENCIA_TECNICA',
+                                'COMPETENCIAS_TECNICAS_DESCRIPCION as DESCRIPCION_COMPETENCIA_TECNICA',
+                                'COMPETENCIAS_TECNICAS_GRADO_DOMINIO as GRADO_COMPETENCIA_TECNICA',
+                                'COMPETENCIAS_TECNICAS_ESTATUS as ESTATUS_COMPETENCIA_TECNICA',
+                                'COMPETENCIAS_TECNICAS_MENSAJE as MENSAJE_COMPETENCIA_TECNICA',
+                            ])
+                    ->get();
+                $competencias_tecnicas[]=$CompTec[0];
+            }
+            $descripcion['COMPETENCIAS_TECNICAS'] = $competencias_tecnicas;
 
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
