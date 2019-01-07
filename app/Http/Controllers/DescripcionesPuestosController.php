@@ -1005,4 +1005,54 @@
             echo json_encode($data);
         }
 
+        public function actualizarCompG(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $idCompetenciaG = $request['idCompetenciaG'];
+            $competenciag = $request['competenciag'];
+            $gradoDominio = $request['gradoDominio'];
+            $id_des = $request['id_des'];
+            $update = DB::table('DP_COMPETENCIAS_GENERICAS')
+                ->where('COMPETENCIAS_GENERICAS_ID', $idCompetenciaG)
+                ->update([
+                            'COMPETENCIAS_GENERICAS_DESCRIPCION' => $competenciag,
+                            'COMPETENCIAS_GENERICAS_GRADO' => $gradoDominio,
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ]);
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+        public function actualizarCompT(Request $request){
+            //dd($request);
+            date_default_timezone_set('America/Mexico_City');
+            $idCompetenciaT = $request['idCompetenciaT'];
+            $competenciat = $request['competencia'];
+            $gradoDominio = $request['gradoDominio'];
+            $update = DB::table('DP_COMPETENCIAS_TECNICAS')
+                ->where('COMPETENCIAS_TECNICAS_ID', $idCompetenciaT)
+                ->update([
+                            'COMPETENCIAS_TECNICAS_DESCRIPCION' => $competenciat,
+                            'COMPETENCIAS_TECNICAS_GRADO_DOMINIO' => $gradoDominio,
+                            'updated_at' => date('Y-m-d H:i:s')
+                        ]);
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+        public function guardarIdiomaComputacion(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $idioma = $request['idioma'];
+            $computacion = $request['computacion'];
+            $id_des = $request['id_des'];
+
+            $id = DB::table('users')->insertGetId(
+                ['email' => 'john@example.com', 'votes' => 0]
+            );
+
+        }
+
     }//fin clase

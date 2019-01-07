@@ -65,9 +65,12 @@ Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosC
 Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
 Route::post('/descripcion/guardar_relacion2', 'DescripcionesPuestosController@guardarelacion2');
 Route::post('/descripcion/guardar_CompetenciasG', 'DescripcionesPuestosController@guardarcompetenciaG');
+Route::post('/descripcion/actualizar_CompetenciasG', 'DescripcionesPuestosController@actualizarCompG');
 Route::post('/descripcion/guardar_CompetenciasT', 'DescripcionesPuestosController@guardarcompetenciaT');
+Route::post('/descripcion/actualizar_CompetenciasT', 'DescripcionesPuestosController@actualizarCompT');
 
 Route::post('/descripcion/guardar_formacion', 'DescripcionesPuestosController@guardaformacion');
+Route::post('/descripcion/guardaIdiomaComp', 'DescripcionesPuestosController@guardarIdiomaComputacion');
 
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');

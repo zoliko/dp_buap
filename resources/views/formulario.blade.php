@@ -437,10 +437,10 @@
                               </td>
                               <td>
                                 <select class="form-control" id="GradoDominioG{{$i}}" {{$disabled}}>
-                                  <option value="I">I</option>
-                                  <option value="II">II</option>
-                                  <option value="III">III</option>
-                                  <option value="IV">IV</option>
+                                  <option value="I" {{((strcmp($competencia->GRADO_COMPETENCIA_GENERICA,'I')==0)?'selected':'')}}>I</option>
+                                  <option value="II" {{((strcmp($competencia->GRADO_COMPETENCIA_GENERICA,'II')==0)?'selected':'')}}>II</option>
+                                  <option value="III" {{((strcmp($competencia->GRADO_COMPETENCIA_GENERICA,'III')==0)?'selected':'')}}>III</option>
+                                  <option value="IV" {{((strcmp($competencia->GRADO_COMPETENCIA_GENERICA,'IV')==0)?'selected':'')}}>IV</option>
                                 </select>
                               </td>
                               <td>
@@ -486,64 +486,66 @@
                                 <input name="cog1" type="text" class="form-control col-md-3 col-xs-12" id="CompetenciaT{{$i}}" value="{{$competencia->DESCRIPCION_COMPETENCIA_TECNICA}}" {{$disabled}}>
                               </td>
                               <td>
-                                <select class="form-control" id="GradoDominioG{{$i}}" {{$disabled}}>
-                                  <option value="I">I</option>
-                                  <option value="II">II</option>
-                                  <option value="III">III</option>
-                                  <option value="IV">IV</option>
+                                <select class="form-control" id="GradoDominioT{{$i}}" {{$disabled}}>
+                                  <option value="BASICO" {{((strcmp($competencia->GRADO_COMPETENCIA_TECNICA,'BASICO')==0)?'selected':'')}}>BASICO</option>
+                                  <option value="MEDIO" {{((strcmp($competencia->GRADO_COMPETENCIA_TECNICA,'MEDIO')==0)?'selected':'')}}>MEDIO</option>
+                                  <option value="AVANZADO" {{((strcmp($competencia->GRADO_COMPETENCIA_TECNICA,'AVANZADO')==0)?'selected':'')}}>AVANZADO</option>
                                 </select>
                               </td>
                               <td>
-                                <button class="btn btn-primary" type="button" onclick="actualizarCompGen({{$competencia->ID_COMPETENCIA_GENERICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
+                                <button class="btn btn-primary" type="button" onclick="actualizarCompTec({{$competencia->ID_COMPETENCIA_TECNICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
                               </td>
                             </tr>
                             <!--{{$i++}}-->
                           @endforeach
-
-    $("#tablacompetenciasT").append(
-      "<tr>"+
-        "<td>"+
-          '<input name="cog1" type="text" class="form-control col-md-3 col-xs-12" id="CompetenciaT'+con_CT+'">'+
-        "</td>"+
-        "<td>"+ 
-          '<select class="form-control" id="GradoDominioT'+con_CT+'">'+
-            '<option value="Básico">Basico</option>'+
-            '<option value="Medio">Medio </option>'+
-            '<option value="Avanzado">Avanzado</option>'+
-           "</select>"+"</td>"+
-        "<td>"+
-          '<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+',this)">Guardar</button>'+
-        "</td>"+
-      "</tr>"
                         </tbody>
                       </table>
                       <button onclick="AgregarCompetenciaTecnicas()">Agregar</button>
                       <hr>
-                      <form>
+                      <div>
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Idioma:</label>
-                          <div class="col-md-8 col-sm-8 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idioma">
+                          <div class="col-md-4 col-sm-4 col-xs-10">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idiomaDes">
                           </div>
-                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
-                        </div>
-                        <br>
-
-                        <div class="form-group">
-                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Computacion:</label>
-                          <div class="col-md-8 col-sm-8 col-xs-10">
-                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacion">
+                          <div class="col-md-4 col-sm-4 col-xs-10">
+                            <select class="form-control" id="selectIdioma">
+                              <option value="BASICO">BASICO</option>
+                              <option value="MEDIO">MEDIO</option>
+                              <option value="AVANZADO">AVANZADO</option>
+                            </select>
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
                         </div>
                         <br>
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
-                            <button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion2()">Guardar</button>
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardarIdioma()">Guardar</button>
+                          </div>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="form-group">
+                          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Computacion:</label>
+                          <div class="col-md-4 col-sm-4 col-xs-10">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacionDes">
+                          </div>
+                          <div class="col-md-4 col-sm-4 col-xs-10">
+                            <select class="form-control" id="selectComputacion">
+                              <option value="BASICO">BASICO</option>
+                              <option value="MEDIO">MEDIO</option>
+                              <option value="AVANZADO">AVANZADO</option>
+                            </select>
+                          </div>                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                          <div class="col-md-11 col-sm-11 col-xs-12">
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardarComputacion()">Guardar</button>
                           </div>
                         </div>
                         <!--Comptencias Fin-->
-                     </form>
+                     </div>
                     </div>
                     <div class="tab-pane" id="Distribucion">
                      <table id="tabladistribucion" class="table table-striped table-bordered">
@@ -609,11 +611,16 @@ $(document).ready(function(){
     cont_AE = ($("#cuerpoTablaespecificas tr").length)+1;
     cont_r = ($("#cuerporelaciones tr").length)+1;
     cont_rd = ($("#cuerporelaciones2 tr").length)+1;
+
+    con_CG = ($("#tablacompetenciasG tr").length)+1;
+    con_CT = ($("#tablacompetenciasT tr").length)+1;
     //alert("Total de act. especificas: "+cont_AE);
     console.log("Total de act. principales: "+(cont_actG-1))
     console.log("Total de act. especificas: "+(cont_AE-1))
     console.log("Total de puestos proov.: "+(cont_r-1))
     console.log("Total de puestos clientes.: "+(cont_rd-1))
+    console.log("Total de Competencias Genericas.: "+(con_CG-1))
+    console.log("Total de Competencias Tecnicas.: "+(con_CT-1))
   }
 
 
@@ -788,9 +795,9 @@ $(document).ready(function(){
         "</td>"+
         "<td>"+ 
           '<select class="form-control" id="GradoDominioT'+con_CT+'">'+
-            '<option value="Básico">Basico</option>'+
-            '<option value="Medio">Medio </option>'+
-            '<option value="Avanzado">Avanzado</option>'+
+            '<option value="BASICO">BASICO</option>'+
+            '<option value="MEDIO">MEDIO</option>'+
+            '<option value="AVANZADO">AVANZADO</option>'+
            "</select>"+"</td>"+
         "<td>"+
           '<button class="btn btn-primary" type="button" onclick="guardar_CompetenciasT('+con_CT+',this)">Guardar</button>'+
@@ -881,8 +888,8 @@ $(document).ready(function(){
     //console.log("entre a la funcion guardar actividades");
     //  console.log(tmp_cont_rel);
 
-    var competenciaT = $("#CompetenciaT"+tmp_cont_cT).val();
     var gradoDominio = $("#GradoDominioT"+tmp_cont_cT).val(); 
+    var competenciaT = $("#CompetenciaT"+tmp_cont_cT).val();
     console.log(competenciaT);
     console.log(gradoDominio);
     console.log(id_des);
@@ -895,7 +902,7 @@ $(document).ready(function(){
     if (competenciaT!="") {
       metodoAjax(url,dataForm,function(success){
         //console.log(success);
-        $(elemento).attr('onclick','actualizarCompGen('+success['id_CT']+','+tmp_cont_cT+')');
+        $(elemento).attr('onclick','actualizarCompTec('+success['id_CT']+','+tmp_cont_cT+')');
         $(elemento).text('Actualizar');
         swal("", "Información almacenada satisfactoriamente", "success");
       });//*/
@@ -933,9 +940,6 @@ function guardar_CompetenciasG(tmp_cont_cg,elemento){
 
 //almacenar los puestos que son proveedores
 function guardar_relacion(tmp_cont_rel,elemento){
-    //alert("Entre");
-     //console.log("entre a la funcion guardar actividades");
-   //  console.log(tmp_cont_rel);
 
   var relacion = $("#Proveedor"+tmp_cont_rel).val(); 
   var insumo = $("#insumo"+tmp_cont_rel).val();
@@ -1283,7 +1287,62 @@ function guardar_Actividades(tmp_cont_actG,elemento){
     }
 
 
-  }
+  } 
+    function actualizarCompGen(idCompetenciaG,contCompG){
+      var competencia = $("#CompetenciaG"+contCompG).val();
+      var gradoDominio = $("#GradoDominioG"+contCompG).val();
+      var dataForm = new FormData();
+      dataForm.append('competenciag',competencia);;
+      dataForm.append('gradoDominio',gradoDominio);
+      dataForm.append('id_des',id_des);
+      dataForm.append('idCompetenciaG',idCompetenciaG);
+      url = '/descripcion/actualizar_CompetenciasG';
+      if (competencia!="") {
+        metodoAjax(url,dataForm,function(success){
+          swal("", "Información actualizada satisfactoriamente", "success");
+        });//*/
+
+      }else{
+        swal("", "Favor de no dejar campos vacíos", "warning");
+      }
+    }
+
+    function actualizarCompTec(idCompetenciaT,contCompT){
+      var gradoDominio = $("#GradoDominioT"+contCompT).val(); 
+      var competenciaT = $("#CompetenciaT"+contCompT).val();
+      var dataForm = new FormData();
+      console.log(gradoDominio);
+      console.log(competenciaT);
+      console.log(idCompetenciaT);
+      dataForm.append('competencia',competenciaT);;
+      dataForm.append('gradoDominio',gradoDominio);
+      dataForm.append('idCompetenciaT',idCompetenciaT);
+      url = '/descripcion/actualizar_CompetenciasT';
+      if (competenciaT!="") {
+        metodoAjax(url,dataForm,function(success){
+          swal("", "Información actualizada satisfactoriamente", "success");
+        });//*/
+
+      }else{
+        swal("", "Favor de no dejar campos vacíos", "warning");
+      }
+
+    }
+
+    function guardarIdioma(){
+      var idioma = ($("#idiomaDes").val()).toUpperCase();
+      var computacion = ($("#computacionDes").val()).toUpperCase();
+      
+      var success;
+      var url = "/descripcion/guardaIdiomaComp";
+      var dataForm = new FormData();
+      dataForm.append('idioma',idioma);
+      dataForm.append('computacion',computacion);
+      dataForm.append('id_des',id_des);
+      /*metodoAjax(url,dataForm,function(success){
+
+      });//*/
+    }
 
     function algo(){
       alert("Entre");
