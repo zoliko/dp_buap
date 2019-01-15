@@ -335,7 +335,10 @@
                         <div class="form-group">
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Área: </label>
                           <div class="col-md-8 col-sm-8 col-xs-10">
-                            <!--{{$disabled = ((strcmp($descripcion['FORMACION_PROFESIONAL']->STATUS_PROFESION,'0')==0)?'':'disabled')}}-->
+                            <!-- {{$disabled = ''}}-->
+                            @if($descripcion['FORMACION_PROFESIONAL'])
+                              <!--{{$disabled = ((strcmp($descripcion['FORMACION_PROFESIONAL']->STATUS_PROFESION,'0')==0)?'':'disabled')}}-->
+                            @endif
                             <select id="selectArea" class="form-control" onchange="llenaProfesiones()" required {{$disabled}}>
                               <option value="false">--SELECCIONAR--</option>
                               @foreach($descripcion['CAT_AREAS'] as $area)
@@ -504,15 +507,16 @@
                       <hr>
                       <div>
                         <div class="form-group">
+                          <!--{{$disabled = (($descripcion['IDIOMA'])?((strcmp($descripcion['IDIOMA']->ESTATUS_IDIOMA,'0')==0)?'':'disabled'):'')}}-->
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Idioma:</label>
                           <div class="col-md-4 col-sm-4 col-xs-10">
-                              <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="idiomaDes">
+                              <input type="text" required="required" class="form-control col-md-3 col-xs-12 text-uppercase" id="idiomaDes" {{$disabled}} value="{{(($descripcion['IDIOMA'])?$descripcion['IDIOMA']->IDIOMA:'')}}">
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-10">
-                            <select class="form-control" id="selectIdioma">
-                              <option value="BASICO">BASICO</option>
-                              <option value="MEDIO">MEDIO</option>
-                              <option value="AVANZADO">AVANZADO</option>
+                            <select class="form-control" id="selectIdioma" {{$disabled}}>
+                              <option value="BASICO" {{(($descripcion['IDIOMA'])?((strcmp($descripcion['IDIOMA']->NIVEL_DOMINIO_IDIOMA,'BASICO')==0)?'SELECTED':''):'')}}>BASICO</option>
+                              <option value="MEDIO" {{(($descripcion['IDIOMA'])?((strcmp($descripcion['IDIOMA']->NIVEL_DOMINIO_IDIOMA,'MEDIO')==0)?'SELECTED':''):'')}}>MEDIO</option>
+                              <option value="ALTO" {{(($descripcion['IDIOMA'])?((strcmp($descripcion['IDIOMA']->NIVEL_DOMINIO_IDIOMA,'ALTO')==0)?'SELECTED':''):'')}}>ALTO</option>
                             </select>
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
@@ -520,21 +524,22 @@
                         <br>
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
-                            <button class="btn btn-primary pull-right" type="button" onclick="guardarIdioma()">Guardar</button>
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardarIdioma()" {{$disabled}}>Guardar</button>
                           </div>
                         </div>
                         <br>
                         <br>
                         <div class="form-group">
+                          <!--{{$disabled = (($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->ESTATUS_COMPUTACION,'0')==0)?'':'disabled'):'')}}-->
                           <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Computacion:</label>
                           <div class="col-md-4 col-sm-4 col-xs-10">
-                            <input type="text" required="required" class="form-control col-md-3 col-xs-12" id="computacionDes">
+                            <input type="text" required="required" class="form-control col-md-3 col-xs-12 text-uppercase" id="computacionDes" {{$disabled}} value="{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->PAQUETERIA_COMPUTACION:'')}}">
                           </div>
                           <div class="col-md-4 col-sm-4 col-xs-10">
-                            <select class="form-control" id="selectComputacion">
-                              <option value="BASICO">BASICO</option>
-                              <option value="MEDIO">MEDIO</option>
-                              <option value="AVANZADO">AVANZADO</option>
+                            <select class="form-control" id="selectComputacion" {{$disabled}}>
+                              <option value="BASICO" {{(($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION,'BASICO')==0)?'SELECTED':''):'')}}>BASICO</option>
+                              <option value="MEDIO" {{(($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION,'MEDIO')==0)?'SELECTED':''):'')}}>MEDIO</option>
+                              <option value="ALTO" {{(($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION,'ALTO')==0)?'SELECTED':''):'')}}>ALTO</option>
                             </select>
                           </div>                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
                         </div>
@@ -559,7 +564,25 @@
                             <th>Acciones</th>
                           </tr>
                         </thead>
-                        <tbody id="cuerpoListaDistribucion"></tbody>
+                        <tbody id="cuerpoListaDistribucion">
+                          <!--{{$i=1}}-->
+                            @foreach($descripcion['LISTA_DISTRIBUCION'] as $distribucion)
+                              <tr>
+                                <td>{{$i}}</td>
+                                <td>
+                                  <select class="form-control" id="distribucion_{{$i}}">
+                                    @foreach($descripcion['PUESTOS'] as $puestos)
+                                      <option value="{{$puestos->ID_PUESTO}}">{{$puestos->NOMBRE_PUESTO}}</option>
+                                    @endforeach
+                                  </select>
+                                </td>
+                                <td>
+                                  <button class="btn btn-primary" type="button" onclick="guarda_distribucion({{$i}},{{$distribucion->FK_LISTA_DISTRIBUCION}})">Guardar</button>
+                                </td>
+                                <!-- {{$i++}} -->
+                              </tr>
+                            @endforeach
+                        </tbody>
                       </table>
                       <button onclick="agregardistibucion()">Agregar</button>
                     </div>
@@ -573,7 +596,6 @@
     </div>
   </div>
 @endsection
-
 @section('script')
 <script>
 $(document).ready(function(){
@@ -585,8 +607,15 @@ $(document).ready(function(){
  //var ID_DESCRIPCION;
   var json_descripcion=<?php echo json_encode($descripcion) ?>;
   var id_des = json_descripcion['DATOS']['ID_DESCRIPCION'];
+  var puestos = json_descripcion['PUESTOS'];
+  var ldist = json_descripcion['LISTA_DISTRIBUCION'];
+  var disSob = puestos.filter(puesto => !puestos.includes(ldist));
+
   $( window ).load(function() {
     console.log(json_descripcion);
+    console.log(puestos);
+    console.log(ldist);
+    console.log(disSob);
     llenado();
      //alert(id_des);
   });
@@ -614,13 +643,16 @@ $(document).ready(function(){
 
     con_CG = ($("#tablacompetenciasG tr").length)+1;
     con_CT = ($("#tablacompetenciasT tr").length)+1;
+    con_D = ($("#cuerpoListaDistribucion tr").length)+1;
     //alert("Total de act. especificas: "+cont_AE);
-    console.log("Total de act. principales: "+(cont_actG-1))
-    console.log("Total de act. especificas: "+(cont_AE-1))
-    console.log("Total de puestos proov.: "+(cont_r-1))
-    console.log("Total de puestos clientes.: "+(cont_rd-1))
-    console.log("Total de Competencias Genericas.: "+(con_CG-1))
-    console.log("Total de Competencias Tecnicas.: "+(con_CT-1))
+    /*console.log("Total de act. principales: "+(cont_actG-1));
+    console.log("Total de act. especificas: "+(cont_AE-1));
+    console.log("Total de puestos proov.: "+(cont_r-1));
+    console.log("Total de puestos clientes.: "+(cont_rd-1));
+    console.log("Total de Competencias Genericas.: "+(con_CG-1));
+    console.log("Total de Competencias Tecnicas.: "+(con_CT-1));//*/
+    //console.log(puestos);
+    //console.log(ldist);
   }
 
 
@@ -726,29 +758,7 @@ $(document).ready(function(){
       cont_actG++;//*/
     }
 
-  function agregardistibucion(){
-   $("#cuerpoListaDistribucion").append(
-      "<tr>"+
-        "<td id='nombre_"+con_D+"'>"+
-          con_D+
-        "</td>"+
-        "<td>"+
-          //'<textarea class="form-control" rows="5" id="distribucion'+con_D+'"></textarea>'+
-          '<select class="form-control" id="distribucion_'+con_D+'">'+
-            '<option value="I">I</option>'+
-            '<option value="II">II</option>'+
-            '<option value="III">III</option>'+
-            '<option value="IV">IV</option>'+
-          "</select>"+
-        "<td>"+
-          '<button class="btn btn-primary" type="button" onclick="guarda_distribucion('+con_D+')">Guardar</button>'+
-        "</td>"+       
-      "</tr>");
-     con_D++;
-
-}
-
-
+  
   function ActividadEspecifica(){
    // alert("Entre");
    $("#cuerpoTablaespecificas").append(
@@ -1331,18 +1341,85 @@ function guardar_Actividades(tmp_cont_actG,elemento){
 
     function guardarIdioma(){
       var idioma = ($("#idiomaDes").val()).toUpperCase();
-      var computacion = ($("#computacionDes").val()).toUpperCase();
+      var nivelDiminio = $("#selectIdioma").val();
       
       var success;
-      var url = "/descripcion/guardaIdiomaComp";
+      var url = "/descripcion/guardaIdioma";
       var dataForm = new FormData();
       dataForm.append('idioma',idioma);
-      dataForm.append('computacion',computacion);
+      dataForm.append('nivelDiminio',nivelDiminio);
       dataForm.append('id_des',id_des);
-      /*metodoAjax(url,dataForm,function(success){
-
-      });//*/
+      if(idioma!=""){
+        metodoAjax(url,dataForm,function(success){
+          if(success['opcion']=='Existe'){
+            swal("", "Información actualizada satisfactoriamente", "success");
+          }else{
+            swal("", "Información almacenada satisfactoriamente", "success");
+          }
+        });//*/
+      }else{
+        swal("", "Favor de no dejar campos vacíos", "warning");
+      }
     }
+
+    function guardarComputacion(){
+      var computacion = ($("#computacionDes").val()).toUpperCase();
+      var nivelDiminio = $("#selectComputacion").val();
+      
+      var success;
+      var url = "/descripcion/guardaComputacion";
+      var dataForm = new FormData();
+      dataForm.append('computacion',computacion);
+      dataForm.append('nivelDiminio',nivelDiminio);
+      dataForm.append('id_des',id_des);
+      if(computacion!=""){
+        metodoAjax(url,dataForm,function(success){
+          swal("", success['mensaje'], "success");
+        });//*/
+      }else{
+        swal("", "Favor de no dejar campos vacíos", "warning");
+      }
+    }
+
+    function agregardistibucion(){
+      var option = '';
+      for(i=0; i<puestos.length;i++){
+        option=option + '<option value="'+ puestos[i]['ID_PUESTO'] +'">'+puestos[i]['NOMBRE_PUESTO']+'</option>';
+      }
+      $("#cuerpoListaDistribucion").append(
+        "<tr>"+
+          "<td id='nombre_"+con_D+"'>"+
+            con_D+
+          "</td>"+
+          "<td>"+
+            //'<textarea class="form-control" rows="5" id="distribucion'+con_D+'"></textarea>'+
+            '<select class="form-control" id="distribucion_'+con_D+'">'+
+              option+
+            "</select>"+
+          "<td>"+
+            '<button class="btn btn-primary" type="button" onclick="guarda_distribucion('+con_D+',-1)">Guardar</button>'+
+          "</td>"+       
+        "</tr>");
+       con_D++;
+    }
+
+    function guarda_distribucion(tmpRow,idAnterior){
+      var distribucion = $("#distribucion_"+tmpRow).val();
+      console.log("Distribución: "+distribucion);
+      var success;
+      var url = "/descripcion/guarda_distribucion";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',id_des);
+      dataForm.append('distribucion',distribucion);
+      dataForm.append('dist_anterior',idAnterior);
+      console.log(idAnterior);
+      metodoAjax(url,dataForm,function(success){
+        swal("", success['mensaje'], "success");
+      });//*/
+
+
+    }
+
 
     function algo(){
       alert("Entre");
@@ -1353,7 +1430,7 @@ function guardar_Actividades(tmp_cont_actG,elemento){
       dataForm.append('archivo',"p1");
       dataForm.append('archivo',"p2");
       metodoAjax(url,dataForm,function(success){
-
+        swal("", "Informaciónalmacenada satisfactoriamente", "success");
       });//*/
     }
 

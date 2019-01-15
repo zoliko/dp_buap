@@ -576,21 +576,95 @@
             }
             $descripcion['COMPETENCIAS_TECNICAS'] = $competencias_tecnicas;
 
+            //obteniendo idioma
+            $relIdioma = DB::table('REL_IDIOMA_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_IDIOMA'])
+                ->get();
+            $idioma = null;
+            if(count($relIdioma)>0){
+                $idioma = DB::table('DP_IDIOMAS')
+                    ->where('IDIOMAS_ID',$relIdioma[0]->FK_IDIOMA)
+                    ->select([
+                                'IDIOMAS_IDIOMA as IDIOMA',
+                                'IDIOMAS_NIVEL_DOMINIO as NIVEL_DOMINIO_IDIOMA',
+                                'IDIOMAS_ESTATUS as ESTATUS_IDIOMA',
+                                'IDIOMAS_GRADO_MENSAJE as MENSAJE_IDIOMA',
+                            ])
+                    ->get();
+            }
+            $descripcion['IDIOMA'] = $idioma[0];
+
+            //obteniendo computacion
+            $relComputacion = DB::table('REL_COMPUTACION_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select(['FK_COMPUTACION'])
+                ->get();
+            $computacion = null;
+            if(count($relComputacion)>0){
+                $computacion = DB::table('DP_COMPUTACION')
+                    ->where('COMPUTACION_ID',$relComputacion[0]->FK_COMPUTACION)
+                    ->select([
+                                'COMPUTACION_PAQUETERIA_SISTEMA as PAQUETERIA_COMPUTACION',
+                                'COMPUTACION_NIVEL_DOMINIO as NIVEL_DOMINIO_COMPUTACION',
+                                'COMPUTACION_ESTATUS as ESTATUS_COMPUTACION',
+                                'COMPUTACION_GRADO_MENSAJE as MENSAJE_COMPUTACION',
+                            ])
+                    ->get();
+            }
+            $descripcion['COMPUTACION'] = $computacion[0];
+
+            //obtencion de la lista de distribucion
+            //primero obtenemos todos los puestos que tiene esa dependencia
+            $rel_dep_des = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select('FK_DEPENDENCIA')
+                ->get();
+            $rel_puestos_dep = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                ->where([
+                            ['FK_DEPENDENCIA',$rel_dep_des[0]->FK_DEPENDENCIA],
+                            ['FK_DESCRIPCION','!=',$ID_descripcion],
+                        ])
+                ->select('FK_DESCRIPCION')
+                ->get();
+            $puestos = array();
+            foreach ($rel_puestos_dep as $puesto) {
+                $tmp_puestos = DB::table('DP_DESCRIPCIONES')
+                    ->where('DESCRIPCIONES_ID',$puesto->FK_DESCRIPCION)
+                    ->select(
+                                'DESCRIPCIONES_ID  as ID_PUESTO',
+                                'DESCRIPCIONES_NOM_PUESTO as NOMBRE_PUESTO'
+                            )
+                    ->get();
+                $puestos[]=$tmp_puestos[0];
+            }
+            $descripcion['PUESTOS'] = $puestos;
+            //dd($puestos);
+
+            //Obteniendo la relacion de la lista de distribución
+            $rel_des_ldis = DB::table('REL_LDISTRIBUCION_DESCRIPCION')
+                ->where('FK_DESCRIPCION',$ID_descripcion)
+                ->select('FK_LISTA_DISTRIBUCION')
+                ->get();
+            $l_distribucion = array();
+            foreach ($rel_des_ldis as $puesto) {
+                $tmp_puestos = DB::table('DP_DESCRIPCIONES')
+                    ->where('DESCRIPCIONES_ID',$puesto->FK_LISTA_DISTRIBUCION)
+                    ->select(
+                                'DESCRIPCIONES_ID  as ID_PUESTO',
+                                'DESCRIPCIONES_NOM_PUESTO as NOMBRE_PUESTO'
+                            )
+                    ->get();
+                $l_distribucion[]=$tmp_puestos[0];
+            }
+            $descripcion['LISTA_DISTRIBUCION'] = $rel_des_ldis;
+            //dd($rel_des_ldis);
             //return view('formulario') ->with ("descripcion",$descripcion);
             return $descripcion;
         }
 
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
  
-     /*  public function guardaformacion(request $request){
-            date_default_timezone_set('America/Mexico_City');
-            $exito=false;
-            $accion="";
-            $existe_formacion= DB:table('')
-
-        }
-
-        */
         public function guardaproposito(Request $request){
             date_default_timezone_set('America/Mexico_City'); 
             $exito=false;
@@ -1043,15 +1117,139 @@
             echo json_encode($data);
         }
 
-        public function guardarIdiomaComputacion(Request $request){
+        public function guardarIdioma(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            //dd($request);
             $idioma = $request['idioma'];
-            $computacion = $request['computacion'];
+            $nivelDiminio = $request['nivelDiminio'];
             $id_des = $request['id_des'];
+            $idIdioma = '';
+            $operacion='';
+            $existe = DB::table('REL_IDIOMA_DESCRIPCION')
+                ->select('FK_IDIOMA')
+                ->where('FK_DESCRIPCION',$id_des)
+                ->get();
+            //dd($existe);
+            if(count($existe)>0){
+                //dd('Existe');
+                $operacion = 'Existe';
+                DB::table('DP_IDIOMAS')
+                    ->where('IDIOMAS_ID', $existe[0]->FK_IDIOMA)
+                    ->update([
+                                'IDIOMAS_IDIOMA' => $idioma,
+                                'IDIOMAS_NIVEL_DOMINIO' => $nivelDiminio,
+                                'updated_at' => date('Y-m-d H:i:s')
+                            ]);
+            }else{
+                //dd('Nuevo');
+                $operacion = 'Nuevo';
+                $idIdioma = DB::table('DP_IDIOMAS')->insertGetId(
+                    [
+                        'IDIOMAS_IDIOMA' => $idioma,
+                        'IDIOMAS_NIVEL_DOMINIO' => $nivelDiminio,
+                        'IDIOMAS_ESTATUS' => 0,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+                DB::table('REL_IDIOMA_DESCRIPCION')->insert(
+                    [   
+                        'FK_IDIOMA' => $idIdioma,
+                        'FK_DESCRIPCION' => $id_des
+                    ]
+                );
+            }
 
-            $id = DB::table('users')->insertGetId(
-                ['email' => 'john@example.com', 'votes' => 0]
-            );
+            $data = array(
+                "idIdioma" => $idIdioma,
+                'operacion' => $operacion
+              );
+            echo json_encode($data);
+        }
+
+        public function guardaComputacion(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //dd($request);
+            $computacion = $request['computacion'];
+            $nivelDiminio = $request['nivelDiminio'];
+            $id_des = $request['id_des'];
+            $idComputacion = '';
+            $mensaje='';
+            $existe = DB::table('REL_COMPUTACION_DESCRIPCION')
+                ->select('FK_COMPUTACION')
+                ->where('FK_DESCRIPCION',$id_des)
+                ->get();
+            //dd($existe);
+            if(count($existe)>0){
+                //dd('Existe');
+                $mensaje = 'Información actualizada satisfactoriamente';
+                DB::table('DP_COMPUTACION')
+                    ->where('COMPUTACION_ID', $existe[0]->FK_COMPUTACION)
+                    ->update([
+                                'COMPUTACION_PAQUETERIA_SISTEMA' => $computacion,
+                                'COMPUTACION_NIVEL_DOMINIO' => $nivelDiminio,
+                                'updated_at' => date('Y-m-d H:i:s')
+                            ]);
+            }else{
+                //dd('Nueva computacion');
+                $mensaje = 'Información almacenada satisfactoriamente';
+                $idComputacion = DB::table('DP_COMPUTACION')->insertGetId(
+                    [
+                        'COMPUTACION_PAQUETERIA_SISTEMA' => $computacion,
+                        'COMPUTACION_NIVEL_DOMINIO' => $nivelDiminio,
+                        'COMPUTACION_ESTATUS' => 0,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+                DB::table('REL_COMPUTACION_DESCRIPCION')->insert(
+                    [   
+                        'FK_COMPUTACION' => $idComputacion,
+                        'FK_DESCRIPCION' => $id_des
+                    ]
+                );
+            }
+
+            $data = array(
+                "idComputacion" => $idComputacion,
+                'mensaje' => $mensaje
+              );
+            echo json_encode($data);
+        }
+
+        public function GuardarDistribucion(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            $id_descripcion = $request['id_descripcion'];
+            $id_puesto = $request['distribucion'];
+            $dist_anterior = $request['dist_anterior'];
+            $mensaje = '';
+            //dd($dist_anterior);
+            $existe = DB::table('REL_LDISTRIBUCION_DESCRIPCION')
+                ->where([
+                            ['FK_LISTA_DISTRIBUCION','=',$id_puesto],
+                            ['FK_DESCRIPCION','=',$id_descripcion],
+                        ])
+                ->get();
+            //dd($existe);
+            if(count($existe) > 0){
+                $mensaje = "El puesto ya fue enlazado con anterioridad.";
+            }else{
+                if(strcmp($dist_anterior, '-1')==0){
+                    //dd("Es nuevo");
+                    DB::table('REL_LDISTRIBUCION_DESCRIPCION')->insert(
+                        [   
+                            'FK_LISTA_DISTRIBUCION' => $id_puesto,
+                            'FK_DESCRIPCION' => $id_descripcion
+                        ]
+                    );
+                    $mensaje = "Información registrada satisfactoriamente";
+                }else{
+                    dd('Eliminando existencia');
+                }
+            }
+
+            $data = array(
+                'mensaje' => $mensaje
+              );
+            echo json_encode($data);
 
         }
 

@@ -15,11 +15,10 @@ class CreateRelLDistribucionDescripcionTable extends Migration
     {
         Schema::create('REL_LDISTRIBUCION_DESCRIPCION', function (Blueprint $table) {
             $table->unsignedInteger('FK_LISTA_DISTRIBUCION');
-            $table->foreign('FK_LISTA_DISTRIBUCION')->references('LISTA_DISTRIBUCION_ID')->on('DP_LISTA_DISTRIBUCION');
+            $table->foreign('FK_LISTA_DISTRIBUCION')->references('DESCRIPCIONES_ID')->on('DP_DESCRIPCIONES');
 
             $table->unsignedInteger('FK_DESCRIPCION');
             $table->foreign('FK_DESCRIPCION')->references('DESCRIPCIONES_ID')->on('DP_DESCRIPCIONES');
-
         });
     }
 

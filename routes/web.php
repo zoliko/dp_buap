@@ -58,6 +58,7 @@ Route::post('/descripcion/actualiza_actesp', 'DescripcionesPuestosController@act
 Route::post('/descripcion/actualiza_prov', 'DescripcionesPuestosController@ActualizarPuestoProveedor');
 Route::post('/descripcion/actualiza_cliente', 'DescripcionesPuestosController@ActualizarPuestoCliente');
 Route::post('/descripcion/guarda_formacion', 'DescripcionesPuestosController@GuardarFormacionProfesional');
+Route::post('/descripcion/guarda_distribucion', 'DescripcionesPuestosController@GuardarDistribucion');
 
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
@@ -70,7 +71,8 @@ Route::post('/descripcion/guardar_CompetenciasT', 'DescripcionesPuestosControlle
 Route::post('/descripcion/actualizar_CompetenciasT', 'DescripcionesPuestosController@actualizarCompT');
 
 Route::post('/descripcion/guardar_formacion', 'DescripcionesPuestosController@guardaformacion');
-Route::post('/descripcion/guardaIdiomaComp', 'DescripcionesPuestosController@guardarIdiomaComputacion');
+Route::post('/descripcion/guardaIdioma', 'DescripcionesPuestosController@guardarIdioma');
+Route::post('/descripcion/guardaComputacion', 'DescripcionesPuestosController@guardaComputacion');
 
 
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
