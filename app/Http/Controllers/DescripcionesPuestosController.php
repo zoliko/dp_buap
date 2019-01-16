@@ -1221,6 +1221,8 @@
             $id_puesto = $request['distribucion'];
             $dist_anterior = $request['dist_anterior'];
             $mensaje = '';
+            $icono = '';
+            $accion = '';
             //dd($dist_anterior);
             $existe = DB::table('REL_LDISTRIBUCION_DESCRIPCION')
                 ->where([
@@ -1230,7 +1232,9 @@
                 ->get();
             //dd($existe);
             if(count($existe) > 0){
-                $mensaje = "El puesto ya fue enlazado con anterioridad.";
+                $mensaje = "El puesto ya fue enlazado con anterioridad";
+                $icono = 'error';
+                $accion = 'repetido';
             }else{
                 if(strcmp($dist_anterior, '-1')==0){
                     //dd("Es nuevo");
@@ -1241,12 +1245,33 @@
                         ]
                     );
                     $mensaje = "Información registrada satisfactoriamente";
+                    $icono = 'success';
+                    $accion = 'nuevo';
                 }else{
-                    dd('Eliminando existencia');
+                    //dd('Eliminando existencia');
+                    //dd($dist_anterior);
+                    DB::table('REL_LDISTRIBUCION_DESCRIPCION')
+                        ->where(
+                            [   
+                                'FK_LISTA_DISTRIBUCION' => $dist_anterior,
+                                'FK_DESCRIPCION' => $id_descripcion
+                            ])
+                        ->delete();
+                    DB::table('REL_LDISTRIBUCION_DESCRIPCION')->insert(
+                        [   
+                            'FK_LISTA_DISTRIBUCION' => $id_puesto,
+                            'FK_DESCRIPCION' => $id_descripcion
+                        ]
+                    );
+                    $mensaje = 'Información actualizada satisfactoriamente';
+                    $icono = 'success';
+                    $accion = 'actualizar';
                 }
             }
 
             $data = array(
+                'accion' => $accion,
+                'icono' => $icono,
                 'mensaje' => $mensaje
               );
             echo json_encode($data);

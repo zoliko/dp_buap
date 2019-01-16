@@ -566,22 +566,22 @@
                         </thead>
                         <tbody id="cuerpoListaDistribucion">
                           <!--{{$i=1}}-->
-                            @foreach($descripcion['LISTA_DISTRIBUCION'] as $distribucion)
-                              <tr>
-                                <td>{{$i}}</td>
-                                <td>
-                                  <select class="form-control" id="distribucion_{{$i}}">
-                                    @foreach($descripcion['PUESTOS'] as $puestos)
-                                      <option value="{{$puestos->ID_PUESTO}}">{{$puestos->NOMBRE_PUESTO}}</option>
-                                    @endforeach
-                                  </select>
-                                </td>
-                                <td>
-                                  <button class="btn btn-primary" type="button" onclick="guarda_distribucion({{$i}},{{$distribucion->FK_LISTA_DISTRIBUCION}})">Guardar</button>
-                                </td>
-                                <!-- {{$i++}} -->
-                              </tr>
-                            @endforeach
+                          @foreach($descripcion['LISTA_DISTRIBUCION'] as $distribucion)
+                            <tr>
+                              <td>{{$i}}</td>
+                              <td>
+                                <select class="form-control" id="distribucion_{{$i}}">
+                                  @foreach($descripcion['PUESTOS'] as $puestos)
+                                    <option value="{{$puestos->ID_PUESTO}}" {{((strcmp($distribucion->FK_LISTA_DISTRIBUCION,$puestos->ID_PUESTO)==0)?'selected':'')}}>{{$puestos->NOMBRE_PUESTO}}</option>
+                                  @endforeach
+                                </select>
+                              </td>
+                              <td>
+                                <button class="btn btn-primary" type="button" onclick="guarda_distribucion({{$i}},{{$distribucion->FK_LISTA_DISTRIBUCION}},this)">Actualizar</button>
+                              </td>
+                              <!-- {{$i++}} -->
+                            </tr>
+                          @endforeach
                         </tbody>
                       </table>
                       <button onclick="agregardistibucion()">Agregar</button>
@@ -1397,13 +1397,13 @@ function guardar_Actividades(tmp_cont_actG,elemento){
               option+
             "</select>"+
           "<td>"+
-            '<button class="btn btn-primary" type="button" onclick="guarda_distribucion('+con_D+',-1)">Guardar</button>'+
+            '<button class="btn btn-primary" type="button" onclick="guarda_distribucion('+con_D+',-1,this)">Guardar</button>'+
           "</td>"+       
         "</tr>");
-       con_D++;
+      con_D++;
     }
 
-    function guarda_distribucion(tmpRow,idAnterior){
+    function guarda_distribucion(tmpRow,idAnterior,elemento){
       var distribucion = $("#distribucion_"+tmpRow).val();
       console.log("Distribución: "+distribucion);
       var success;
@@ -1414,10 +1414,12 @@ function guardar_Actividades(tmp_cont_actG,elemento){
       dataForm.append('dist_anterior',idAnterior);
       console.log(idAnterior);
       metodoAjax(url,dataForm,function(success){
-        swal("", success['mensaje'], "success");
+        swal("", success['mensaje'], success['icono']);
+        if(success['accion'] != 'repetido'){
+          $(elemento).attr('onclick','guarda_distribucion('+tmpRow+','+distribucion+',this)');
+          $(elemento).text('Actualizar');
+        }
       });//*/
-
-
     }
 
 

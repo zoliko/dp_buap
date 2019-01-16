@@ -100,7 +100,7 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td align="justify">{{$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL}}</td>
+			      <td align="justify">{{(($descripcion['PROPOSITO_GENERAL'])?$descripcion['PROPOSITO_GENERAL']->PROPOSITO_GENERAL:'')}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -201,11 +201,19 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>Usuarios Internos y Externos</td>
-			      <td>Servicios de información, servicios de extensión</td>
-			      <td align="justify">Variable</td>
-			    </tr>
+			    @foreach($descripcion['PUESTOS_CLIENTES'] as $clientes)
+			    	<tr>
+			    		<td>
+			    			{{$clientes->DESCRIPCION_CLIENTE}}
+			    		</td>
+			    		<td>
+			    			{{$clientes->PRODUCTO_CLIENTE}}
+			    		</td>
+			    		<td>
+			    			{{$clientes->FRECUENCIA_CLIENTE}}
+			    		</td>
+			    	</tr>
+			    @endforeach
 			  </tbody>
 			</table>
 		</div>
@@ -222,8 +230,12 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td>1</td>
-			      <td align="justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</td>
+			      <td>Formación profesional</td>
+			      <td align="justify">{{$descripcion['CAT_PROFESIONES'][$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION][($descripcion['FORMACION_PROFESIONAL']->ID_PROFESION)-1]->PROFESION}}</td>
+			    </tr>
+			    <tr>
+			      <td>Años de experiencia laboral</td>
+			      <td align="justify">{{$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -508,50 +520,50 @@
 				    <tr>
 				      <td>COMPROMISO</td>
 				      <td style="vertical-align: middle;">ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][0]))?$descripcion['COMPETENCIAS_GENERICAS'][0]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][0]))?$descripcion['COMPETENCIAS_GENERICAS'][0]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][0]))?$descripcion['COMPETENCIAS_TECNICAS'][0]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][0]))?$descripcion['COMPETENCIAS_TECNICAS'][0]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 				    <tr>
 				      <td>CONCIENCIA ORGANIZACIONAL</td>
 				      <td>ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][1]))?$descripcion['COMPETENCIAS_GENERICAS'][1]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][1]))?$descripcion['COMPETENCIAS_GENERICAS'][1]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][1]))?$descripcion['COMPETENCIAS_TECNICAS'][1]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][1]))?$descripcion['COMPETENCIAS_TECNICAS'][1]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 				    <tr>
 				      <td>EQUIDAD</td>
 				      <td>ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][2]))?$descripcion['COMPETENCIAS_GENERICAS'][2]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][2]))?$descripcion['COMPETENCIAS_GENERICAS'][2]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][3]))?$descripcion['COMPETENCIAS_TECNICAS'][2]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][2]))?$descripcion['COMPETENCIAS_TECNICAS'][2]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 				    <tr>
 				      <td>ÉTICA</td>
 				      <td>ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][3]))?$descripcion['COMPETENCIAS_GENERICAS'][3]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][3]))?$descripcion['COMPETENCIAS_GENERICAS'][3]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][3]))?$descripcion['COMPETENCIAS_TECNICAS'][3]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][3]))?$descripcion['COMPETENCIAS_TECNICAS'][3]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 				    <tr>
 				      <td>RESPONSABILIDAD</td>
 				      <td>ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][4]))?$descripcion['COMPETENCIAS_GENERICAS'][4]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][4]))?$descripcion['COMPETENCIAS_GENERICAS'][4]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][4]))?$descripcion['COMPETENCIAS_TECNICAS'][4]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][4]))?$descripcion['COMPETENCIAS_TECNICAS'][4]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 				    <tr>
 				      <td>RESPONSABILIDAD SOCIAL</td>
 				      <td>ÚNICO</td>
-				      <td>COMPROMISO</td>
-				      <td></td>
-				      <td>COMPROMISO</td>
-				      <td></td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][5]))?$descripcion['COMPETENCIAS_GENERICAS'][5]->DESCRIPCION_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_GENERICAS'][5]))?$descripcion['COMPETENCIAS_GENERICAS'][5]->GRADO_COMPETENCIA_GENERICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][5]))?$descripcion['COMPETENCIAS_TECNICAS'][5]->DESCRIPCION_COMPETENCIA_TECNICA:'')}}</td>
+				      <td>{{((isset($descripcion['COMPETENCIAS_TECNICAS'][5]))?$descripcion['COMPETENCIAS_TECNICAS'][5]->GRADO_COMPETENCIA_TECNICA:'')}}</td>
 				    </tr>
 		  		</tbody>
 			</table>
@@ -570,12 +582,8 @@
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td>Inglés</td>
-			      <td align="justify">Medio</td>
-			    </tr>
-			    <tr>
-			      <td>Inglés</td>
-			      <td align="justify">Medio</td>
+			      <td>{{(($descripcion['IDIOMA'])?$descripcion['IDIOMA']->IDIOMA:'')}}</td>
+			      <td align="justify">{{(($descripcion['IDIOMA'])?$descripcion['IDIOMA']->NIVEL_DOMINIO_IDIOMA:'')}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -588,8 +596,8 @@
 			      <th scope="row" colspan="2" class="bloque">Computación</th>
 			    </tr>
 			    <tr>
-			      <th scope="row" class="bloque fondo" style="width: 50%">Paqueteria o Sistema</th>
-			      <th scope="row" class="bloque fondo" style="width: 50%">Nivel de Dominio</th>
+			      <th scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->PAQUETERIA_COMPUTACION:'')}}</th>
+			      <th scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION:'')}}</th>
 			    </tr>
 			  </thead>
 			  <tbody>
@@ -609,6 +617,7 @@
 			    </tr>
 			  </thead>
 			  <tbody>
+			  	@if($distribucion)
 			    @for ($i = 1; $i < 6; $i++)
 				    <tr>
 				      <td>Distribucion {{$i}}</td>
