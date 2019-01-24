@@ -117,5 +117,6 @@ Route::get('visualizar','DescripcionesPuestosController@visualizaPdf');
   return view('pdf.descripcion');
 });//*/
 
-//mensaje
+//mensaje y status
 Route::post('/descripcion/mensaje', 'DescripcionesPuestosController@GuardaMensaje');
+Route::post('/descripcion/cambia_estatus', 'DescripcionesPuestosController@CambiaEstus');

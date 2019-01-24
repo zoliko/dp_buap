@@ -124,6 +124,11 @@
                                   @endif
                                   <br>
                                   <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['PROPOSITO_GENERAL']->ID_PROPOSITO_GENERAL}},1)">Mensaje</button>
+                                  @if(strcmp($descripcion['PROPOSITO_GENERAL']->ESTATUS_PROPOSITO_GENERAL,'0')==0)
+                                    <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['PROPOSITO_GENERAL']->ID_PROPOSITO_GENERAL}},1,1,this)">Bloquear</button>
+                                  @else
+                                    <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['PROPOSITO_GENERAL']->ID_PROPOSITO_GENERAL}},1,0,this)">Desbloquear</button>
+                                  @endif
                                 @else
                                     <textarea class="form-control" rows="3" placeholder="" id="Proposito"></textarea>
                                 @endif
@@ -176,6 +181,12 @@
                               <td>
                                 <!--<button class="btn btn-primary" type="button" onclick="actualizar_ActividadGral({{$actividad->ID_ACT_GRAL}},{{$i}})" {{$disabled}}>Actualizar</button>-->
                                 <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$actividad->ID_ACT_GRAL}},2)">Mensaje</button>
+                                <br>
+                                @if(strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$actividad->ID_ACT_GRAL}},2,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$actividad->ID_ACT_GRAL}},2,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -206,12 +217,18 @@
                               </td>
                               <td>
                                 <div class="form-group">
-                                  <textarea class="form-control" rows="5" id="ActividadEspecifica{{$i}}">{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
+                                  <textarea class="form-control" rows="5" id="ActividadEspecifica{{$i}}" {{$disabled}}>{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
                                 </div>
                               </td>
                               <td>
                                 <!--<button  class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp({{$actividad->ID_ACT_ESP}},{{$i}})">Actualizar</button>-->
                                 <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$actividad->ID_ACT_ESP}},3)">Mensaje</button>
+                                <br>
+                                @if(strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$actividad->ID_ACT_ESP}},3,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$actividad->ID_ACT_ESP}},3,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -252,12 +269,12 @@
                           @foreach($descripcion['PUESTOS_PROVEEDORES'] as $puesto)
                             <!-- {{$disabled = ((strcmp($puesto->ESTATUS_PROVEEDOR,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <td><input type="text" id="Proveedor{{$i}}" value="{{$puesto->DESCRIPCION_PROVEEDOR}}" class="form-control col-md-12 col-xs-12"></td>
+                              <td><input type="text" id="Proveedor{{$i}}" value="{{$puesto->DESCRIPCION_PROVEEDOR}}" class="form-control col-md-12 col-xs-12" {{$disabled}}></td>
                               <td>
-                                  <textarea class="form-control" id="insumo{{$i}}">{{$puesto->INSUMO_PROVEEDOR}}</textarea>
+                                <textarea class="form-control" id="insumo{{$i}}" {{$disabled}}>{{$puesto->INSUMO_PROVEEDOR}}</textarea>
                               </td>
                               <td>
-                                <select class="form-control" id="frecuenciaPP{{$i}}">
+                                <select class="form-control" id="frecuenciaPP{{$i}}" {{$disabled}}>
                                   <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
                                   <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
                                   <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
@@ -271,6 +288,12 @@
                               <td>
                                 <!--<button class="btn btn-primary" type="button" onclick="actualizar_pp({{$puesto->ID_PUESTO_PROVEEDOR}},{{$i}})">Actualizar</button>-->
                                 <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$puesto->ID_PUESTO_PROVEEDOR}},4)">Mensaje</button>
+                                <br>
+                                @if(strcmp($puesto->ESTATUS_PROVEEDOR,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$puesto->ID_PUESTO_PROVEEDOR}},4,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$puesto->ID_PUESTO_PROVEEDOR}},4,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -305,12 +328,14 @@
                           @foreach($descripcion['PUESTOS_CLIENTES'] as $puesto)
                             <!-- {{$disabled = ((strcmp($puesto->ESTATUS_CLIENTE,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <td><input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}" class="form-control col-md-12 col-xs-12"></td>
                               <td>
-                                  <textarea class="form-control" id="productoCliente{{$i}}">{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                                <input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}" class="form-control col-md-12 col-xs-12" {{$disabled}}>
                               </td>
                               <td>
-                                <select class="form-control" id="frecuenciaPC{{$i}}">
+                                  <textarea class="form-control" id="productoCliente{{$i}}" {{$disabled}}>{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                              </td>
+                              <td>
+                                <select class="form-control" id="frecuenciaPC{{$i}}" {{$disabled}}>
                                   <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
                                   <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
                                   <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
@@ -324,6 +349,12 @@
                               <td>
                                 <!--<button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})">Actualizar</button>-->
                                 <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$puesto->ID_PUESTO_CLIENTE}},5)">Mensaje</button>
+                                <br>
+                                @if(strcmp($puesto->ESTATUS_CLIENTE,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$puesto->ID_PUESTO_CLIENTE}},5,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$puesto->ID_PUESTO_CLIENTE}},5,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -407,6 +438,11 @@
                             <!--<button class="btn btn-primary pull-right" type="button" onclick="guardar_formacion()" {{$disabled}}>Guardar</button>-->
                             @if($descripcion['FORMACION_PROFESIONAL'])
                               <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['FORMACION_PROFESIONAL']->ID_AREA_ANIOS_PROFESION}},6)">Mensaje</button>
+                            @if(strcmp($descripcion['FORMACION_PROFESIONAL']->STATUS_PROFESION,'0')==0)
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['FORMACION_PROFESIONAL']->ID_AREA_ANIOS_PROFESION}},6,1,this)">Bloquear</button>
+                            @else
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['FORMACION_PROFESIONAL']->ID_AREA_ANIOS_PROFESION}},6,0,this)">Desbloquear</button>
+                              @endif
                             @endif
                           </div>
                         </div>
@@ -456,7 +492,13 @@
                               </td>
                               <td>
                                 <!--<button class="btn btn-primary" type="button" onclick="actualizarCompGen({{$competencia->ID_COMPETENCIA_GENERICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>-->
-                                <button class="btn btn-primary" type="button" onclick="mensaje({{$competencia->ID_COMPETENCIA_GENERICA}},7)">Mensaje</button>
+                                <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$competencia->ID_COMPETENCIA_GENERICA}},7)">Mensaje</button>
+                                
+                                @if(strcmp($competencia->ESTATUS_COMPETENCIA_GENERICA,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$competencia->ID_COMPETENCIA_GENERICA}},7,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$competencia->ID_COMPETENCIA_GENERICA}},7,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -506,7 +548,12 @@
                               </td>
                               <td>
                                 <!--<button class="btn btn-primary" type="button" onclick="actualizarCompTec({{$competencia->ID_COMPETENCIA_TECNICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>-->
-                                <button class="btn btn-primary" type="button" onclick="mensaje({{$competencia->ID_COMPETENCIA_TECNICA}},8)">Mensaje</button>
+                                <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$competencia->ID_COMPETENCIA_TECNICA}},8)">Mensaje</button>
+                                @if(strcmp($competencia->ESTATUS_COMPETENCIA_TECNICA,'0')==0)
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$competencia->ID_COMPETENCIA_TECNICA}},8,1,this)">Bloquear</button>
+                                @else
+                                  <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$competencia->ID_COMPETENCIA_TECNICA}},8,0,this)">Desbloquear</button>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -536,6 +583,11 @@
                           <div class="col-md-11 col-sm-11 col-xs-12">
                             <!--<button class="btn btn-primary pull-right" type="button" onclick="guardarIdioma()" {{$disabled}}>Guardar</button>-->
                             <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['IDIOMA']->ID_IDIOMA}},9)">Mensaje</button>
+                            @if(strcmp($descripcion['IDIOMA']->ESTATUS_IDIOMA,'0')==0)
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,1,this)">Bloquear</button>
+                            @else
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,0,this)">Desbloquear</button>
+                            @endif
                           </div>
                         </div>
                         <br>
@@ -559,6 +611,11 @@
                           <div class="col-md-11 col-sm-11 col-xs-12">
                             <!--<button class="btn btn-primary pull-right" type="button" onclick="guardarComputacion()">Guardar</button>-->
                             <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10)">Mensaje</button>
+                            @if(strcmp($descripcion['COMPUTACION']->ESTATUS_COMPUTACION,'0')==0)
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,1,this)">Bloquear</button>
+                            @else
+                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,0,this)">Desbloquear</button>
+                            @endif
                           </div>
                         </div>
                         <!--Comptencias Fin-->
@@ -1488,6 +1545,35 @@ function guardar_Actividades(tmp_cont_actG,elemento){
         }
       })//*/
 
+    }
+
+    function CambiaEstatus(idElemento,elemento,estatus,boton){
+      //swal("", "Favor de no dejar campos vacíos", "warning");
+      //console.log(idElemento);
+      //console.log(jQuery().jquery);
+      var inverso;
+      var TextoBoton = "Error";
+      if(estatus == 0){
+        inverso = 1;
+        TextoBoton = 'Bloquear';
+      }
+      else{
+        inverso = 0;
+        TextoBoton = 'Desbloquear';
+      }
+      var success;
+      var url = "/descripcion/cambia_estatus"
+      var dataForm = new FormData();
+      dataForm.append('idElemento',idElemento);
+      dataForm.append('elemento',elemento);
+      dataForm.append('estatus',estatus);
+      dataForm.append('id_descripcion',id_des);
+      metodoAjax(url,dataForm,function(success){
+        swal("", "Estatus cambiado satisfactoriamente", "success");
+        $(boton).attr('onclick','CambiaEstatus('+idElemento+','+elemento+','+inverso+',this)');
+        $(boton).text(TextoBoton);
+      });//*/
+      
     }
 
 

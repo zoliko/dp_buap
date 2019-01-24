@@ -204,11 +204,11 @@
                               </td>
                               <td>
                                 <div class="form-group">
-                                  <textarea class="form-control" rows="5" id="ActividadEspecifica{{$i}}">{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
+                                  <textarea class="form-control" rows="5" id="ActividadEspecifica{{$i}}" {{$disabled}}>{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
                                 </div>
                               </td>
                               <td>
-                                <button  class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp({{$actividad->ID_ACT_ESP}},{{$i}})">Actualizar</button>
+                                <button  class="btn btn-primary" type="button" onclick="actualizar_ActividadEsp({{$actividad->ID_ACT_ESP}},{{$i}})" {{$disabled}}>Actualizar</button>
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -249,12 +249,12 @@
                           @foreach($descripcion['PUESTOS_PROVEEDORES'] as $puesto)
                             <!-- {{$disabled = ((strcmp($puesto->ESTATUS_PROVEEDOR,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <td><input type="text" id="Proveedor{{$i}}" value="{{$puesto->DESCRIPCION_PROVEEDOR}}" class="form-control col-md-12 col-xs-12"></td>
+                              <td><input type="text" id="Proveedor{{$i}}" value="{{$puesto->DESCRIPCION_PROVEEDOR}}" class="form-control col-md-12 col-xs-12" {{$disabled}}></td>
                               <td>
-                                  <textarea class="form-control" id="insumo{{$i}}">{{$puesto->INSUMO_PROVEEDOR}}</textarea>
+                                  <textarea class="form-control" id="insumo{{$i}}" {{$disabled}}>{{$puesto->INSUMO_PROVEEDOR}}</textarea>
                               </td>
                               <td>
-                                <select class="form-control" id="frecuenciaPP{{$i}}">
+                                <select class="form-control" id="frecuenciaPP{{$i}}" {{$disabled}}>
                                   <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
                                   <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
                                   <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_PROVEEDOR,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
@@ -266,7 +266,7 @@
                                 </select>
                               </td>
                               <td>
-                                <button class="btn btn-primary" type="button" onclick="actualizar_pp({{$puesto->ID_PUESTO_PROVEEDOR}},{{$i}})">Actualizar</button>
+                                <button class="btn btn-primary" type="button" onclick="actualizar_pp({{$puesto->ID_PUESTO_PROVEEDOR}},{{$i}})" {{$disabled}}>Actualizar</button>
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -301,12 +301,14 @@
                           @foreach($descripcion['PUESTOS_CLIENTES'] as $puesto)
                             <!-- {{$disabled = ((strcmp($puesto->ESTATUS_CLIENTE,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <td><input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}" class="form-control col-md-12 col-xs-12"></td>
                               <td>
-                                  <textarea class="form-control" id="productoCliente{{$i}}">{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                                <input type="text" id="cliente{{$i}}" value="{{$puesto->DESCRIPCION_CLIENTE}}" class="form-control col-md-12 col-xs-12" {{$disabled}}>
                               </td>
                               <td>
-                                <select class="form-control" id="frecuenciaPC{{$i}}">
+                                  <textarea class="form-control" id="productoCliente{{$i}}" {{$disabled}}>{{$puesto->PRODUCTO_CLIENTE}}</textarea>
+                              </td>
+                              <td>
+                                <select class="form-control" id="frecuenciaPC{{$i}}" {{$disabled}}>
                                   <option value="VARIABLE" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'VARIABLE')==0)?'SELECTED':'')}}>VARIABLE</option>
                                   <option value="DIARIO" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'DIARIO')==0)?'SELECTED':'')}}>DIARIO</option>
                                   <option value="SEMANAL" {{((strcmp($puesto->FRECUENCIA_CLIENTE,'SEMANAL')==0)?'SELECTED':'')}}>SEMANAL</option>
@@ -318,7 +320,7 @@
                                 </select>
                               </td>
                               <td>
-                                <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})">Actualizar</button>
+                                <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})" {{$disabled}}>Actualizar</button>
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -546,7 +548,7 @@
                         <br>
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
-                            <button class="btn btn-primary pull-right" type="button" onclick="guardarComputacion()">Guardar</button>
+                            <button class="btn btn-primary pull-right" type="button" onclick="guardarComputacion()" {{$disabled}}>Guardar</button>
                           </div>
                         </div>
                         <!--Comptencias Fin-->
@@ -613,8 +615,8 @@ $(document).ready(function(){
 
   $( window ).load(function() {
     console.log('Formulario normal');
-    /*console.log(json_descripcion);
-    console.log(puestos);
+    console.log(json_descripcion);
+    /*console.log(puestos);
     console.log(ldist);
     console.log(disSob);//*/
     llenado();

@@ -1310,6 +1310,7 @@
             $mensaje = date('Y-m-d H:i:s').' - '.$request['mensaje'];
             $tabla = '';
             $campo = '';
+            $id_descripcion = $request['id_descripcion'];
             switch ($opcion) {
                 case '1':
                     //dd('Mensaje Proposito_General');
@@ -1343,9 +1344,10 @@
                     break;
                 case '6':
                     //dd('Mensaje formacion_profesional');
-                    $tabla = 'DP_AREAS_ANIOS_EXPERIENCIA';
-                    $campoId = 'AREAS_ANIOS_EXPERIENCIA_ID';
-                    $campoMensaje = 'AREAS_ANIOS_MENSAJE';
+                    $tabla = 'REL_PROFESION_DESCRIPCION';
+                    $campoId = 'FK_DESCRIPCION';
+                    $idElemento = $id_descripcion;
+                    $campoMensaje = 'REL_PROFESION_DESCRIPCION_MENSAJE';
                     break;
                 case '7':
                     //dd('Mensaje competencia_generica');
@@ -1373,12 +1375,98 @@
                     break;
                 
                 default:
-                    dd('Nada');
+                    dd('Error');
                     break;
             }
             $update = DB::table($tabla)
                 ->where($campoId, $idElemento)
                 ->update([$campoMensaje => $mensaje]);
+
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
+        }
+
+        public function CambiaEstus(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //dd($request['estatus']);
+            $opcion = $request['elemento'];
+            $idElemento = $request['idElemento'];
+            $estatus = $request['estatus'];
+            $id_descripcion = $request['id_descripcion'];
+            $tabla = '';
+            $campo = '';
+            switch ($opcion) {
+                case '1':
+                    //dd('Mensaje Proposito_General');
+                    $tabla = 'DP_PROPOSITO_GENERAL';
+                    $campoId = 'PROPOSITO_GENERAL_ID';
+                    $campo = 'PROPOSITO_GENERAL_ESTATUS';
+                    break;
+                case '2':
+                    //dd('Mensaje actividad_general');
+                    $tabla = 'DP_ACTIVIDADES_GENERALES';
+                    $campoId = 'ACTIVIDADES_GENERALES_ID';
+                    $campo = 'ACTIVIDADES_GENERALES_ESTATUS';
+                    break;
+                case '3':
+                    //dd('Mensaje actividad_especifica');
+                    $tabla = 'DP_ACTIVIDADES_ESPECIFICAS';
+                    $campoId = 'ACTIVIDADES_ESPECIFICAS_ID';
+                    $campo = 'ACTIVIDADES_ESPECIFICAS_ESTATUS';
+                    break;
+                case '4':
+                    //dd('Mensaje puesto-proveedor');
+                    $tabla = 'DP_PUESTOS_PROVEEDORES';
+                    $campoId = 'PUESTOS_PROVEEDORES_ID';
+                    $campo = 'PUESTOS_PROVEEDORES_ESTATUS';
+                    break;
+                case '5':
+                    //dd('Mensaje puesto-clientes');
+                    $tabla = 'DP_PUESTOS_CLIENTES';
+                    $campoId = 'PUESTOS_CLIENTES_ID';
+                    $campo = 'PUESTOS_CLIENTES_ESTATUS';
+                    break;
+                case '6':
+                    //dd('Mensaje formacion_profesional');
+                    $tabla = 'REL_PROFESION_DESCRIPCION';
+                    $campoId = 'FK_DESCRIPCION';
+                    $idElemento = $id_descripcion;
+                    $campo = 'REL_PROFESION_DESCRIPCION_ESTATUS';
+                    break;
+                case '7':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPETENCIAS_GENERICAS';
+                    $campoId = 'COMPETENCIAS_GENERICAS_ID';
+                    $campo = 'COMPETENCIAS_GENERICAS_ESTATUS';
+                    break;
+                case '8':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPETENCIAS_TECNICAS';
+                    $campoId = 'COMPETENCIAS_TECNICAS_ID';
+                    $campo = 'COMPETENCIAS_TECNICAS_ESTATUS';
+                    break;
+                case '9':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_IDIOMAS';
+                    $campoId = 'IDIOMAS_ID';
+                    $campo = 'IDIOMAS_ESTATUS';
+                    break;
+                case '10':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPUTACION';
+                    $campoId = 'COMPUTACION_ID';
+                    $campo = 'COMPUTACION_ESTATUS';
+                    break;
+                
+                default:
+                    dd('Error');
+                    break;
+            }
+            $update = DB::table($tabla)
+                ->where($campoId, $idElemento)
+                ->update([$campo => $estatus]);
 
             $data = array(
                 "update" => $update
