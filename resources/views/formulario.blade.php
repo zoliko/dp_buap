@@ -612,10 +612,11 @@ $(document).ready(function(){
   var disSob = puestos.filter(puesto => !puestos.includes(ldist));
 
   $( window ).load(function() {
-    console.log(json_descripcion);
+    console.log('Formulario normal');
+    /*console.log(json_descripcion);
     console.log(puestos);
     console.log(ldist);
-    console.log(disSob);
+    console.log(disSob);//*/
     llenado();
      //alert(id_des);
   });

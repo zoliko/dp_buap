@@ -229,14 +229,16 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			    <tr>
-			      <td>Formación profesional</td>
-			      <td align="justify">{{$descripcion['CAT_PROFESIONES'][$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION][($descripcion['FORMACION_PROFESIONAL']->ID_PROFESION)-1]->PROFESION}}</td>
-			    </tr>
-			    <tr>
-			      <td>Años de experiencia laboral</td>
-			      <td align="justify">{{$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION}}</td>
-			    </tr>
+			  	@if($descripcion['FORMACION_PROFESIONAL'])
+				    <tr>
+				      <td>Formación profesional</td>
+				      <td align="justify">{{$descripcion['CAT_PROFESIONES'][$descripcion['FORMACION_PROFESIONAL']->AREA_PROFESION][($descripcion['FORMACION_PROFESIONAL']->ID_PROFESION)-1]->PROFESION}}</td>
+				    </tr>
+				    <tr>
+				      <td>Años de experiencia laboral</td>
+				      <td align="justify">{{$descripcion['FORMACION_PROFESIONAL']->ANIOS_EXPERIENCIA_PROFESION}}</td>
+				    </tr>
+				@endif
 			  </tbody>
 			</table>
 		</div>
@@ -596,14 +598,14 @@
 			      <th scope="row" colspan="2" class="bloque">Computación</th>
 			    </tr>
 			    <tr>
-			      <th scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->PAQUETERIA_COMPUTACION:'')}}</th>
-			      <th scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION:'')}}</th>
+			      <th scope="row" class="bloque fondo" style="width: 50%">Paquetería</th>
+			      <th scope="row" class="bloque fondo" style="width: 50%">Nivel de Dominio</th>
 			    </tr>
 			  </thead>
 			  <tbody>
 			    <tr>
-			      <td>Paquetería de Office	</td>
-			      <td align="justify">Medio</td>
+			      <td scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->PAQUETERIA_COMPUTACION:'')}}</td>
+			      <td scope="row" class="bloque fondo" style="width: 50%">{{(($descripcion['COMPUTACION'])?$descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION:'')}}</td>
 			    </tr>
 			  </tbody>
 			</table>
@@ -617,14 +619,15 @@
 			    </tr>
 			  </thead>
 			  <tbody>
-			  	@if($distribucion)
-			    @for ($i = 1; $i < 6; $i++)
-				    <tr>
-				      <td>Distribucion {{$i}}</td>
-				      <td>Distribucion {{$i+1}}</td>
-				    </tr>
-				 	<!--{{$i++}}-->
-				@endfor
+			  	@if($descripcion['LISTA_DISTRIBUCION'])
+				    @for($i = 0; $i < count($descripcion['LISTA_DISTRIBUCION']); $i++)
+					    <tr>
+					      <td>{{((isset($descripcion['LISTA_DISTRIBUCION'][$i]))?$descripcion['PUESTOS_ID'][$descripcion['LISTA_DISTRIBUCION'][$i]->FK_LISTA_DISTRIBUCION]->NOMBRE_PUESTO:'')}}</td>
+					      <td>{{((isset($descripcion['LISTA_DISTRIBUCION'][$i+1]))?$descripcion['PUESTOS_ID'][$descripcion['LISTA_DISTRIBUCION'][$i+1]->FK_LISTA_DISTRIBUCION]->NOMBRE_PUESTO:'')}}</td>
+					    </tr>
+					 	<!--{{$i++}}-->
+					@endfor
+				@endif
 			  </tbody>
 			</table>
 		</div>

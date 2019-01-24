@@ -333,6 +333,11 @@
             return view('formulario') ->with ("descripcion",$descripcion);
         }
 
+        public function abrirDescripcionRevision($ID_descripcion){
+            $descripcion = DescripcionesPuestosController::ontenerDescripcion($ID_descripcion);
+            return view('formulario_revision') ->with ("descripcion",$descripcion);
+        }
+
         //Se obtiene la descripcion de puesto con todos sus datos <<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>
         public function ontenerDescripcion($ID_descripcion){
             $descripcion = array();
@@ -369,6 +374,7 @@
                                 ['PROPOSITO_GENERAL_ID',$existe_proposito[0]->FK_PROPOSITO]
                             ])
                     ->select([
+                                'PROPOSITO_GENERAL_ID as ID_PROPOSITO_GENERAL',
                                 'PROPOSITO_GENERAL_DESCRIPCION as PROPOSITO_GENERAL',
                                 'PROPOSITO_GENERAL_ESTATUS as ESTATUS_PROPOSITO_GENERAL',
                                 'PROPOSITO_GENERAL_MENSAJE as MENSAJE_PROPOSITO_GENERAL',
@@ -527,6 +533,7 @@
                 }
 
                 $FormacionProfesional[0]->ANIOS_EXPERIENCIA_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_DESCRIPCION;
+                $FormacionProfesional[0]->ID_AREA_ANIOS_PROFESION = $aniosExperiencia[0]->AREAS_ANIOS_EXPERIENCIA_ID;
                 $descripcion['FORMACION_PROFESIONAL'] = $FormacionProfesional[0];
             }else{
                 $descripcion['FORMACION_PROFESIONAL'] = null;
@@ -586,6 +593,7 @@
                 $idioma = DB::table('DP_IDIOMAS')
                     ->where('IDIOMAS_ID',$relIdioma[0]->FK_IDIOMA)
                     ->select([
+                                'IDIOMAS_ID as ID_IDIOMA',
                                 'IDIOMAS_IDIOMA as IDIOMA',
                                 'IDIOMAS_NIVEL_DOMINIO as NIVEL_DOMINIO_IDIOMA',
                                 'IDIOMAS_ESTATUS as ESTATUS_IDIOMA',
@@ -605,6 +613,7 @@
                 $computacion = DB::table('DP_COMPUTACION')
                     ->where('COMPUTACION_ID',$relComputacion[0]->FK_COMPUTACION)
                     ->select([
+                                'COMPUTACION_ID as ID_COMPUTACION',
                                 'COMPUTACION_PAQUETERIA_SISTEMA as PAQUETERIA_COMPUTACION',
                                 'COMPUTACION_NIVEL_DOMINIO as NIVEL_DOMINIO_COMPUTACION',
                                 'COMPUTACION_ESTATUS as ESTATUS_COMPUTACION',
@@ -640,6 +649,21 @@
             }
             $descripcion['PUESTOS'] = $puestos;
             //dd($puestos);
+
+            //enviamos los puestos con sus id para poder utilizarlos en la impresion
+            $puestos_id = array();
+            foreach ($rel_puestos_dep as $puesto) {
+                $tmp_puestos = DB::table('DP_DESCRIPCIONES')
+                    ->where('DESCRIPCIONES_ID',$puesto->FK_DESCRIPCION)
+                    ->select(
+                                'DESCRIPCIONES_ID  as ID_PUESTO',
+                                'DESCRIPCIONES_NOM_PUESTO as NOMBRE_PUESTO'
+                            )
+                    ->get();
+                $puestos_id[$tmp_puestos[0]->ID_PUESTO]=$tmp_puestos[0];
+            }
+            //dd($puestos_id);
+            $descripcion['PUESTOS_ID'] = $puestos_id;
 
             //Obteniendo la relacion de la lista de distribución
             $rel_des_ldis = DB::table('REL_LDISTRIBUCION_DESCRIPCION')
@@ -1276,6 +1300,90 @@
               );
             echo json_encode($data);
 
+        }
+
+        public function GuardaMensaje(Request $request){
+            date_default_timezone_set('America/Mexico_City');
+            //dd($request['idElemento']);
+            $opcion = $request['elemento'];
+            $idElemento = $request['idElemento'];
+            $mensaje = date('Y-m-d H:i:s').' - '.$request['mensaje'];
+            $tabla = '';
+            $campo = '';
+            switch ($opcion) {
+                case '1':
+                    //dd('Mensaje Proposito_General');
+                    $tabla = 'DP_PROPOSITO_GENERAL';
+                    $campoId = 'PROPOSITO_GENERAL_ID';
+                    $campoMensaje = 'PROPOSITO_GENERAL_MENSAJE';
+                    break;
+                case '2':
+                    //dd('Mensaje actividad_general');
+                    $tabla = 'DP_ACTIVIDADES_GENERALES';
+                    $campoId = 'ACTIVIDADES_GENERALES_ID';
+                    $campoMensaje = 'ACTIVIDADES_GENERALES_MENSAJE';
+                    break;
+                case '3':
+                    //dd('Mensaje actividad_especifica');
+                    $tabla = 'DP_ACTIVIDADES_ESPECIFICAS';
+                    $campoId = 'ACTIVIDADES_ESPECIFICAS_ID';
+                    $campoMensaje = 'ACTIVIDADES_ESPECIFICAS_MENSAJE';
+                    break;
+                case '4':
+                    //dd('Mensaje puesto-proveedor');
+                    $tabla = 'DP_PUESTOS_PROVEEDORES';
+                    $campoId = 'PUESTOS_PROVEEDORES_ID';
+                    $campoMensaje = 'PUESTOS_PROVEEDORES_MENSAJE';
+                    break;
+                case '5':
+                    //dd('Mensaje puesto-clientes');
+                    $tabla = 'DP_PUESTOS_CLIENTES';
+                    $campoId = 'PUESTOS_CLIENTES_ID';
+                    $campoMensaje = 'PUESTOS_CLIENTES_MENSAJE';
+                    break;
+                case '6':
+                    //dd('Mensaje formacion_profesional');
+                    $tabla = 'DP_AREAS_ANIOS_EXPERIENCIA';
+                    $campoId = 'AREAS_ANIOS_EXPERIENCIA_ID';
+                    $campoMensaje = 'AREAS_ANIOS_MENSAJE';
+                    break;
+                case '7':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPETENCIAS_GENERICAS';
+                    $campoId = 'COMPETENCIAS_GENERICAS_ID';
+                    $campoMensaje = 'COMPETENCIAS_GENERICAS_MENSAJE';
+                    break;
+                case '8':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPETENCIAS_TECNICAS';
+                    $campoId = 'COMPETENCIAS_TECNICAS_ID';
+                    $campoMensaje = 'COMPETENCIAS_TECNICAS_MENSAJE';
+                    break;
+                case '9':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_IDIOMAS';
+                    $campoId = 'IDIOMAS_ID';
+                    $campoMensaje = 'IDIOMAS_GRADO_MENSAJE';
+                    break;
+                case '10':
+                    //dd('Mensaje competencia_generica');
+                    $tabla = 'DP_COMPUTACION';
+                    $campoId = 'COMPUTACION_ID';
+                    $campoMensaje = 'COMPUTACION_GRADO_MENSAJE';
+                    break;
+                
+                default:
+                    dd('Nada');
+                    break;
+            }
+            $update = DB::table($tabla)
+                ->where($campoId, $idElemento)
+                ->update([$campoMensaje => $mensaje]);
+
+            $data = array(
+                "update" => $update
+              );
+            echo json_encode($data);
         }
 
     }//fin clase

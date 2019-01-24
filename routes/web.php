@@ -39,7 +39,7 @@ Route::get('/blanco', function () {
 /*Route::get('/descripcion/nuevo', function () {
     return view('formulario');
 });//*/
-Route::get('/descripcion/{ID_descripcion}', function () {
+/*Route::get('/descripcion/{ID_descripcion}', function () {
    return view('formulario') ->with ("ID_descripcion",$ID_descripcion) ;
 });//*/
 Route::get('/descripciones/gestionar/{id_dependencia}' , 'DescripcionesPuestosController@traeDescripciones');
@@ -59,25 +59,22 @@ Route::post('/descripcion/actualiza_prov', 'DescripcionesPuestosController@Actua
 Route::post('/descripcion/actualiza_cliente', 'DescripcionesPuestosController@ActualizarPuestoCliente');
 Route::post('/descripcion/guarda_formacion', 'DescripcionesPuestosController@GuardarFormacionProfesional');
 Route::post('/descripcion/guarda_distribucion', 'DescripcionesPuestosController@GuardarDistribucion');
-
 Route::post('/descripcion/guardar_Actividades', 'DescripcionesPuestosController@guardarActividad');
 Route::post('/descripcion/guardar_ActividadesEspecifica', 'DescripcionesPuestosController@guardar_ActividadesEspecifica');
-
 Route::post('/descripcion/guardar_relacion', 'DescripcionesPuestosController@guardarelacion');
 Route::post('/descripcion/guardar_relacion2', 'DescripcionesPuestosController@guardarelacion2');
 Route::post('/descripcion/guardar_CompetenciasG', 'DescripcionesPuestosController@guardarcompetenciaG');
 Route::post('/descripcion/actualizar_CompetenciasG', 'DescripcionesPuestosController@actualizarCompG');
 Route::post('/descripcion/guardar_CompetenciasT', 'DescripcionesPuestosController@guardarcompetenciaT');
 Route::post('/descripcion/actualizar_CompetenciasT', 'DescripcionesPuestosController@actualizarCompT');
-
 Route::post('/descripcion/guardar_formacion', 'DescripcionesPuestosController@guardaformacion');
 Route::post('/descripcion/guardaIdioma', 'DescripcionesPuestosController@guardarIdioma');
 Route::post('/descripcion/guardaComputacion', 'DescripcionesPuestosController@guardaComputacion');
-
-
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
 
+//revision de las descripciones
+Route::get('/descripcion/revision/{ID_descripcion}' , 'DescripcionesPuestosController@abrirDescripcionRevision');
 
 //dependencias
 Route::get('/dependencias','DependenciasController@redirigeDependencias');
@@ -119,3 +116,6 @@ Route::get('visualizar','DescripcionesPuestosController@visualizaPdf');
 /*Route::get('visualizar', function(){
   return view('pdf.descripcion');
 });//*/
+
+//mensaje
+Route::post('/descripcion/mensaje', 'DescripcionesPuestosController@GuardaMensaje');

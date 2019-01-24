@@ -42,8 +42,9 @@
     <!-- Archivos adicionales -->
     @yield('cssFiles')
 
-    <!-- sweet alert -->
-    <link href="{{asset('sweetalert-master/dist/sweetalert.css')}}" rel="stylesheet">
+    
+
+    
 
     <style type="text/css">
       .test[style] {
@@ -158,8 +159,25 @@
     <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{asset('sweetalert-master/dist/sweetalert.min.js')}}"></script>
-    <!-- Archivos adicionales -->
+    
+    <!-- sweet alert CSS -->
+    <!--<link href="{{asset('sweetalert-master/dist/sweetalert.css')}}" rel="stylesheet">-->
+
+    <!-- sweet alert 2 CSS -->
+    <!--<link href="{{asset('SweetAlert2/dist/sweetalert2.css')}}" rel="stylesheet">-->
+
+    <!-- Sweet Alert JS -->
+    <!--<script src="{{asset('sweetalert-master/dist/sweetalert.min.js')}}"></script>-->
+
+    <!-- sweet alert 2-->
+    <!--<script src="{{asset('SweetAlert2/dist/sweetalert2.min.js')}}"></script>-->
+    <!--<script src="{{asset('SweetAlert2/dist/sweetalert2.all.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>-->
+
+    <!--  Este llamado si funciona -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7"></script>-->
+
     @yield('jsFiles')
 
       <!-- modales -->
