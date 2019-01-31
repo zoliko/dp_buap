@@ -114,7 +114,11 @@
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">Propósito General del Puesto 
                                 <i class="fa fa-question-circle" data-toggle="popover" data-placement="left" title="Proposito General" data-content="Indicar la razón u objetivo principal del puesto, es decir, el tipo de necesidad que cubre y para qué fue creado o resulta necesario, enunciarlo preferentemente con verbos en infinitivo y responder: ¿qué hace?, ¿Cómo lo hace o por medio de qué lo hace? y ¿para qué lo hace?, es importante utilizar las palabras adecuadas al nivel que ocupa en puesto dentro del organigrama, según su grado de responsabilidad, (ejemplo: coordinar y gestionar…).">
                                 </i>
+                                @if(isset($descripcion['PROPOSITO_GENERAL']->MENSAJE_PROPOSITO_GENERAL) && strcmp($descripcion['PROPOSITO_GENERAL']->ESTATUS_PROPOSITO_GENERAL,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$descripcion['PROPOSITO_GENERAL']->MENSAJE_PROPOSITO_GENERAL}}" style="color: red;"></i>
+                                @endif
                               </label>
+
                               <div class="col-md-9 col-sm-9 col-xs-12">
                                 @if($descripcion['PROPOSITO_GENERAL'])
                                   @if($descripcion['PROPOSITO_GENERAL']->ESTATUS_PROPOSITO_GENERAL==0)
@@ -165,7 +169,12 @@
                           @foreach($descripcion['ACTIVIDADES_GRLES'] as $actividad)
                           <!-- {{$disabled = ((strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)?'':'disabled')}} -->
                             <tr>
-                              <td>{{$i}}</td>
+                              <td>
+                                {{$i}}
+                                @if($actividad->MENSAJE_ACTIVIDAD && strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$actividad->MENSAJE_ACTIVIDAD}}" style="color: red;"></i>
+                                @endif
+                              </td>
                               <td>
                                 <textarea class="form-control" rows="5" id="actividadPrin{{$i}}" {{$disabled}}>{{$actividad->NOMBRE_ACTIVIDAD}}</textarea>
                               </td>
@@ -201,6 +210,9 @@
                             <tr>
                               <td>
                                 {{$i}}
+                                @if($actividad->MENSAJE_ACTIVIDAD && strcmp($actividad->ESTATUS_ACTIVIDAD,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$actividad->MENSAJE_ACTIVIDAD}}" style="color: red;"></i>
+                                @endif
                               </td>
                               <td>
                                 <div class="form-group">
@@ -267,6 +279,10 @@
                               </td>
                               <td>
                                 <button class="btn btn-primary" type="button" onclick="actualizar_pp({{$puesto->ID_PUESTO_PROVEEDOR}},{{$i}})" {{$disabled}}>Actualizar</button>
+
+                                @if($puesto->MENSAJE_PROVEEDOR && strcmp($puesto->ESTATUS_PROVEEDOR,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$puesto->MENSAJE_PROVEEDOR}}" style="color: red;"></i>
+                                @endif
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -321,6 +337,10 @@
                               </td>
                               <td>
                                 <button class="btn btn-primary" type="button" onclick="actualizar_pc({{$puesto->ID_PUESTO_CLIENTE}},{{$i}})" {{$disabled}}>Actualizar</button>
+
+                                @if($puesto->MENSAJE_CLIENTE && strcmp($puesto->ESTATUS_CLIENTE,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$puesto->MENSAJE_CLIENTE}}" style="color: red;"></i>
+                                @endif
                               </td>
                             </tr>
                             <!-- {{$i++}} -->
@@ -331,7 +351,12 @@
                       <button onclick="AgregaRelacion2()">Agregar Relacion </button>
                     </div>
                     <div class="tab-pane" id="Perfil">
-                      <p class="lead">Formación Profesional y Experiencia <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i></p>
+                      <p class="lead">Formación Profesional y Experiencia 
+                        <i class="fa fa-question-circle" data-toggle="popover" title="Formación Profesional y Experiencia" data-content="Indicar el grado académico mínimo requerido para ocupar el puesto, así como  la experiencia en un área específica de conocimiento, si es que ésta se requiere."></i>
+                        @if(isset($descripcion['FORMACION_PROFESIONAL']->MENSAJE_PROFESION) && strcmp($descripcion['FORMACION_PROFESIONAL']->STATUS_PROFESION,'0')==0)
+                          <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$descripcion['FORMACION_PROFESIONAL']->MENSAJE_PROFESION}}" style="color: red;"></i>
+                        @endif
+                      </p>
                       <i class="fas fa-comment-lines"></i>
                       <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                         <div class="form-group">
@@ -450,6 +475,9 @@
                               </td>
                               <td>
                                 <button class="btn btn-primary" type="button" onclick="actualizarCompGen({{$competencia->ID_COMPETENCIA_GENERICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
+                                @if(isset($competencia->MENSAJE_COMPETENCIA_GENERICA) && strcmp($competencia->ESTATUS_COMPETENCIA_GENERICA,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$competencia->MENSAJE_COMPETENCIA_GENERICA}}" style="color: red;"></i>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -499,6 +527,9 @@
                               </td>
                               <td>
                                 <button class="btn btn-primary" type="button" onclick="actualizarCompTec({{$competencia->ID_COMPETENCIA_TECNICA}} ,{{$i}})" {{$disabled}}>Actualizar</button>
+                                @if(isset($competencia->MENSAJE_COMPETENCIA_TECNICA) && strcmp($competencia->ESTATUS_COMPETENCIA_TECNICA,'0')==0)
+                                  <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$competencia->MENSAJE_COMPETENCIA_TECNICA}}" style="color: red;"></i>
+                                @endif
                               </td>
                             </tr>
                             <!--{{$i++}}-->
@@ -522,6 +553,9 @@
                             </select>
                           </div>
                           <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
+                          @if(isset($descripcion['IDIOMA']->MENSAJE_IDIOMA) && strcmp($descripcion['IDIOMA']->ESTATUS_IDIOMA,'0')==0)
+                            <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$descripcion['IDIOMA']->MENSAJE_IDIOMA}}" style="color: red;"></i>
+                          @endif
                         </div>
                         <br>
                         <div class="form-group">
@@ -543,7 +577,11 @@
                               <option value="MEDIO" {{(($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION,'MEDIO')==0)?'SELECTED':''):'')}}>MEDIO</option>
                               <option value="ALTO" {{(($descripcion['COMPUTACION'])?((strcmp($descripcion['COMPUTACION']->NIVEL_DOMINIO_COMPUTACION,'ALTO')==0)?'SELECTED':''):'')}}>ALTO</option>
                             </select>
-                          </div>                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
+                          </div>
+                          <i class="fa fa-question-circle" data-toggle="popover" data-placement="auto" title="Área" data-content="Especificar el área en que se requiere que tenga experiencia."></i>
+                          @if(isset($descripcion['COMPUTACION']->MENSAJE_COMPUTACION) && strcmp($descripcion['COMPUTACION']->ESTATUS_COMPUTACION,'0')==0)
+                            <i class="fa fa-envelope-o" data-toggle="popover" data-placement="left" title="{{$descripcion['COMPUTACION']->MENSAJE_COMPUTACION}}" style="color: red;"></i>
+                          @endif
                         </div>
                         <br>
                         <div class="form-group">

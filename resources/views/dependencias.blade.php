@@ -546,11 +546,23 @@
 
     function abrirDescripcion(id_descripcion){
       //location.href = "/descripcion/"+id_descripcion;
-      window.open("/descripcion/"+id_descripcion,'_blank');
+
+      var url = "";
+      if(categoria_usr != 'FACILITADOR'){
+        window.open("/descripcion/"+id_descripcion,'_blank');
+      }else{
+        window.open("/descripcion/revision/"+id_descripcion,'_blank');
+      }
+      
     }
 
     function verPdfDesc(id_descripcion){
       console.log("Mostrando descripcion");
+      window.open("/descripciones/pdf/"+id_descripcion,'_blank');
+    }
+
+    function aprobar(fl){
+      swal("", "Descripción aprobada", "success");
     }
 
   </script>

@@ -18,8 +18,8 @@
         public function crearPdf($id_descripcion){
             $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
             $pdf = \PDF::loadView('pdf.descripcion',['descripcion'=>$descripcion]);
-            return $pdf->download($descripcion['DATOS']->NOM_DESC.'.pdf');
-            //return $pdf->stream();
+            //return $pdf->download($descripcion['DATOS']->NOM_DESC.'.pdf');
+            return $pdf->stream();
         }
 
         /*public function visualizaPdf($id_descripcion){

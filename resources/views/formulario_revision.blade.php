@@ -582,11 +582,13 @@
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
                             <!--<button class="btn btn-primary pull-right" type="button" onclick="guardarIdioma()" {{$disabled}}>Guardar</button>-->
-                            <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['IDIOMA']->ID_IDIOMA}},9)">Mensaje</button>
-                            @if(strcmp($descripcion['IDIOMA']->ESTATUS_IDIOMA,'0')==0)
-                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,1,this)">Bloquear</button>
-                            @else
-                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,0,this)">Desbloquear</button>
+                            @if($descripcion['IDIOMA'])
+                              <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['IDIOMA']->ID_IDIOMA}},9)">Mensaje</button>
+                              @if(strcmp($descripcion['IDIOMA']->ESTATUS_IDIOMA,'0')==0)
+                                <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,1,this)">Bloquear</button>
+                              @else
+                                <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['IDIOMA']->ID_IDIOMA}},9,0,this)">Desbloquear</button>
+                              @endif
                             @endif
                           </div>
                         </div>
@@ -610,11 +612,13 @@
                         <div class="form-group">
                           <div class="col-md-11 col-sm-11 col-xs-12">
                             <!--<button class="btn btn-primary pull-right" type="button" onclick="guardarComputacion()">Guardar</button>-->
-                            <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10)">Mensaje</button>
-                            @if(strcmp($descripcion['COMPUTACION']->ESTATUS_COMPUTACION,'0')==0)
-                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,1,this)">Bloquear</button>
-                            @else
-                              <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,0,this)">Desbloquear</button>
+                            @if($descripcion['IDIOMA'])
+                              <button class="btn btn-primary pull-right" type="button" onclick="mensaje({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10)">Mensaje</button>
+                              @if(strcmp($descripcion['COMPUTACION']->ESTATUS_COMPUTACION,'0')==0)
+                                <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,1,this)">Bloquear</button>
+                              @else
+                                <button class="btn btn-primary pull-right" type="button" onclick="CambiaEstatus({{$descripcion['COMPUTACION']->ID_COMPUTACION}},10,0,this)">Desbloquear</button>
+                              @endif
                             @endif
                           </div>
                         </div>
