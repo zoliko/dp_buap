@@ -35,12 +35,12 @@
 
       <div class="login_wrapper">
         <div class="animate form login_form">
-        <center><h1>Descripciones de Puesto</h1></center>
+        <center><h3>Descripciones de Puesto</h3></center>
           <section class="login_content">
           
-            <img src="../images/logo.png" width="200" height="200" />
+            <img src="../images/logo.png" width="150" height="150" />
             <form>
-              <h1>DP_BUAP</h1>
+              <h1>DP BUAP</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Usuario" id="usuario" />
               </div>
@@ -50,12 +50,18 @@
               <div>
                 <a class="btn btn-default submit" onclick="login()">Ingresar</a>
               </div>
+
+              <div>
+                <a href="/registro"><h3>SOLICITAR REVISIÓN DE DESCRIPCIONES DE PUESTOS</h3></a>
+              </div>
             </form>
           </section>
         </div>
       </div>
     </div>
   </body>
+
+
   <!-- modales -->
   <!-- Modal -->
   <div class="modal fade" id="modalMensaje" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

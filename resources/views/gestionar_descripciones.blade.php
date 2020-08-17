@@ -108,7 +108,7 @@
 
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Nivel: <span class="required">*</span>
               </label>
-              <div class="col-md-9 col-sm-9 col-xs-12">
+              <div class="col-md-3 col-sm-3 col-xs-12">
                 <select id="selectNivel" class="form-control" onchange="armarClave()">
                   <option value="false">------</option>
                   <option value="TITULAR">TITULAR</option>
@@ -122,6 +122,22 @@
                   <option value="TECNICO">TÉCNICO</option>
                   <option value="AUXILIAR">AUXILIAR</option>
                 </select>
+              </div>
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Código: <span class="required">*</span>
+              </label>
+              <div class="col-md-3 col-sm-3 col-xs-12">
+                <input type="text" id="Nuevo_Codigo" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Categoría: <span class="required">*</span>
+              </label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <input type="text" id="Nuevo_Categoria" required="required" class="form-control col-md-7 col-xs-12">
               </div>
 
             </div>
@@ -140,6 +156,8 @@
                 <input type="number" id="rep_indirectos" name="last-name" required="required" class="form-control col-md-7 col-xs-12" min="0" value="0">
               </div>
             </div>
+
+            <!-- <hr> -->
 
           </form>
 
@@ -239,6 +257,61 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalComentarios" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloDetalleModal" align="center">Dejar un mensaje</h3>
+        </div>
+        <div class="modal-body">
+
+          
+           <form class="form-horizontal form-label-left">
+
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name" >Mensaje <span class="required">*</span>
+              </label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <textarea class="form-control" id="TextMensajes" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name" > <span class="required"></span>
+              </label>
+              <div class="col-md-9 col-sm-9 col-xs-12">
+                <button type="button" class="btn btn-primary pull-right " onclick="GuardarComentario()">Guardar comentario</button>
+              </div>
+            </div>
+            <!-- ---------------------------------- -->
+            <hr>
+
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Comentario</th>
+                    <!-- <th scope="col" style="width: 20%">Acciones</th> -->
+                  </tr>
+                </thead>
+                <tbody id="CuerpoTablaComentarios">
+                  
+                </tbody>
+              </table>
+
+          </form>
+
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <input type="number" id="detalleIdDP" value="" hidden="hidden">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -250,12 +323,72 @@
     //alert(id_dependencia);
     var PuestoConsecutivo = 1;
     var estatusEdicion = false;
+    var GL_descripcion = 0;
 
     $(window).load(function () {
         $("#nombre_dependencia").text(dependencia);
         llenaDescripciones();
         autollenado();
     });
+
+    function GuardarComentario(){
+      var comentario = $("#TextMensajes").val();
+      console.log(GL_descripcion);
+      console.log(comentario);
+      var success;
+      var url = "/observaciones/insertar";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',GL_descripcion);
+      dataForm.append('comentario',comentario);
+
+      // $("#CuerpoTablaComentarios").append(
+      //       '<tr>'+
+      //         '<td>'+ '------' +'</td>'+
+      //         '<td>'+ comentario +'</td>'+
+      //       '</tr>'
+      //       );
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+          // modalMensaje('¡Éxito!','Se ha almacenado el mensaje satisfactoriamente');
+          $("#CuerpoTablaComentarios").append(
+            '<tr>'+
+              '<td>'+ '------' +'</td>'+
+              '<td>'+ comentario +'</td>'+
+            '</tr>'
+            );
+
+          $("#textoModalMensaje").text('Se ha almacenado el mensaje satisfactoriamente');
+          $("#modalMensaje").modal();
+        
+      });//*/
+    }
+
+    function modalMostrarMensajes(id_descripcion){
+      GL_descripcion = id_descripcion;
+      console.log(id_descripcion);
+      var success;
+      var url = "/observaciones/obtener";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',id_descripcion);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        
+        $("#CuerpoTablaComentarios").html("");
+        for(var i=0; i < success['comentarios'].length ; i++){
+          $("#CuerpoTablaComentarios").append(
+            '<tr>'+
+              '<td>'+ success['comentarios'][i]['created_at'] +'</td>'+
+              '<td>'+ success['comentarios'][i]['COMENTARIOS_COMENTARIO'] +'</td>'+
+            '</tr>'
+            );
+        }
+        $("#modalComentarios").modal();
+      });
+    }
 
     function futuraRevision(fl_revision){
       //console.log(fl_revision);
@@ -492,6 +625,9 @@
                 '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER ARCHIVOS" id="btnArchivos_'+id_des+'" onclick="archivos('+id_des+')">'+
                   '<span class="glyphicon glyphicon-file" aria-hidden="true" ></span>'+
                 '</button>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DEJAR UN COMENTARIO" onclick="modalMostrarMensajes('+id_des+')">'+
+                      '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>'+
+                    '</button>'+
               "</td>"+
             "</tr>"
           );
@@ -657,6 +793,8 @@
       $("#MarcarRevision").hide();//revision a futuro
       $("#DesmarcarRevision").hide();//revision a futuro
       $("#Nuevo_Direccion").val(dependencia);
+      $("#Nuevo_Codigo").val('');
+      $("#Nuevo_Categoria").val('');
       $("#modalNuevaDP").modal();
     }
 
@@ -671,9 +809,12 @@
       objDescripcion.rep_directos = $("#rep_directos").val();
       objDescripcion.rep_indirectos = $("#rep_indirectos").val();
       objDescripcion.nivel = $("#selectNivel").val();
+      objDescripcion.codigo = $("#Nuevo_Codigo").val();
+      objDescripcion.categoria = $("#Nuevo_Categoria").val();
       /*console.log(objDescripcion.puesto);
       console.log(objDescripcion.reporta_a);
       console.log(objDescripcion.area);//*/
+      console.log(objDescripcion);
       //if(puesto!="" && reporta_a != "" && area != "" && dtp != "ninguno" && )
       if(objDescripcion.puesto==""){
         $("#textoModalMensaje").text('Debe registrar el puesto');
@@ -708,9 +849,10 @@
         dataForm.append('nivel',objDescripcion.nivel);
         dataForm.append('rep_directos',objDescripcion.rep_directos);
         dataForm.append('rep_indirectos',objDescripcion.rep_indirectos);
+        dataForm.append('codigo',objDescripcion.codigo);
+        dataForm.append('categoria',objDescripcion.categoria);
         ajaxRegistrarDP(dataForm, objDescripcion);
       }
-
     }
 
     function ajaxRegistrarDP(dataForm,objDescripcion){

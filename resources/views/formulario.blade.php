@@ -463,7 +463,40 @@
                             <!--{{$disabled = ((strcmp($competencia->ESTATUS_COMPETENCIA_GENERICA,'0')==0)?'':'disabled')}}-->
                             <tr>
                               <td>
-                                <input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG{{$i}}" value="{{$competencia->DESCRIPCION_COMPETENCIA_GENERICA}}" {{$disabled}}>
+                                <input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaOLD" value="{{$competencia->DESCRIPCION_COMPETENCIA_GENERICA}}" {{$disabled}} style="display: none"> <!-- no funcional, solo para pruebas -->
+
+                                <select class="form-control form-control-lg" id="CompetenciaG{{$i}}" {{$disabled}}>
+                                  <option {{{((strcmp("Contralor/a General",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Contralor/a General</option>
+                                  <option {{{((strcmp("Coordinador/a de Control a Procesos Administrativos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Procesos Administrativos</option>
+                                  <option {{{((strcmp("Secretaria Ejecutiva",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Secretaria Ejecutiva</option>
+                                  <option {{{((strcmp("Operador/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Operador/a</option>
+                                  <option {{{((strcmp("Director/a de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control Patrimonial</option>
+                                  <option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a Operativo de Control Patrimonial</option>
+                                  '<option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control Patrimonial Área: Centro, Ciudad niversitaria, Salud y Obras Artísticas.</option>
+                                  <option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Inventarios</option>
+                                  <option {{{((strcmp("Coordinador/a de Control Patrimonial a Bajas",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control Patrimonial a Bajas</option>
+                                  <option {{{((strcmp("Operador/a de bajas",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Operador/a de bajas</option>
+                                  <option {{{((strcmp("Subcontralor/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Subcontralor/a</option>
+                                  <option {{{((strcmp("Director/a de Control a Recursos Financieros",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a Recursos Financieros</option>
+                                  <option {{{((strcmp("Director/a de Control a Fondos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a Fondos</option>
+                                  '<option {{{((strcmp("Director/a de Control de Procesos de Personal, Escolares y Académicos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control de Procesos de Personal, Escolares y Académicos</ption>
+                                  <option {{{((strcmp("Director/a Jurídico y Control de Obras",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a Jurídico y Control de Obras</option>
+                                  <option {{{((strcmp("Coordinador/a de Control a Recursos Financieros",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Recursos Financieros</option>
+                                  <option {{{((strcmp("Coordinador/a de Control a Fondos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Fondos</option>
+                                  '<option {{{((strcmp("Coordinador/a de Control de Procesos de Personal, Escolares y cadémicos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control de Procesos de Personal, Escolares y cadémicos</option>
+                                  <option {{{((strcmp("Jefe/a de Departamento de Obras",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a de Departamento de Obras</option>
+                                  <option {{{((strcmp("Auditor/a de Control",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Control</option>
+                                  <option {{{((strcmp("Abogado/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Abogado/a</option>
+                                  <option {{{((strcmp("Analista de Proveedor",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Analista de Proveedor</option>
+                                  <option {{{((strcmp("Director/a de Control a la Gestión",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a la Gestión</option>
+                                  <option {{{((strcmp("Jefe/a Administrativo/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a Administrativo/a</option>
+                                  <option {{{((strcmp("Coordinador/a de Cómputo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Cómputo</option>
+                                  <option {{{((strcmp("Auditor/a de Control a la Gestión",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Control a la Gestión</option>
+                                  <option {{{((strcmp("Técnico/a en Mantenimiento",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Técnico/a en Mantenimiento</option>
+                                  <option {{{((strcmp("Auxiliar Administrativo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar Administrativo</option>
+                                  <option {{{((strcmp("Auxiliar Operativo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar Operativo</option>
+                                  <option {{{((strcmp("Auxiliar de Limpieza",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar de Limpieza</option>
+                                </select>
                               </td>
                               <td>
                                 <select class="form-control" id="GradoDominioG{{$i}}" {{$disabled}}>
@@ -787,9 +820,10 @@ $(document).ready(function(){
       "<tr>"+
         "<td id='nombre_"+cont_actG+"'>"+cont_actG+"</td>"+
         "<td>"+'<div class="form-group">'+
-              //'<label for="comment"></label>'+
+              '<label for="comment"></label>'+
                 '<textarea class="form-control" rows="5" id="actividadPrin'+cont_actG+'"></textarea>'+
                 '</div>'+
+                
         "</td>"+
         "<td>"+'<input type="text" class="form-control" id="indicador'+cont_actG+'" >'+"</td>"+
         "<td>"+'<button class="btn btn-primary" type="button" onclick="guardar_Actividades('+cont_actG+',this)" id="btn_actgrl_'+cont_actG+'">Guardar</button>'+"</td>"+
@@ -822,7 +856,39 @@ $(document).ready(function(){
     $("#tablacompetenciasG").append(
        " <tr>"+
           "<td>"+
-            '<input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG'+con_CG+'">'+
+            // '<input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG'+con_CG+'">'+
+            '<select class="form-control form-control-lg" id="CompetenciaG'+con_CG+'">'+
+                  '<option>Contralor/a General</option>'+
+                  '<option>Coordinador/a de Control a Procesos Administrativos</option>'+
+                  '<option>Secretaria Ejecutiva</option>'+
+                  '<option>Operador/a</option>'+
+                  '<option>Director/a de Control Patrimonial</option>'+
+                  '<option>Jefe/a Operativo de Control Patrimonial</option>'+
+                  '<option>Coordinador/a de Control Patrimonial Área: Centro, Ciudad Universitaria, Salud y Obras Artísticas.</option>'+
+                  '<option>Auditor/a de Inventarios</option>'+
+                  '<option>Coordinador/a de Control Patrimonial a Bajas</option>'+
+                  '<option>Operador/a de bajas</option>'+
+                  '<option>Subcontralor/a</option>'+
+                  '<option>Director/a de Control a Recursos Financieros</option>'+
+                  '<option>Director/a de Control a Fondos</option>'+
+                  '<option>Director/a de Control de Procesos de Personal, Escolares y Académicos</option>'+
+                  '<option>Director/a Jurídico y Control de Obras</option>'+
+                  '<option>Coordinador/a de Control a Recursos Financieros</option>'+
+                  '<option>Coordinador/a de Control a Fondos</option>'+
+                  '<option>Coordinador/a de Control de Procesos de Personal, Escolares y Académicos</option>'+
+                  '<option>Jefe/a de Departamento de Obras</option>'+
+                  '<option>Auditor/a de Control</option>'+
+                  '<option>Abogado/a</option>'+
+                  '<option>Analista de Proveedor</option>'+
+                  '<option>Director/a de Control a la Gestión</option>'+
+                  '<option>Jefe/a Administrativo/a</option>'+
+                  '<option>Coordinador/a de Cómputo</option>'+
+                  '<option>Auditor/a de Control a la Gestión</option>'+
+                  '<option>Técnico/a en Mantenimiento</option>'+
+                  '<option>Auxiliar Administrativo</option>'+
+                  '<option>Auxiliar Operativo</option>'+
+                  '<option>Auxiliar de Limpieza</option>'+
+                '</select>'+
           "</td>"+
           "<td>"+
             '<select class="form-control" id="GradoDominioG'+con_CG+'">'+
@@ -964,9 +1030,11 @@ $(document).ready(function(){
 //*/
 
 function guardar_CompetenciasG(tmp_cont_cg,elemento){
-  var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+  // var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+  // var competenciag = $("#CompetenciaG"+tmp_cont_cg).val();
+  var competenciag = $("#CompetenciaG"+tmp_cont_cg+" option:selected").text();
   var gradoDominio = $("#GradoDominioG"+tmp_cont_cg).val();
-  //var indicador = $("#indicador"+tmp_cont_cg).val(); 
+  //var indicador = $("#indicador"+tmp_cont_cg).val();
   console.log(competenciag);
   console.log(gradoDominio);
   console.log(id_des);
@@ -975,7 +1043,7 @@ function guardar_CompetenciasG(tmp_cont_cg,elemento){
   dataForm.append('gradoDominio',gradoDominio);
   dataForm.append('id_des',id_des);
   url = '/descripcion/guardar_CompetenciasG';
-
+  
   if (competenciag!="") {
     metodoAjax(url,dataForm,function(success){
       //console.log(success);

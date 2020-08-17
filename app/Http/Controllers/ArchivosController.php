@@ -16,6 +16,14 @@
          * @return Response
          */
 
+        public static function ObtenerRutaArchivo($id_archivo){
+            $ruta = DB::table('DP_ARCHIVOS')
+                ->select('ARCHIVOS_RUTA')
+                ->where('ARCHIVOS_ID',$id_archivo)
+                ->get();
+            return $ruta[0]->ARCHIVOS_RUTA;
+        }
+
         public function subirArchivos(Request $request){
             date_default_timezone_set('America/Mexico_City');
             //dd($request);
@@ -111,6 +119,31 @@
             $path_descarga = str_replace('\\', '/', storage_path('app').$path_publico);
             if(Storage::exists($path_publico)){
                 return response()->download($path_descarga);
+            }
+            return view("errors.404");
+        }
+
+        public function descargarArchivoId($id_archivo){
+            // dd($id_archivo);
+            $ruta =  ArchivosController::ObtenerRutaArchivo($id_archivo);
+            $ext = pathinfo($ruta, PATHINFO_EXTENSION);
+            
+            $nombre_archivo = 'OrganigramaSolicitud'.'.'.$ext;
+            // dd($nombre_archivo);
+            $path = str_replace('\\', '/', storage_path('app').'/'.$ruta);
+            // dd($path_publico);
+            // dd($path_descarga);
+            if(Storage::exists($ruta)){
+                // dd('algo');
+                if(strcmp($ext, 'pdf')==0){
+                    return response()->file($path,[
+                        'Content-Type' => 'application/pdf',
+                        'Content-Disposition' => 'inline; filename="'.$nombre_archivo.'"'
+                    ]);
+                }else{
+                    return response()->download($path,$nombre_archivo);
+                }
+                // return response()->download($path,$nombre_archivo);
             }
             return view("errors.404");
         }

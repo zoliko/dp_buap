@@ -19,6 +19,14 @@
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
+                  <!-- Solicitudes -->
+                  @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
+                    <li><a><i class="fa fa-plus-square"></i> Solicitudes <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/solicitudes">Listado de Solicitudes</a></li>
+                      </ul>
+                    </li>
+                  @endif
                   <!-- Dependencias -->
                   @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0 || strcmp(\Session::get('categoria')[0],'DIRECTOR_DRH')==0 || strcmp(\Session::get('categoria')[0],'CGA')==0)
                     <li><a><i class="fa fa-plus-square"></i> Dependencias <span class="fa fa-chevron-down"></span></a>
@@ -46,6 +54,14 @@
                       <li><a href="/usuarios/facilitador">Crear usuario</a></li>
                     </ul>
                   </li>
+                  @endif
+                  <!-- Solicitudes -->
+                  @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
+                    <li><a><i class="fa fa-plus-square"></i> Competencias <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/competencias">Competencias</a></li>
+                      </ul>
+                    </li>
                   @endif
                   <!-- Ayuda -->
                    <li><a><i class="fa fa-comment-o"></i>Ayuda<span class="fa fa-chevron-down"></span></a>

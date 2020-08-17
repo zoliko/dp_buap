@@ -16,6 +16,9 @@
          * @return Response
          */
 
+        //Generar reportes
+
+
         //validación de usuario en dependencias
         public function redirigeDependencias(){
             $categoria = \Session::get('categoria')[0];
@@ -33,6 +36,93 @@
                     return redirect('/');
                     break;
             }
+        }
+
+        public function SolicutudesDependencias(){
+            $rel_solicitudes = DB::table('REL_REGISTRO')
+                ->select(
+                    'FK_REGISTRO as ID_REGISTRO',
+                    'FK_DEPENDENCIA as ID_DEPENDENDIA',
+                    'FK_ARCHIVO as ORGANIGRAMA'
+                        )
+                ->where('REL_REGISTRO_STATUS',0)
+                ->get();
+            $solicitudes = array();
+            foreach ($rel_solicitudes as $solicitud) {
+                $tmp_solicitud = DB::table('DP_REGISTRO')
+                    ->select(
+                        'REGISTRO_ID as ID_REGISTRO',
+                        'REGISTRO_ENCARGADO as ENCARGADO_REGISTRO',
+                        'REGISTRO_CONTACTO as CONTACTO_REGISTRO',
+                        'REGISTRO_ID_TRABAJADOR as ID_TRABAJADOR_REGISTRO',
+                        'REGISTRO_MAIL as MAIL_REGISTRO'
+                    )
+                    ->where('REGISTRO_ID',$solicitud->ID_REGISTRO)
+                    ->get();
+                $tmp_solicitud[0]->ID_DEPENDENCIA = $solicitud->ID_DEPENDENDIA;
+                $tmp_solicitud[0]->DEPENDENCIA = DependenciasController::ObtenerNombreDependencia($solicitud->ID_DEPENDENDIA);
+                // $tmp_solicitud[0]->ORGANIGRAMA = ArchivosController::ObtenerRutaArchivo($solicitud->ORGANIGRAMA);
+                $tmp_solicitud[0]->ORGANIGRAMA = $solicitud->ORGANIGRAMA;
+                $solicitudes[] = $tmp_solicitud[0];
+            }
+            // dd($solicitudes);
+            return view('listado_solicitudes')->with (["solicitudes"=>$solicitudes]);
+            
+        }
+
+        public static function ObtenerNombreDependencia($id_dependencia){
+            $dependencia = DB::table('DP_DEPENDENCIAS')
+                ->where('DEPENDENCIAS_ID',$id_dependencia)
+                ->select('DEPENDENCIAS_NOM_DEPENDENCIA')
+                ->get();
+            $nom_dependencia = $dependencia[0]->DEPENDENCIAS_NOM_DEPENDENCIA;
+            //dd($nom_dependencia);
+            return $nom_dependencia;
+        }
+
+        public function SolicitarRevision(Request $request){
+            //dd($request);
+            
+            date_default_timezone_set('America/Mexico_City');
+       
+            // dd('epale ::D');
+            $id_registro = DB::table('DP_REGISTRO')->insertGetId(
+                [
+                    'REGISTRO_ENCARGADO' => $request['encargado'], 
+                    'REGISTRO_CONTACTO' => $request['contacto'], 
+                    'REGISTRO_ID_TRABAJADOR' => $request['id_trabajador'], 
+                    'REGISTRO_MAIL' => $request['mail'],
+                    'created_at' => date('Y-m-d H:i:s')
+                ]
+            );
+
+            $path = Storage::putFile('public/organigramas', $request->file('organigrama'));
+            
+            $idArchivo = DB::table('DP_ARCHIVOS')->insertGetId([
+                    'ARCHIVOS_NOMBRE' => 'Organigrama_Solicitud_'.$id_registro,
+                    'ARCHIVOS_RUTA' => $path,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);//
+            // $id_archivo = 1;
+
+            DB::table('REL_REGISTRO')->insert(
+                [
+                    'FK_REGISTRO' => $id_registro, 
+                    'FK_DEPENDENCIA' => $request['dependencia'], 
+                    'FK_ARCHIVO' => $idArchivo,
+                    'REL_REGISTRO_STATUS' => 0
+                ]
+            );
+
+            //*/
+            // dd('Epale');
+            $dependencia = DependenciasController::ObtenerNombreDependencia($request['dependencia']);
+            MailsController::NotificarSolicitudRevision($request['mail'],$dependencia,$request['encargado'],$request['contacto'],$request['mail']);
+            $data = array(
+                "dependencias"=>$id_registro
+              );
+
+            echo json_encode($data);//*/
         }
 
         //validación de usuario en nueva dependencia dependencias

@@ -25,6 +25,12 @@ Route::get('/revisado', function () {
    return view('revisado');
 });
 
+
+Route::get('/registro', function () {
+   return view('registro');
+});
+
+
 Route::get('/blanco', function () {
 	if(\Session::get('usuario')==null){
 		return redirect('/');
@@ -86,6 +92,7 @@ Route::get('/dependencias/nueva','DependenciasController@redirigeNuevaDependenci
 
 Route::post('/dependencias/trae' , 'DependenciasController@traeDependencias');
 Route::post('/dependencias/trae_activas' , 'DependenciasController@traeDependenciasActivas');
+Route::post('/dependencias/solicitud' , 'DependenciasController@SolicitarRevision');
 Route::post('/dependencias/registrar' , 'DependenciasController@registrarDependencia');
 //gestion de usuarios
 Route::get('/usuarios' , 'GestionUsuariosController@vistaUsuarios');
@@ -101,9 +108,12 @@ Route::get('/usuarios/salir' , 'GestionUsuariosController@cerrarSesion');
 Route::post('/archivos/subir' , 'ArchivosController@subirArchivos');
 Route::post('/archivos/trae/dependencia' , 'ArchivosController@TraerArchivosDependencia');
 Route::get('/archivos/descargar/{carpeta}/{nombre}' , 'ArchivosController@descargarArchivo');
+Route::get('/archivos/descargar/{id_archivo}' , 'ArchivosController@descargarArchivoId');
 Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependencia');
 
 Route::get('/ayuda' , 'GestionUsuariosController@redirigeAyuda');
+
+Route::get('/solicitudes' , 'DependenciasController@SolicutudesDependencias');
 
 //PDF
 /*Route::get('/pdf',function(){
@@ -120,3 +130,11 @@ Route::get('visualizar','DescripcionesPuestosController@visualizaPdf');
 //mensaje y status
 Route::post('/descripcion/mensaje', 'DescripcionesPuestosController@GuardaMensaje');
 Route::post('/descripcion/cambia_estatus', 'DescripcionesPuestosController@CambiaEstus');
+
+Route::get('/competencias', 'CompetenciasController@VistaCompetencias');
+Route::post('/competencias/reporte_competencias', 'CompetenciasController@DescargarReporteCompetencias');
+
+Route::post('/observaciones/obtener', 'DescripcionesPuestosController@ObtenerComentarios');
+Route::post('/observaciones/insertar', 'DescripcionesPuestosController@InsertarComentario');
+
+Route::get('/mail/prueba','MailsController@PruebaMail');

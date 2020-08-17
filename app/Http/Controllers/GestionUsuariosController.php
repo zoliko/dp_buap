@@ -344,3 +344,7 @@
         }
 
     }
+
+    /*    
+        insert into DP_LOGIN(LOGIN_USUARIO,LOGIN_CONTRASENA,LOGIN_CATEGORIA)values("marvineliosa",'123456','FACILITADOR');
+        insert into DP_USUARIOS(USUARIOS_USUARIO,USUARIOS_NOMBRE_RESPONSABLE)values('marvineliosa','Marvin Eliosa');

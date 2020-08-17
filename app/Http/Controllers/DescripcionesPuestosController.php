@@ -15,6 +15,62 @@
          * @param  int  $id
          * @return Response
          */
+
+        public function InsertarComentario(Request $request){
+            // dd($request);
+            $id_comentario = 0;
+            $id_comentario = DB::table('DP_COMENTARIOS')
+                ->insertGetId(
+                    [
+                        'COMENTARIOS_COMENTARIO' => $request['comentario'],
+                        'created_at' => DescripcionesPuestosController::ObtenerFechaHora()
+                    ]
+            );
+            DB::table('REL_DESCRIPCIONES_COMENTARIOS')
+                ->insertGetId(
+                    [
+                        'FK_DESCRIPCION' => $request['id_descripcion'],
+                        'FK_COMENTARIO' => $id_comentario
+                    ]
+            );//*/
+
+            $data = array(
+                "id_comentario"=>$id_comentario
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function ObtenerComentarios(Request $request){
+            // dd('comentarios');
+            $comentarios = DescripcionesPuestosController::ObtenetComentariosId($request['id_descripcion']);
+            $data = array(
+                "comentarios"=>$comentarios
+              );
+
+            echo json_encode($data);//*/
+
+        }
+
+        public function ObtenetComentariosId($id_descripcion){
+
+            $rel_comentarios = DB::table('REL_DESCRIPCIONES_COMENTARIOS')
+                ->where('FK_DESCRIPCION', $id_descripcion)
+                ->orderBy('FK_COMENTARIO', 'desc')
+                ->get();
+            // dd($rel_comentarios);
+            $comentarios = array();
+            foreach($rel_comentarios as $id_comentario){
+                $tmp_comentario = DB::table('DP_COMENTARIOS')
+                ->where('COMENTARIOS_ID', $id_comentario->FK_COMENTARIO)
+                ->get();
+                $comentarios[] = $tmp_comentario[0];
+            }
+            // dd($comentarios);
+            return $comentarios;
+        }
+
+
         public function crearPdf($id_descripcion){
             $descripcion = DescripcionesPuestosController::ontenerDescripcion($id_descripcion);
             $pdf = \PDF::loadView('pdf.descripcion',['descripcion'=>$descripcion]);
@@ -238,6 +294,7 @@
 
         public function registrarDescripcion(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            // dd($request);
             $exito = false;
             $puesto = $request['puesto'];
             $reporta_a = $request['reporta_a'];
@@ -247,6 +304,8 @@
             $dtp = $request['dtp'];
             $clave = $request['clave'];
             $nivel = $request['nivel'];
+            $codigo = $request['nivel'];
+            $categoria = $request['nivel'];
             $rep_directos = $request['rep_directos'];
             $rep_indirectos = $request['rep_indirectos'];
             //dd($id_dependencia);
@@ -262,9 +321,12 @@
                     //'DESCRIPCIONES_FECHA_REVISION' => date('Y-m-d'), 
                     'DESCRIPCIONES_N_REVISION' => 1, 
                     'DESCRIPCIONES_NIVEL' => $nivel, 
+                    'DESCRIPCIONES_CODIGO' => $codigo, 
+                    'DESCRIPCIONES_CATEGORIA' => $categoria, 
                     'DESCRIPCIONES_REPORTAN_DIRECTOS' => $rep_directos, 
                     'DESCRIPCIONES_REPORTAN_INDIRECTOS' => $rep_indirectos,
-                    'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION'
+                    'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION',
+                    'DESCRIPCIONES_ESTATUS' => 'LLENADO'
                 ]
             );
             if($id_descripcion){
@@ -1241,13 +1303,14 @@
 
         public function GuardarDistribucion(Request $request){
             date_default_timezone_set('America/Mexico_City');
+            // dd($request);
             $id_descripcion = $request['id_descripcion'];
             $id_puesto = $request['distribucion'];
             $dist_anterior = $request['dist_anterior'];
             $mensaje = '';
             $icono = '';
             $accion = '';
-            //dd($dist_anterior);
+            // dd($dist_anterior);
             $existe = DB::table('REL_LDISTRIBUCION_DESCRIPCION')
                 ->where([
                             ['FK_LISTA_DISTRIBUCION','=',$id_puesto],
@@ -1261,7 +1324,7 @@
                 $accion = 'repetido';
             }else{
                 if(strcmp($dist_anterior, '-1')==0){
-                    //dd("Es nuevo");
+                    // dd("Es nuevo");
                     DB::table('REL_LDISTRIBUCION_DESCRIPCION')->insert(
                         [   
                             'FK_LISTA_DISTRIBUCION' => $id_puesto,
@@ -1474,4 +1537,12 @@
             echo json_encode($data);
         }
 
+        public static function ObtenerFechaHora(){
+            date_default_timezone_set('America/Mexico_City');
+            return date('Y-m-d H:i:s');
+        }
+
     }//fin clase
+
+
+    /*
