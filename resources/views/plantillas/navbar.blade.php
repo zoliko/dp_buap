@@ -24,6 +24,8 @@
                     <li><a><i class="fa fa-plus-square"></i> Solicitudes <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="/solicitudes">Listado de Solicitudes</a></li>
+                        <li><a href="/solicitudes_modificacion">Modificación de descripciones</a></li>
+                        <li><a href="/solicitudes_baja">Baja de descripciones</a></li>
                       </ul>
                     </li>
                   @endif
@@ -34,6 +36,10 @@
                         <li><a href="/dependencias">Listado de dependencias</a></li>
                         @if(strcmp(\Session::get('categoria')[0],'FACILITADOR')==0)
                           <li><a href="/dependencias/nueva">Nueva dependencia</a></li>
+                        @endif
+                        @if(strcmp(\Session::get('categoria')[0],'CGA')==0)
+                          <li><a href="/dependencias/organigramas">Revisión de organigramas</a></li>
+                          <li><a href="/dependencias/organigramas_invalidos">Organigramas inválidos</a></li>
                         @endif
                       </ul>
                     </li>

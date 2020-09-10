@@ -16,6 +16,69 @@
          * @return Response
          */
 
+        public function ObtenerComentarioInvalidacion(Request $request){
+            // dd($request);
+            $id_organigrama = $request['id_archivo'];
+            $rel_comentario = DB::table('REL_COMENTARIO_INVALIDACION')->where('FK_ARCHIVO', $id_organigrama)->get();
+            // dd($rel_comentario[0]);
+            // $comentario = DescripcionesPuestosController::ObtenetComentariosId( $rel_comentario[0]->FK_COMENTARIO );
+            $comentario = DB::table('DP_COMENTARIOS')
+                ->where('COMENTARIOS_ID', $rel_comentario[0]->FK_COMENTARIO)
+                ->orderBy('created_at', 'desc')
+                ->first();
+            // dd($comentario->COMENTARIOS_COMENTARIO);
+
+            // dd($comentario);
+            $data = array(
+                "comentario"=>$comentario->COMENTARIOS_COMENTARIO
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function InvalidarOrganigrama(Request $request){
+            // dd($request);
+
+            $id_comentario = DB::table('DP_COMENTARIOS')
+                ->insertGetId(
+                    [
+                        'COMENTARIOS_COMENTARIO' => $request['texto_invalidacion'],
+                        'created_at' => DescripcionesPuestosController::ObtenerFechaHora()
+                    ]
+            );
+
+
+            $update = DB::table('REL_ARCHIVOS_DEPENDENCIAS')
+              ->where('FK_ARCHIVO', $request['id_archivo'])
+              ->update(['ORGANIGRAMA_DEPENDENCIA' => 'ORGANIGRAMA INVALIDO']);
+
+            DB::table('REL_COMENTARIO_INVALIDACION')->insert(
+                    [
+                        'FK_COMENTARIO' => $id_comentario,
+                        'FK_ARCHIVO' => $request['id_archivo']
+                    ]
+            );
+
+            $data = array(
+                "id_comentario"=>$id_comentario
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function ValidarOrganigrama(Request $request){
+            // dd($request);
+            $update = DB::table('REL_ARCHIVOS_DEPENDENCIAS')
+              ->where('FK_ARCHIVO', $request['id_archivo'])
+              ->update(['ORGANIGRAMA_DEPENDENCIA' => 'ORGANIGRAMA VERIFICADO']);
+
+            $data = array(
+                "update"=>$update
+              );
+
+            echo json_encode($data);//*/
+        }
+
         public static function ObtenerRutaArchivo($id_archivo){
             $ruta = DB::table('DP_ARCHIVOS')
                 ->select('ARCHIVOS_RUTA')
@@ -26,12 +89,21 @@
 
         public function subirArchivos(Request $request){
             date_default_timezone_set('America/Mexico_City');
-            //dd($request);
+            // dd($request);
             $error=null;
             $idArchivo=null;
             $nombreArchivo = $request->archivo->getClientOriginalName();
             $nuevoNombre = $request['identificador'].'_'.$nombreArchivo;
             $pathArchivo = 'public/'.$request['carpeta'].'/'.$nuevoNombre;
+            $categoria = \Session::get('categoria')[0];
+            $tipo_archivo_origen = '';
+            if(strcmp($request['tipo_archivo'],'organigrama')==0){
+                $tipo_archivo_origen = 'ORGANIGRAMA SIN VERIFICAR';
+            }else if(strcmp($request['tipo_archivo'],'archivo')==0){
+                $tipo_archivo_origen = 'ARCHIVO DE DEPENDENCIA';
+            }else{
+                $tipo_archivo_origen = 'ARCHIVO DE DRH';
+            }
             $i = 1;
             while(Storage::exists($pathArchivo)) {
                 $nuevoNombre = $i."_".$nombreArchivo;
@@ -57,11 +129,26 @@
 
                 //registrando relacion con la tabla
                 if(strcasecmp($request['carpeta'], "dependencias")==0){
+                    // $update = DB::table('REL_ARCHIVOS_DEPENDENCIAS')
+                    //     ->where('FK_DEPENDENCIA', $request['identificador'])
+                    //     ->update(['ORGANIGRAMA_DEPENDENCIA' => '']);
                     //dd("Registro en la carpeta de dependencias");
-                    DB::table('REL_ARCHIVOS_DEPENDENCIAS')->insert([
+                    
+                   DB::table('REL_ARCHIVOS_DEPENDENCIAS')->insert([
                         'FK_ARCHIVO' => $idArchivo,
-                        'FK_DEPENDENCIA' => $request['identificador']
-                    ]);
+                        'FK_DEPENDENCIA' => $request['identificador'],
+                        'ORGANIGRAMA_DEPENDENCIA' => $tipo_archivo_origen
+                    ]); 
+                    
+                    //enviamos un mail de actualizción de organigrama
+                    $id_dependencia = (int)$request['identificador'];
+                    $dependencia = DependenciasController::ObtenerNombreDependencia($id_dependencia);
+                    $asunto = 'Actualización de organigrama';
+                    $titulo = 'Actualización de organigrama';
+                    $mensaje = 'Buen día, le informamos que el organigrama de '.$dependencia.' ha sido actualizado';
+                    //dd($usuario);
+                    $mail = MailsController::MandarMensajeGenerico($asunto,$titulo,$mensaje,'marvineliosa@gmail.com');
+
                 }else{
                     dd("Registrando en otra carpeta");
                 }

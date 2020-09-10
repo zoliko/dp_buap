@@ -50,7 +50,7 @@
                       <div class="x_panel">
                         <div class="x_content">
                           <br/>
-                          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                          <form id="demo-form5" data-parsley-validate class="form-horizontal form-label-left">
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Puesto: </label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
@@ -466,36 +466,63 @@
                                 <input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaOLD" value="{{$competencia->DESCRIPCION_COMPETENCIA_GENERICA}}" {{$disabled}} style="display: none"> <!-- no funcional, solo para pruebas -->
 
                                 <select class="form-control form-control-lg" id="CompetenciaG{{$i}}" {{$disabled}}>
-                                  <option {{{((strcmp("Contralor/a General",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Contralor/a General</option>
-                                  <option {{{((strcmp("Coordinador/a de Control a Procesos Administrativos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Procesos Administrativos</option>
-                                  <option {{{((strcmp("Secretaria Ejecutiva",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Secretaria Ejecutiva</option>
-                                  <option {{{((strcmp("Operador/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Operador/a</option>
-                                  <option {{{((strcmp("Director/a de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control Patrimonial</option>
-                                  <option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a Operativo de Control Patrimonial</option>
-                                  '<option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control Patrimonial Área: Centro, Ciudad niversitaria, Salud y Obras Artísticas.</option>
-                                  <option {{{((strcmp("Jefe/a Operativo de Control Patrimonial",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Inventarios</option>
-                                  <option {{{((strcmp("Coordinador/a de Control Patrimonial a Bajas",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control Patrimonial a Bajas</option>
-                                  <option {{{((strcmp("Operador/a de bajas",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Operador/a de bajas</option>
-                                  <option {{{((strcmp("Subcontralor/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Subcontralor/a</option>
-                                  <option {{{((strcmp("Director/a de Control a Recursos Financieros",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a Recursos Financieros</option>
-                                  <option {{{((strcmp("Director/a de Control a Fondos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a Fondos</option>
-                                  '<option {{{((strcmp("Director/a de Control de Procesos de Personal, Escolares y Académicos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control de Procesos de Personal, Escolares y Académicos</ption>
-                                  <option {{{((strcmp("Director/a Jurídico y Control de Obras",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a Jurídico y Control de Obras</option>
-                                  <option {{{((strcmp("Coordinador/a de Control a Recursos Financieros",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Recursos Financieros</option>
-                                  <option {{{((strcmp("Coordinador/a de Control a Fondos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control a Fondos</option>
-                                  '<option {{{((strcmp("Coordinador/a de Control de Procesos de Personal, Escolares y cadémicos",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Control de Procesos de Personal, Escolares y cadémicos</option>
-                                  <option {{{((strcmp("Jefe/a de Departamento de Obras",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a de Departamento de Obras</option>
-                                  <option {{{((strcmp("Auditor/a de Control",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Control</option>
-                                  <option {{{((strcmp("Abogado/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Abogado/a</option>
-                                  <option {{{((strcmp("Analista de Proveedor",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Analista de Proveedor</option>
-                                  <option {{{((strcmp("Director/a de Control a la Gestión",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Director/a de Control a la Gestión</option>
-                                  <option {{{((strcmp("Jefe/a Administrativo/a",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Jefe/a Administrativo/a</option>
-                                  <option {{{((strcmp("Coordinador/a de Cómputo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Coordinador/a de Cómputo</option>
-                                  <option {{{((strcmp("Auditor/a de Control a la Gestión",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auditor/a de Control a la Gestión</option>
-                                  <option {{{((strcmp("Técnico/a en Mantenimiento",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Técnico/a en Mantenimiento</option>
-                                  <option {{{((strcmp("Auxiliar Administrativo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar Administrativo</option>
-                                  <option {{{((strcmp("Auxiliar Operativo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar Operativo</option>
-                                  <option {{{((strcmp("Auxiliar de Limpieza",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Auxiliar de Limpieza</option>
+                                  <option {{{((strcmp("Análisis de problemas",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Análisis de problemas
+                                  <!-- NUEVAS COMPETENCIAS -->
+                                  <option {{{((strcmp("Apertura al cambio",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Apertura al cambio</option>
+                                  
+                                  <option {{{((strcmp("Aprendizaje",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Aprendizaje</option>
+                                  
+                                  <option {{{((strcmp("Autoconfianza",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Autoconfianza</option>
+                                  
+                                  <option {{{((strcmp("Autodesarrollo ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Autodesarrollo</option>
+                                  
+                                  <option {{{((strcmp("Comunicación oral ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Comunicación oral</option>
+                                  
+                                  <option {{{((strcmp("Control de actividades",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Control de actividades</option>
+                                  
+                                  <option {{{((strcmp("Delegación",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Delegación</option>
+                                  
+                                  <option {{{((strcmp("Desarrollo de las personas ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Desarrollo de las personas</option>
+                                  
+                                  <option {{{((strcmp("Dinamismo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Dinamismo</option>
+                                  
+                                  <option {{{((strcmp("Dominio de estrés ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Dominio de estrés</option>
+                                  
+                                  <option {{{((strcmp("Enfoque a la calidad",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Enfoque a la calidad  </option>
+                                  
+                                  <option {{{((strcmp("Enfoque a resultados",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Enfoque a resultados   </option>
+                                  
+                                  <option {{{((strcmp("Iniciativa",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Iniciativa</option>
+                                  
+                                  <option {{{((strcmp("Innovación",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Innovación</option>
+                                  
+                                  <option {{{((strcmp("Liderazgo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Liderazgo</option>
+                                  
+                                  <option {{{((strcmp("Madurez social",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Madurez social</option>
+                                  
+                                  <option {{{((strcmp("Negocación",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Negocación</option>
+                                  
+                                  <option {{{((strcmp("Organización ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Organización</option>
+                                  
+                                  <option {{{((strcmp("Orientación al servicio",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Orientación al servicio</option>
+                                  
+                                  <option {{{((strcmp("Perseverancia",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Perseverancia</option>
+                                  
+                                  <option {{{((strcmp("Pensamiento estratégico ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Pensamiento estratégico</option>
+                                  
+                                  <option {{{((strcmp("Persuación",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Persuación</option>
+                                  
+                                  <option {{{((strcmp("Planeación",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Planeación</option>
+                                  
+                                  <option {{{((strcmp("Sensibilidad a lineamiento ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Sensibilidad a lineamiento</option>
+                                  
+                                  <option {{{((strcmp("Relaciones interpersonales",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Relaciones interpersonales</option>
+                                  
+                                  <option {{{((strcmp("Toma de decisiones",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Toma de decisiones</option>
+                                  
+                                  <option {{{((strcmp("Trabajo en equipo",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Trabajo en equipo</option>
+                                  
+                                  <option {{{((strcmp("Sensibilidad a Lineamientos ",$competencia->DESCRIPCION_COMPETENCIA_GENERICA)==0)? 'SELECTED':'')}}}>Sensibilidad a Lineamientos</option>
                                 </select>
                               </td>
                               <td>
@@ -858,36 +885,35 @@ $(document).ready(function(){
           "<td>"+
             // '<input type="text" class="form-control col-md-12 col-xs-12" id="CompetenciaG'+con_CG+'">'+
             '<select class="form-control form-control-lg" id="CompetenciaG'+con_CG+'">'+
-                  '<option>Contralor/a General</option>'+
-                  '<option>Coordinador/a de Control a Procesos Administrativos</option>'+
-                  '<option>Secretaria Ejecutiva</option>'+
-                  '<option>Operador/a</option>'+
-                  '<option>Director/a de Control Patrimonial</option>'+
-                  '<option>Jefe/a Operativo de Control Patrimonial</option>'+
-                  '<option>Coordinador/a de Control Patrimonial Área: Centro, Ciudad Universitaria, Salud y Obras Artísticas.</option>'+
-                  '<option>Auditor/a de Inventarios</option>'+
-                  '<option>Coordinador/a de Control Patrimonial a Bajas</option>'+
-                  '<option>Operador/a de bajas</option>'+
-                  '<option>Subcontralor/a</option>'+
-                  '<option>Director/a de Control a Recursos Financieros</option>'+
-                  '<option>Director/a de Control a Fondos</option>'+
-                  '<option>Director/a de Control de Procesos de Personal, Escolares y Académicos</option>'+
-                  '<option>Director/a Jurídico y Control de Obras</option>'+
-                  '<option>Coordinador/a de Control a Recursos Financieros</option>'+
-                  '<option>Coordinador/a de Control a Fondos</option>'+
-                  '<option>Coordinador/a de Control de Procesos de Personal, Escolares y Académicos</option>'+
-                  '<option>Jefe/a de Departamento de Obras</option>'+
-                  '<option>Auditor/a de Control</option>'+
-                  '<option>Abogado/a</option>'+
-                  '<option>Analista de Proveedor</option>'+
-                  '<option>Director/a de Control a la Gestión</option>'+
-                  '<option>Jefe/a Administrativo/a</option>'+
-                  '<option>Coordinador/a de Cómputo</option>'+
-                  '<option>Auditor/a de Control a la Gestión</option>'+
-                  '<option>Técnico/a en Mantenimiento</option>'+
-                  '<option>Auxiliar Administrativo</option>'+
-                  '<option>Auxiliar Operativo</option>'+
-                  '<option>Auxiliar de Limpieza</option>'+
+                  '<option>Análisis de problemas</option>'+
+                  '<option>Apertura al cambio</option>'+
+                  '<option>Aprendizaje</option>'+
+                  '<option>Autoconfianza</option>'+
+                  '<option>Autodesarrollo</option>'+
+                  '<option>Comunicación oral</option>'+
+                  '<option>Control de actividades</option>'+
+                  '<option>Delegación</option>'+
+                  '<option>Desarrollo de las personas</option>'+
+                  '<option>Dinamismo</option>'+
+                  '<option>Dominio de estrés</option>'+
+                  '<option>Enfoque a la calidad</option>'+
+                  '<option>Enfoque a resultados</option>'+
+                  '<option>Iniciativa</option>'+
+                  '<option>Innovación</option>'+
+                  '<option>Liderazgo</option>'+
+                  '<option>Madurez social</option>'+
+                  '<option>Negocación</option>'+
+                  '<option>Organización</option>'+
+                  '<option>Orientación al servicio</option>'+
+                  '<option>Perseverancia</option>'+
+                  '<option>Pensamiento estratégico</option>'+
+                  '<option>Persuación</option>'+
+                  '<option>Planeación</option>'+
+                  '<option>Sensibilidad a lineamiento</option>'+
+                  '<option>Relaciones interpersonales</option>'+
+                  '<option>Toma de decisiones</option>'+
+                  '<option>Trabajo en equipo</option>'+
+                  '<option>Sensibilidad a Lineamientos</option>'+
                 '</select>'+
           "</td>"+
           "<td>"+

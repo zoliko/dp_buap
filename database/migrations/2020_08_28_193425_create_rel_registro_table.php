@@ -22,6 +22,9 @@ class CreateRelRegistroTable extends Migration
             
             $table->unsignedInteger('FK_ARCHIVO');
             $table->foreign('FK_ARCHIVO')->references('ARCHIVOS_ID')->on('DP_ARCHIVOS');
+            
+            $table->unsignedInteger('FK_COMENTARIO')->nullable();
+            $table->foreign('FK_COMENTARIO')->references('COMENTARIOS_ID')->on('DP_COMENTARIOS');
 
             $table->integer('REL_REGISTRO_STATUS');
             

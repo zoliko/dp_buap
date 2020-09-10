@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelArchivosDependenciasTable extends Migration
+class CreateRelComentarioInvalidacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateRelArchivosDependenciasTable extends Migration
      */
     public function up()
     {
-        Schema::create('REL_ARCHIVOS_DEPENDENCIAS', function (Blueprint $table) {
+        Schema::create('REL_COMENTARIO_INVALIDACION', function (Blueprint $table) {
+            $table->unsignedInteger('FK_COMENTARIO');
+            $table->foreign('FK_COMENTARIO')->references('COMENTARIOS_ID')->on('DP_COMENTARIOS');
+
             $table->unsignedInteger('FK_ARCHIVO');
             $table->foreign('FK_ARCHIVO')->references('ARCHIVOS_ID')->on('DP_ARCHIVOS');
-
-            $table->unsignedInteger('FK_DEPENDENCIA');
-            $table->foreign('FK_DEPENDENCIA')->references('DEPENDENCIAS_ID')->on('DP_DEPENDENCIAS');
-
-            $table->string('ORGANIGRAMA_DEPENDENCIA')->nullable();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateRelArchivosDependenciasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('REL_ARCHIVOS_DEPENDENCIAS');
+        Schema::dropIfExists('REL_COMENTARIO_INVALIDACION');
     }
 }

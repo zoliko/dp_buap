@@ -312,6 +312,190 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Riesgos-->
+  <div class="modal fade" id="modalRiesgos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloDetalleModal" align="center">Riesgos</h3>
+        </div>
+        <div class="modal-body">
+           <form class="form-horizontal form-label-left">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Comentario</th>
+                  </tr>
+                </thead>
+                <tbody id="CuerpoTablaComentarios">
+                  <tr>
+                    <td>Condiciones en el ambiente de trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_1">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Carga de trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_2">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Falta de control sobre el trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_3">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Jornada de trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_4">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Interferencia en la relación trabajo-familia</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_5">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Liderazgo negativo en el trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_6">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Relaciones negativas en el trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_7">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Violencia</td>
+                    <td>
+                      <select class="form-control" id="SelectRiesgo_8">
+                        <option>Muy alto</option>
+                        <option>Alto</option>
+                        <option>Medio</option>
+                        <option>Bajo</option>
+                        <option>Nulo</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+          </form>
+
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <input type="number" id="detalleIdDP" value="" hidden="hidden">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="GuardarRiesgos()">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Configuraciones-->
+  <div class="modal fade" id="ModalConfiguraciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloDetalleModal" align="center">Control de cambio de estatus</h3>
+        </div>
+        <div class="modal-body">
+           <form class="form-horizontal form-label-left">
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Comentario</th>
+                  </tr>
+                </thead>
+                <tbody id="CuerpoTablaComentarios">
+                  <tr>
+                    <td>Condiciones en el ambiente de trabajo</td>
+                    <td>
+                      <select class="form-control" id="SelectEstatus">
+                        <option value="NADA">SELECCIONAR</option>
+                        <option value="LLENANDO">LLENANDO</option>
+                        <option value="REVISIÓN">REVISIÓN</option>
+                        <option value="REVISADO">REVISADO</option>
+                        <option value="AUTORIZANDO">AUTORIZANDO</option>
+                        <option value="AUTORIZADO">AUTORIZADO</option>
+                        <option value="SOLICITUD DE MODIFICACIÓN">SOLICITUD DE MODIFICACIÓN</option>
+                        <option value="SOLICITUD DE BAJA">SOLICITUD DE BAJA</option>
+                        <option value="BAJA">BAJA</option>
+                      </select>
+                      <br>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="GuardarEstatus()">Guardar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+          </form>
+
+
+        </div>
+        <br>
+        <div class="modal-footer">
+          <input type="number" id="ConfigIdDP" value="" hidden="hidden">
+          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="GuardarRiesgos()">Guardar</button> -->
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 @endsection
 
 @section('script')
@@ -320,16 +504,39 @@
     var dependencia = <?php echo json_encode($dependencia) ?>;
     var nomenclatura = <?php echo json_encode($nomenclatura) ?>;
     var id_dependencia = <?php echo json_encode($id_dependencia) ?>;
-    //alert(id_dependencia);
+    console.log(descripciones);
     var PuestoConsecutivo = 1;
     var estatusEdicion = false;
     var GL_descripcion = 0;
-
+    // $("#modalRiesgos").modal();
     $(window).load(function () {
         $("#nombre_dependencia").text(dependencia);
         llenaDescripciones();
         autollenado();
     });
+
+    function GuardarRiesgos(){
+      console.log(GL_descripcion);
+      swal("", "Información almacenada satisfactoriamente", "success");
+    }
+
+    function ModalRiesgos(id_descripcion){
+      GL_descripcion = id_descripcion;
+      console.log(id_descripcion);
+      /*var success;
+      var url = "/riesgos/obtener";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',id_descripcion);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        
+        
+        $("#modalComentarios").modal();
+      });//*/
+      $("#modalRiesgos").modal();
+    }
 
     function GuardarComentario(){
       var comentario = $("#TextMensajes").val();
@@ -606,7 +813,7 @@
         //console.log(PuestoConsecutivo);
         var id_des = descripciones[i]['ID_DESC'];
         $("#cuerpoTablaListado").append(
-            "<tr>"+
+            "<tr class='primary'>"+
               "<td>"+(parseInt(i)+1)+"</td>"+
               "<td id='clave_"+id_des+"'>"+descripciones[i]['CLAVE_DESC']+"</td>"+
               "<td id='nombre_"+id_des+"'>"+descripciones[i]['NOM_DESC']+"</td>"+
@@ -627,6 +834,12 @@
                 '</button>'+
                 '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DEJAR UN COMENTARIO" onclick="modalMostrarMensajes('+id_des+')">'+
                       '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span>'+
+                    '</button>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="REGISTRAR RIESGOS" onclick="ModalRiesgos('+id_des+')">'+
+                      '<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>'+
+                    '</button>'+
+                '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="" onclick="ModalConfiguraciones('+id_des+')">'+
+                      '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>'+
                     '</button>'+
               "</td>"+
             "</tr>"
@@ -657,6 +870,45 @@
             }
           });//*/
     }
+
+    function ModalConfiguraciones(id_descripcion){
+      $("#ConfigIdDP").val(id_descripcion);
+      var success;
+      var url = "/descripciones/trae_descripcion";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',id_descripcion);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        // console.log(success);
+        $("#SelectEstatus").val(success['descripcion']['ESTATUS']);
+        $("#ModalConfiguraciones").modal();
+
+      });
+
+    }
+
+    function GuardarEstatus(){
+      id_descripcion = $("#ConfigIdDP").val();
+      estatus = $("#SelectEstatus").val();
+      var success;
+      var url = "/descripciones/cambiar_estatus";
+      var dataForm = new FormData();
+      dataForm.append('id_descripcion',id_descripcion);
+      dataForm.append('estatus',estatus);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        // console.log(success);
+        // $("#SelectEstatus").val("LLENANDO");
+        // $("#ModalConfiguraciones").modal();
+        MostrarMensaje('¡Éxito!','Se ha cambiado el estatus satisfactoriamente!');
+      });
+    }
+
+
 
     $('#modalDetalleDP').on('hidden.bs.modal', function () {
       limpiarModalDetalle();

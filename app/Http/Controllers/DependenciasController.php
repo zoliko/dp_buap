@@ -18,6 +18,77 @@
 
         //Generar reportes
 
+        public function SolicutudesCancelarSolicitud(Request $request){
+            // dd($request);
+            $id_comentario = DB::table('DP_COMENTARIOS')
+                ->insertGetId(
+                    [
+                        'COMENTARIOS_COMENTARIO' => $request['motivo_cancelacion'],
+                        'created_at' => DescripcionesPuestosController::ObtenerFechaHora()
+                    ]
+            );
+            $update = DB::table('REL_REGISTRO')
+              ->where('FK_REGISTRO', $request['id_solicitud'])
+              ->update([
+                    'FK_COMENTARIO' => $id_comentario,
+                    'REL_REGISTRO_STATUS' => -1
+                ]);
+
+            $data = array(
+                "update" => $update
+            );
+            echo json_encode($data);
+
+        }
+
+        public function OrganigramasInvalidos(){
+            // dd('te encontré');
+            $rel_organigramas = DB::table('REL_ARCHIVOS_DEPENDENCIAS')
+                ->where('ORGANIGRAMA_DEPENDENCIA','ORGANIGRAMA INVALIDO')
+                ->get();
+            // dd($rel_organigramas);
+            $organigramas = array();
+            foreach ($rel_organigramas as $id_organigrama) {
+                $tmp_organigramas = DB::table('DP_ARCHIVOS')
+                    ->where('ARCHIVOS_ID',$id_organigrama->FK_ARCHIVO)
+                    ->get();
+
+                $tmp_organigramas[0]->ID_DEPENDENDIA = $id_organigrama->FK_DEPENDENCIA;
+                $tmp_organigramas[0]->DEPENDENCIA = DependenciasController::ObtenerNombreDependencia($id_organigrama->FK_DEPENDENCIA);
+
+                $organigramas[]=$tmp_organigramas[0];
+                // dd($tmp_organigramas[0]);
+            }
+            
+            // return view('listado_organigramas_revision');
+            // dd($organigramas);
+            return view('listado_organigramas_invalidos')->with (["organigramas"=>$organigramas]);
+        }
+
+        public function RevisionOrganigramas(){
+            // dd('te encontré');
+            $rel_organigramas = DB::table('REL_ARCHIVOS_DEPENDENCIAS')
+                ->where('ORGANIGRAMA_DEPENDENCIA','ORGANIGRAMA SIN VERIFICAR')
+                ->get();
+            // dd($rel_organigramas);
+            $organigramas = array();
+            foreach ($rel_organigramas as $id_organigrama) {
+                $tmp_organigramas = DB::table('DP_ARCHIVOS')
+                    ->where('ARCHIVOS_ID',$id_organigrama->FK_ARCHIVO)
+                    ->get();
+
+                $tmp_organigramas[0]->ID_DEPENDENDIA = $id_organigrama->FK_DEPENDENCIA;
+                $tmp_organigramas[0]->DEPENDENCIA = DependenciasController::ObtenerNombreDependencia($id_organigrama->FK_DEPENDENCIA);
+
+                $organigramas[]=$tmp_organigramas[0];
+                // dd($tmp_organigramas[0]);
+            }
+            
+            // return view('listado_organigramas_revision');
+            // dd($organigramas);
+            return view('listado_organigramas_revision')->with (["organigramas"=>$organigramas]);
+        }
+
 
         //validación de usuario en dependencias
         public function redirigeDependencias(){
@@ -36,6 +107,53 @@
                     return redirect('/');
                     break;
             }
+        }
+
+        public function SolicutudesModificacionDescripciones(){
+            // dd('epale');
+            $descripciones = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_DIRECCION as DIR_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                        'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                        'DESCRIPCIONES_ESTATUS as ESTATUS'
+                    )->where("DESCRIPCIONES_ESTATUS",'MODIFICACIÓN')
+                    ->get();//*/
+                foreach ($descripciones as $descripcion) {
+                    $descripcion->DEPENDENCIA = 'BACHILLERATO';
+                    $rel_dependencia = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                        ->where("FK_DESCRIPCION",$descripcion->ID_DESC)
+                        ->get();//*/
+                    $descripcion->DEPENDENCIA = DependenciasController::ObtenerNombreDependencia($rel_dependencia[0]->FK_DEPENDENCIA);
+                }
+            // dd($descripciones);
+            return view('listado_solicitud_bajas')->with (["descripciones"=>$descripciones]);
+        }
+
+        public function SolicutudesBajaDescripciones(){
+            // dd('epale');
+            $descripciones = DB::table('DP_DESCRIPCIONES')
+                    ->select(
+                        'DESCRIPCIONES_ID as ID_DESC', 
+                        'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
+                        'DESCRIPCIONES_DIRECCION as DIR_DESC',
+                        'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
+                        'DESCRIPCIONES_N_REVISION as REVISION_DESC',
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                        'DESCRIPCIONES_ESTATUS as ESTATUS'
+                    )->where("DESCRIPCIONES_ESTATUS",'SOLICITUD DE BAJA')
+                    ->get();//*/
+                foreach ($descripciones as $descripcion) {
+                    $rel_dependencia = DB::table('REL_DEPENDENCIA_DESCRIPCION')
+                        ->where("FK_DESCRIPCION",$descripcion->ID_DESC)
+                        ->get();//*/
+                    $descripcion->DEPENDENCIA = DependenciasController::ObtenerNombreDependencia($rel_dependencia[0]->FK_DEPENDENCIA);
+                }
+            // dd($descripciones);
+            return view('listado_modificacion')->with (["descripciones"=>$descripciones]);
         }
 
         public function SolicutudesDependencias(){

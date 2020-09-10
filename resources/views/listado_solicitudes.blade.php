@@ -1,6 +1,6 @@
 @extends('plantillas.menu')
 @section('title','Prueba DPBUAP')
-@section('tittle_page','titulo pagina')
+@section('tittle_page','Control de descripciones')
 
 @section('content')
 
@@ -34,6 +34,9 @@
                     <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DESCARGAR ORGANIGRAMA" onclick="descargarOrganigrama( {{$solicitud->ORGANIGRAMA}} )">
                       <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
                     </button>
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="CANCELAR SOLICITUD" onclick="ModalCancelarSolicitud( {{$solicitud->ID_REGISTRO}} )">
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    </button>
 
                   </td>
                 </tr>
@@ -49,6 +52,38 @@
       </div>
     </div>
   </div>
+
+
+  <!-- Modal invalidar organigrama  -->
+  <div class="modal fade" id="ModalCancelarSolicitud" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloDetalleModal" align="center"> Cancelación de solicitud </h3>
+          <h5 class="modal-title" id="tituloDetalleModal" align="center"> Por favor registre el motivo de la cancelación de la solicitud </h5>
+        </div>
+        <input type="number" id="IdSolicitudCancelar" value="" hidden="hidden">
+        <div class="modal-body" align="center">
+          
+           <form class="form-horizontal form-label-left">
+
+            <div class="form-group">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control" id="TextMensajeCancelar" rows="3"></textarea>
+              </div>
+            </div>
+
+          </form>
+
+           
+        </div>
+        <div class="modal-footer" id="areaBotones">
+          <button type="button" class="btn btn-danger" onclick="CancelarSolicitud()">Cancelar solicitud</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
@@ -56,6 +91,30 @@
   <script type="text/javascript">
     $(window).load(function () {
       });
+
+    function ModalCancelarSolicitud(id_solicitud){
+      $("#IdSolicitudCancelar").val(id_solicitud);
+      $("#ModalCancelarSolicitud").modal();
+    }
+
+    function CancelarSolicitud(){
+      id_solicitud = $("#IdSolicitudCancelar").val();
+      motivo_cancelacion = $("#TextMensajeCancelar").val();
+      // alert(id_solicitud);
+      var success;
+      var url = "/solicitudes/denegar";
+      var dataForm = new FormData();
+      dataForm.append('id_solicitud',id_solicitud);
+      dataForm.append('motivo_cancelacion',motivo_cancelacion);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        $("#ModalCancelarSolicitud").modal('hide');
+        swal("", "Solicitud cancelada satisfactoriamente", "success");
+      });
+
+    }
 
     function ejemploAjax(){
       var success;

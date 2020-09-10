@@ -16,6 +16,79 @@
          * @return Response
          */
 
+        public function SolicitarBaja(Request $request){
+
+            // dd($request);
+            $modificacion=DescripcionesPuestosController::CambiarEstatus($request['id_descripcion'],'SOLICITUD DE BAJA');
+
+            $asunto = 'Solicitud de baja';
+            $titulo = 'Solicitud de baja';
+            $mensaje = 'Buen día, le informamos que se ha realizado la solicitud de baja de la descripción de puesto número '.$request['id_descripcion'];
+            //dd($usuario);
+            $mail = MailsController::MandarMensajeGenerico($asunto,$titulo,$mensaje,'marvineliosa@gmail.com');
+
+            $data = array(
+                "modificacion"=>$modificacion
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function SolicitarModificacion(Request $request){
+
+            // dd($request);
+
+            $id_comentario = DB::table('DP_COMENTARIOS')
+                ->insertGetId(
+                    [
+                        'COMENTARIOS_COMENTARIO' => $request['texto_modificacion'],
+                        'created_at' => DescripcionesPuestosController::ObtenerFechaHora()
+                    ]
+            );
+            DB::table('REL_COMENTARIO_MODIFICACION')->insert(
+                [
+                    'FK_COMENTARIO' => $id_comentario,
+                    'FK_DESCRIPCION' => $request['id_descripcion']
+                ]
+            );
+            $modificacion=DescripcionesPuestosController::CambiarEstatus($request['id_descripcion'],'MODIFICACIÓN');
+
+            $asunto = 'Solicitud de modificacion';
+            $titulo = 'Solicitud de modificacion';
+            $mensaje = 'Buen día, le informamos que se ha realizado la solicitud de modificación de la descripción de puesto número '.$request['id_descripcion'];
+            //dd($usuario);
+            $mail = MailsController::MandarMensajeGenerico($asunto,$titulo,$mensaje,'marvineliosa@gmail.com');
+        
+
+            $data = array(
+                "modificacion"=>$modificacion
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function FuncionCambioEstatus(Request $request){
+            // dd($request);
+            $estatus = $request['estatus'];
+            $id_descripcion = $request['id_descripcion'];
+            $cambio = DescripcionesPuestosController::CambiarEstatus($id_descripcion,$estatus);
+
+            $data = array(
+                "cambio"=>$cambio
+              );
+
+            echo json_encode($data);//*/
+        }
+
+        public function CambiarEstatus($id_descripcion,$estatus){
+            // dd('epañe');
+            $update = DB::table('DP_DESCRIPCIONES')
+              ->where('DESCRIPCIONES_ID', $id_descripcion)
+              ->update(['DESCRIPCIONES_ESTATUS' => $estatus]);
+
+            return $update;
+        }
+
         public function InsertarComentario(Request $request){
             // dd($request);
             $id_comentario = 0;
@@ -52,8 +125,8 @@
 
         }
 
-        public function ObtenetComentariosId($id_descripcion){
-
+        public static function ObtenetComentariosId($id_descripcion){
+            
             $rel_comentarios = DB::table('REL_DESCRIPCIONES_COMENTARIOS')
                 ->where('FK_DESCRIPCION', $id_descripcion)
                 ->orderBy('FK_COMENTARIO', 'desc')
@@ -144,7 +217,7 @@
                         'DESCRIPCIONES_NOM_PUESTO as NOM_DESC',
                         'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
                         'DESCRIPCIONES_N_REVISION as REVISION_DESC',
-                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                        'DESCRIPCIONES_ESTATUS as ESTATUS_DESC'
                         )
                     ->where('DESCRIPCIONES_ID',$id_descripcion->FK_DESCRIPCION)->get();//*/
                     //if(count($descripcion)>0)
@@ -245,7 +318,8 @@
                         'DESCRIPCIONES_DIRECCION as DIR_DESC',
                         'DESCRIPCIONES_CLAVE_PUESTO as CLAVE_DESC',
                         'DESCRIPCIONES_N_REVISION as REVISION_DESC',
-                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC'
+                        'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                        'DESCRIPCIONES_ESTATUS as ESTATUS'
                     )->where("DESCRIPCIONES_ID",$descripcion->FK_DESCRIPCION)
                     ->get();//*/
                     //$descrip[0]->ID_DEP = $nom_dependencia;
@@ -256,7 +330,8 @@
                 //return view('descripciones')->with('descripciones', $descripciones);
                 //return view('descripciones')
                 return view('descripciones',[
-                    'descripciones'=> $descripciones
+                    'descripciones'=> $descripciones,
+                    'id_dependencia'=> $dependencia[0]->FK_DEPENDENCIA
                 ]);//*/
             }else{
                 return view('errors.404');
@@ -280,6 +355,7 @@
                 'DESCRIPCIONES_REPORTAN_DIRECTOS as DIRECTOS_DESC',
                 'DESCRIPCIONES_REPORTAN_INDIRECTOS as INDIRECTOS_DESC',
                 'DESCRIPCIONES_ESTATUS_GRAL as ESTATUS_DESC',
+                'DESCRIPCIONES_ESTATUS as ESTATUS',
                 'DESCRIPCIONES_FUTURA_REVISION as REV_FUTURA_DESC'
                 )
             ->where('DESCRIPCIONES_ID',$id_descripcion)->get();//*/
@@ -326,7 +402,7 @@
                     'DESCRIPCIONES_REPORTAN_DIRECTOS' => $rep_directos, 
                     'DESCRIPCIONES_REPORTAN_INDIRECTOS' => $rep_indirectos,
                     'DESCRIPCIONES_ESTATUS_GRAL' => 'ELABORACION',
-                    'DESCRIPCIONES_ESTATUS' => 'LLENADO'
+                    'DESCRIPCIONES_ESTATUS' => 'LLENANDO'
                 ]
             );
             if($id_descripcion){
@@ -1540,6 +1616,13 @@
         public static function ObtenerFechaHora(){
             date_default_timezone_set('America/Mexico_City');
             return date('Y-m-d H:i:s');
+        }
+
+        public static function InformacionGeneral(){
+            $datos = array(
+                    'mail' => false, 
+                );
+            return $datos;
         }
 
     }//fin clase

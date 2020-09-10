@@ -78,6 +78,10 @@ Route::post('/descripcion/guardaIdioma', 'DescripcionesPuestosController@guardar
 Route::post('/descripcion/guardaComputacion', 'DescripcionesPuestosController@guardaComputacion');
 Route::post('/descripciones/marcarRevisionFutura', 'DescripcionesPuestosController@marcarRevisionFutura');
 Route::post('/descripciones/permisos_usuarios' , 'DescripcionesPuestosController@permisosDescripciones');
+Route::post('/descripciones/solicitar_modificacion' , 'DescripcionesPuestosController@SolicitarModificacion');
+Route::post('/descripciones/solicitar_baja', 'DescripcionesPuestosController@SolicitarBaja');
+Route::post('/descripciones/datos_configuracion', 'DescripcionesPuestosController@DatosConfiguracion');
+Route::post('/descripciones/cambiar_estatus', 'DescripcionesPuestosController@FuncionCambioEstatus');
 
 //revision de las descripciones
 Route::get('/descripcion/revision/{ID_descripcion}' , 'DescripcionesPuestosController@abrirDescripcionRevision');
@@ -114,6 +118,9 @@ Route::post('/archivos/eliminar' , 'ArchivosController@eliminarArchivoDependenci
 Route::get('/ayuda' , 'GestionUsuariosController@redirigeAyuda');
 
 Route::get('/solicitudes' , 'DependenciasController@SolicutudesDependencias');
+Route::get('/solicitudes_modificacion' , 'DependenciasController@SolicutudesModificacionDescripciones');
+Route::get('/solicitudes_baja' , 'DependenciasController@SolicutudesBajaDescripciones');
+Route::post('/solicitudes/denegar' , 'DependenciasController@SolicutudesCancelarSolicitud');
 
 //PDF
 /*Route::get('/pdf',function(){
@@ -138,3 +145,12 @@ Route::post('/observaciones/obtener', 'DescripcionesPuestosController@ObtenerCom
 Route::post('/observaciones/insertar', 'DescripcionesPuestosController@InsertarComentario');
 
 Route::get('/mail/prueba','MailsController@PruebaMail');
+
+// Route::get('/organigramas','DependenciasController@ListadoOrganigramas');
+Route::get('/organigramas','DependenciasController@redirigeDependencias');
+Route::post('/organigramas/validar','ArchivosController@ValidarOrganigrama');
+Route::post('/organigramas/invalidar','ArchivosController@InvalidarOrganigrama');
+Route::post('/organigramas/obtener_comentario','ArchivosController@ObtenerComentarioInvalidacion');
+
+Route::get('/dependencias/organigramas','DependenciasController@RevisionOrganigramas');
+Route::get('/dependencias/organigramas_invalidos','DependenciasController@OrganigramasInvalidos');

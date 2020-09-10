@@ -1,29 +1,14 @@
 @extends('plantillas.menu')
-@section('title','Dependencias')
-@section('tittle_page','Listado de dependencias')
+@section('title','Organigramas Dependencias')
+@section('tittle_page','Organigramas inválidos')
 
 @section('content')
 
-	<div class="row">
+  <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2></h2>
-          <!--<ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Settings 1</a>
-                </li>
-                <li><a href="#">Settings 2</a>
-                </li>
-              </ul>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-          </ul>-->
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -31,13 +16,30 @@
           <table id="tablaDatos" class="table table-striped table-bordered">
             <thead>
               <tr>
-                <th>NOMBRE</th>
-                <th>TITULAR</th>
-                <th>CABEZA DE SECTOR</th>
+                <th>#</th>
+                <th>DEPENDENCIA</th>
                 <th>ACCIONES</th>
               </tr>
             </thead>
             <tbody id="cuerpoTabla">
+              <!-- {{$i=0}} -->
+              @foreach($organigramas as $organigrama)
+                <tr>
+                  <td>{{$i+1}}</td>
+                  <td>{{$organigrama->DEPENDENCIA}}</td>
+                  <td>
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DESCARGAR ARCHIVO" onclick="descargarArchivo({{$i}})" id="btnDescargar_{{$organigrama->ARCHIVOS_ID}}">
+                        <span class="glyphicon glyphicon-download" aria-hidden="true"></span>
+                      </button>
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VALIDAR ORGANIGRAMA" onclick="ValidarOrganigrama({{$organigrama->ARCHIVOS_ID}})">
+                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      </button>
+                    <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="DETALLE DE INVALIDACIÓN" onclick="VerComentarioInvalidacion({{$organigrama->ARCHIVOS_ID}})">
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                      </button>
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
 
@@ -107,22 +109,6 @@
     </div>
   </div>
 
-  <!-- Modal ver imagen -->
-  <!--<div class="modal fade" id="modalVerImagen2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 100%; height: 100%; overflow-y: scroll;">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="tituloModalListado">DEPENDENCIA</h3>
-        </div>
-        <div class="modal-footer">
-          <input type="number" id="idDependencia" value="" hidden="hidden">
-          <button type="button" class="btn btn-success" onclick="redirigeDescripciones()">Subir Archivos</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>-->
-
   <!-- Modal de la imagen -->
   <div id="modalImagen" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -151,19 +137,101 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal invalidar organigrama  -->
+  <div class="modal fade" id="ModalInvalidarOrganigrama" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="tituloDetalleModal" align="center"> Invalidación de organigrama </h3>
+          <h5 class="modal-title" id="tituloDetalleModal" align="center"> Por favor registre la razón por la que el organigrama ha sido seleccionado como inválido </h5>
+        </div>
+        <input type="number" id="idArchivoOrganigrama" value="" hidden="hidden">
+        <div class="modal-body" align="center">
+          
+           <form class="form-horizontal form-label-left">
+
+            <div class="form-group">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <textarea class="form-control" id="TextMensajeInvalidar" rows="3"></textarea>
+              </div>
+            </div>
+
+          </form>
+
+           
+        </div>
+        <div class="modal-footer" id="areaBotones">
+          <button type="button" class="btn btn-danger" onclick="InvalidarOrganigrama()">Invalidar organigrama</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @section('script')
   <script type="text/javascript">
     var categoria_usr = "<?php echo (string)\Session::get('categoria')[0]; ?>";
-    console.log("Categoría: "+categoria_usr);
+    var gl_organigramas = <?php echo json_encode($organigramas) ?>;
+    // console.log("Categoría: "+categoria_usr);
+    // console.log(gl_organigramas);
     $( document ).ready(function() {
-      traeDependencias();
+      // traeDependencias();
       //$("#modalDecideEliminar").modal();
       //$("#modalListado").modal();
       //console.log( "ready!" );
     });
     var listadoArchivos = [];
+
+    function VerComentarioInvalidacion(id_archivo){
+        // swal("", "Comentario de invalidacion", "info");
+        var success;
+      var url = "/organigramas/obtener_comentario";
+      var dataForm = new FormData();
+      dataForm.append('id_archivo',id_archivo);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        swal("", success['comentario'], "success");
+      });
+    }
+
+    function ModalInvalidarOrganigrama(id_archivo){
+      $("#idArchivoOrganigrama").val(id_archivo);
+      $("#ModalInvalidarOrganigrama").modal();
+    }
+
+    function InvalidarOrganigrama(){
+      id_archivo = $("#idArchivoOrganigrama").val();
+      // alert(id_archivo);
+      texto_invalidacion = $("#TextMensajeInvalidar").val();
+      console.log(texto_invalidacion);
+      var success;
+      var url = "/organigramas/invalidar";
+      var dataForm = new FormData();
+      dataForm.append('id_archivo',id_archivo);
+      dataForm.append('texto_invalidacion',texto_invalidacion);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+        swal("", "Se ha marcado el organigrama como inválido", "success");
+      });
+    }
+
+    function ValidarOrganigrama(id_archivo){
+      var success;
+      var url = "/organigramas/validar";
+      var dataForm = new FormData();
+      dataForm.append('id_archivo',id_archivo);
+      //lamando al metodo ajax
+      metodoAjax(url,dataForm,function(success){
+        //aquí se escribe todas las operaciones que se harían en el succes
+        //la variable success es el json que recibe del servidor el método AJAX
+      });
+    }
 
     //---------------------- ARCHIVOS ----------------------
     function inputArchivo(){
@@ -332,8 +400,9 @@
       window.open(ruta_archivo, '_blank', 'fullscreen=yes');
     }
 
-    function descargarArchivo(id_archivo,indice){
-      var nombre_archivo = listadoArchivos['archivos'][indice]['NOMBRE_ARCHIVO'];
+    function descargarArchivo(indicador){
+      // var nombre_archivo = listadoArchivos['archivos'][indice]['NOMBRE_ARCHIVO'];
+      var nombre_archivo = gl_organigramas[indicador]['ARCHIVOS_NOMBRE'];
       var url = "/archivos/descargar/dependencias/"+nombre_archivo;
       window.open(url, '_blank');
     }
@@ -362,38 +431,6 @@
         $("#modalDecideEliminar").modal('hide');
       });
     }
-    //-----------------------------------------------------------------------
-
-    /*//señor metodo maestro ajax
-    function metodoAjax(url,dataForm,callback){
-      var resultado = null;
-      
-      $.ajax({
-        url :url,
-        data : dataForm,
-        contentType:false,
-        processData:false,
-        headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-        type: 'POST',
-        dataType : 'json',
-        beforeSend: function (){
-          $("#modalCarga").modal();
-        },
-        success : function(json){
-          //resultado = json;
-          callback(json);
-        },
-        error : function(xhr, status) {
-          $("#textoModalMensaje").text('Existió un problema con la operación');
-          $("#modalMensaje").modal();
-        },
-        complete : function(xhr, status){
-           $("#modalCarga").modal('hide');
-        }
-      });//
-    }//*/
 
     function traeDependencias(){
       //alert("EPALE");
@@ -424,10 +461,6 @@
                   "<td>"+json['dependencias'][i]['TITULAR_DEP']+"</td>"+
                   "<td>"+json['dependencias'][i]['CABEZA_SECTOR']+"</td>"+
                   "<td>"+
-                    //"<a href='/descripciones/"+json['dependencias'][i]['ID_DEP']+"'>Gestionar</a><br>"+
-                    ((categoria_usr!='CGA')?'<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="VER DESCRIPCIONES" id="btnVer_'+json['dependencias'][i]['ID_DEP']+'" onclick="mostrarListado('+json['dependencias'][i]['ID_DEP']+')">'+
-                      '<span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>'+
-                    '</button>':'')+
                     '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="ARCHIVOS" id="btnAbrir_'+json['dependencias'][i]['ID_DEP']+'" onclick="archivos('+json['dependencias'][i]['ID_DEP']+')">'+
                       '<span class="glyphicon glyphicon-paperclip" aria-hidden="true" ></span>'+
                     '</button>'+
@@ -501,7 +534,7 @@
               var id_descripcion = json['descripcion'][i]['ID_DESC'];
 
               if(categoria_usr=="DIRECTOR_DRH"){                     
-                acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="AUTORIZAR DESCRIPCION" onclick="aprobar('+id_descripcion+')" id="btnAprobar_'+id_descripcion+'">'+
+                acciones = acciones +  '<button type="button" class="btn btn-default btn-xs" aria-label="Left Align" data-toggle="tooltip" data-placement="top" title="APROBAR DESCRIPCION" onclick="aprobar('+id_descripcion+')" id="btnAprobar_'+id_descripcion+'">'+
                                   '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>'+
                                 '</button>';
               }
