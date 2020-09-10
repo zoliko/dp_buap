@@ -241,35 +241,36 @@
 
 <script type="text/javascript">
   //señor metodo maestro ajax
-    function metodoAjax(url,dataForm,callback){
-      var resultado = null;
-      
-      $.ajax({
-        url :url,
-        data : dataForm,
-        contentType:false,
-        processData:false,
-        headers:{
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
+  function metodoAjax(url,dataForm,callback){
+    var resultado = null;
+    
+    $.ajax({
+      url :url,
+      data : dataForm,
+      contentType:false,
+      processData:false,
+      headers:{
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
         type: 'POST',
-        dataType : 'json',
-        beforeSend: function (){
-          $("#modalCarga").modal();
-        },
-        success : function(json){
-          //resultado = json;
-          callback(json);
-        },
-        error : function(xhr, status) {
-          $("#textoModalMensaje").text('Existió un problema con la operación');
-          $("#modalMensaje").modal();
-        },
-        complete : function(xhr, status){
-           $("#modalCarga").modal('hide');
-        }
-      });//*/
-    }
+      dataType : 'json',
+      beforeSend: function (){
+        $("#modalCarga").modal();
+      },
+      success : function(json){
+        //resultado = json;
+        callback(json);
+      },
+      error : function(xhr, status) {
+        $("#textoModalMensaje").text('Existió un problema con la operación');
+        $("#modalMensaje").modal();
+      },
+      complete : function(xhr, status){
+         $("#modalCarga").modal('hide');
+      }
+    });//*/
+  }
+
     function MostrarMensaje(titulo,mensaje){
       $("#SaludoModalMensaje").text('');
       $("#TituloModalMensaje").text(titulo);
@@ -277,10 +278,10 @@
       $("#ModalMensaje2").modal();
     }
 
-    $(".modal").on('hidden.bs.modal', function () {
-    // do something…
-      $('body').addClass('test');//solución para que no se recorra el body hacia la izquierda
-      //$("#cuerpoVinculacionDescripciones").html("");
+  $(".modal").on('hidden.bs.modal', function () {
+  // do something…
+    $('body').addClass('test');//solución para que no se recorra el body hacia la izquierda
+    //$("#cuerpoVinculacionDescripciones").html("");
   });
 </script>
 
